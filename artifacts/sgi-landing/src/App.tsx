@@ -49,31 +49,55 @@ function useCounter(end: number, duration: number = 2000) {
   return { count, nodeRef };
 }
 
-// Fade in component
-const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
+// Fade in component with direction support
+const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: { children: React.ReactNode, delay?: number, className?: string, direction?: "up" | "left" | "right" | "down" }) => {
+  const variants = {
+    up:    { hidden: { opacity: 0, y: 50 },  visible: { opacity: 1, y: 0 } },
+    down:  { hidden: { opacity: 0, y: -50 }, visible: { opacity: 1, y: 0 } },
+    left:  { hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0 } },
+    right: { hidden: { opacity: 0, x: 60 },  visible: { opacity: 1, x: 0 } },
+  };
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      variants={variants[direction]}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const SectionTitle = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
   <motion.div
-    initial={{ opacity: 0, y: 40 }}
+    className={`mb-12 ${className}`}
+    initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.6, delay }}
-    className={className}
+    viewport={{ once: true }}
+    transition={{ duration: 0.55 }}
   >
-    {children}
+    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">{children}</h2>
+    <motion.div
+      className="h-1.5 w-32 bg-red-500 rounded-full mx-auto md:mx-0"
+      initial={{ scaleX: 0, originX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    />
   </motion.div>
 );
 
-const SectionTitle = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  <div className={`mb-12 ${className}`}>
-    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">{children}</h2>
-    <div className="h-1.5 w-32 bg-red-500 rounded-full mx-auto md:mx-0"></div>
-  </div>
-);
-
 const GlassCard = ({ children, className = "", hover = true }: { children: React.ReactNode, className?: string, hover?: boolean }) => (
-  <div className={`bg-slate-900/55 backdrop-blur-md border border-red-900/20 rounded-2xl p-6 md:p-8 
-    ${hover ? 'transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)] hover:border-red-500/30' : ''} ${className}`}>
+  <motion.div
+    className={`bg-gray-800/60 backdrop-blur-md border border-red-900/20 rounded-2xl p-6 md:p-8 ${hover ? 'card-hover-glow' : ''} ${className}`}
+    whileHover={hover ? { scale: 1.015 } : {}}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+  >
     {children}
-  </div>
+  </motion.div>
 );
 
 const contactSchema = z.object({
@@ -129,10 +153,10 @@ function Home() {
   const { count: respCount, nodeRef: respRef } = useCounter(24);
 
   return (
-    <div className="min-h-screen text-slate-300 font-sans selection:bg-red-500/30 overflow-x-hidden">
+    <div className="min-h-screen text-gray-300 font-sans selection:bg-red-500/30 overflow-x-hidden">
       
       {/* 1. Navbar */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-red-900/20 py-4' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-red-900/20 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
           <div className="flex items-center cursor-pointer" onClick={() => scrollTo('inicio')}>
             <div className="bg-white/95 rounded-xl px-4 py-2">
@@ -155,7 +179,7 @@ function Home() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-slate-900/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 lg:hidden">
+        <div className="fixed inset-0 z-40 bg-gray-900/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 lg:hidden">
           {['Inicio', 'Nosotros', 'Servicios', 'Moldeo', 'Proyectos', 'Contacto'].map(item => (
             <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="text-2xl font-bold text-white text-left uppercase">{item}</button>
           ))}
@@ -165,7 +189,11 @@ function Home() {
       {/* 2. Hero */}
       <section id="inicio" className="relative min-h-[100dvh] flex items-center pt-20">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center bg-fixed" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-gray-900/85" />
+        {/* Floating animated orbs */}
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-red-600/10 rounded-full blur-3xl animate-float pointer-events-none" />
+        <div className="absolute bottom-1/3 right-1/3 w-48 h-48 bg-red-500/8 rounded-full blur-2xl animate-float-delay pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 w-56 h-56 bg-gray-400/5 rounded-full blur-3xl animate-float-slow pointer-events-none" />
         
         <div className="container relative mx-auto px-6 lg:px-12 z-10">
           <FadeIn className="max-w-4xl">
@@ -179,7 +207,7 @@ function Home() {
               </span> <br />
               De Alto Nivel
             </h1>
-            <p className="text-lg md:text-2xl text-slate-300 mb-10 max-w-2xl font-light">
+            <p className="text-lg md:text-2xl text-gray-300 mb-10 max-w-2xl font-light">
               Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. 24/7 en Nogales, Sonora.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -203,7 +231,7 @@ function Home() {
             { name: "Instalaciones", icon: <Zap className="w-6 h-6 text-red-500 mb-3" /> },
             { name: "Seguridad", icon: <Shield className="w-6 h-6 text-red-500 mb-3" /> },
           ].map((item, i) => (
-            <GlassCard key={i} className="text-center p-6 bg-slate-900/80" hover={false}>
+            <GlassCard key={i} className="text-center p-6 bg-gray-800/80" hover={false}>
               <div className="flex justify-center">{item.icon}</div>
               <h3 className="font-bold text-white uppercase text-sm">{item.name}</h3>
             </GlassCard>
@@ -216,10 +244,10 @@ function Home() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <SectionTitle>¿Quiénes Somos?</SectionTitle>
-            <p className="text-lg text-slate-300 mb-6 leading-relaxed">
+            <p className="text-lg text-gray-300 mb-6 leading-relaxed">
               Fundada en 2021, SGI nace para dar soporte integral a la industria maquiladora en la frontera de Nogales. Nuestro enfoque es directo: resolver problemas complejos con ingeniería precisa para garantizar la continuidad operativa de su planta.
             </p>
-            <p className="text-lg text-slate-300 mb-8 leading-relaxed">
+            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
               No somos solo proveedores, somos aliados estratégicos en el piso de producción. Entendemos el costo del downtime y respondemos con la urgencia, capacidad técnica y profesionalismo que la industria pesada exige.
             </p>
           </FadeIn>
@@ -253,7 +281,7 @@ function Home() {
             <GlassCard className="h-full">
               <Target className="w-10 h-10 text-red-500 mb-6" />
               <h3 className="text-2xl font-black text-white mb-4 uppercase">Misión</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed">
                 Proveer servicios integrales de ingeniería y mantenimiento con los más altos estándares de calidad, seguridad y eficiencia, garantizando la continuidad operativa y el crecimiento de nuestros clientes en el sector industrial.
               </p>
             </GlassCard>
@@ -262,7 +290,7 @@ function Home() {
             <GlassCard className="h-full">
               <Lightbulb className="w-10 h-10 text-red-500 mb-6" />
               <h3 className="text-2xl font-black text-white mb-4 uppercase">Visión</h3>
-              <p className="text-slate-300 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed">
                 Consolidarnos como el referente principal en soluciones industriales en la región, reconocidos por nuestra innovación tecnológica, capacidad de respuesta y confiabilidad técnica inquebrantable en cada proyecto ejecutado.
               </p>
             </GlassCard>
@@ -315,7 +343,7 @@ function Home() {
             <FadeIn key={i} delay={i * 0.1}>
               <GlassCard className="h-full border-l-4 border-l-red-500">
                 <h4 className="text-xl font-bold text-white mb-3">{item.title}</h4>
-                <p className="text-slate-400 text-sm">{item.desc}</p>
+                <p className="text-gray-400 text-sm">{item.desc}</p>
               </GlassCard>
             </FadeIn>
           ))}
@@ -323,7 +351,7 @@ function Home() {
       </section>
 
       {/* 8. Especialistas en Moldeo */}
-      <section id="inyeccion" className="py-24 bg-slate-900/50">
+      <section id="inyeccion" className="py-24 bg-gray-800/50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <FadeIn>
@@ -338,21 +366,21 @@ function Home() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <SectionTitle>Especialistas en Moldeo por Inyección</SectionTitle>
-              <p className="text-lg text-slate-300 mb-8">
+              <p className="text-lg text-gray-300 mb-8">
                 Dominamos la tecnología detrás de las inyectoras más robustas de la industria. Reducimos el downtime y maximizamos la vida útil de su maquinaria.
               </p>
               <div className="space-y-4">
                 <GlassCard hover={false} className="p-5">
                   <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Mantenimiento Preventivo</h4>
-                  <p className="text-sm text-slate-400 pl-7">Programas de inspección y conservación para reducir paros no programados.</p>
+                  <p className="text-sm text-gray-400 pl-7">Programas de inspección y conservación para reducir paros no programados.</p>
                 </GlassCard>
                 <GlassCard hover={false} className="p-5">
                   <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Mantenimiento Correctivo</h4>
-                  <p className="text-sm text-slate-400 pl-7">Diagnóstico y reparación especializada para restaurar la operación inmediata.</p>
+                  <p className="text-sm text-gray-400 pl-7">Diagnóstico y reparación especializada para restaurar la operación inmediata.</p>
                 </GlassCard>
                 <GlassCard hover={false} className="p-5">
                   <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Optimización de Procesos</h4>
-                  <p className="text-sm text-slate-400 pl-7">Mejora de desempeño, eficiencia y confiabilidad del equipo.</p>
+                  <p className="text-sm text-gray-400 pl-7">Mejora de desempeño, eficiencia y confiabilidad del equipo.</p>
                 </GlassCard>
               </div>
             </FadeIn>
@@ -362,7 +390,7 @@ function Home() {
 
       {/* 9. Marcas y Tecnologias */}
       <section className="py-20 container mx-auto px-6 lg:px-12">
-        <h3 className="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-10">Marcas y Tecnologías Relacionadas</h3>
+        <h3 className="text-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-10">Marcas y Tecnologías Relacionadas</h3>
         <div className="flex flex-wrap justify-center gap-4">
           {[
             { name: "ENGEL", color: "hover:text-orange-500 hover:border-orange-500/50" },
@@ -376,7 +404,7 @@ function Home() {
             { name: "MAKITA", color: "hover:text-teal-400 hover:border-teal-400/50" },
             { name: "HILTI", color: "hover:text-red-600 hover:border-red-600/50" }
           ].map((brand, i) => (
-            <div key={i} className={`bg-slate-900/60 border border-slate-700 rounded-lg px-6 py-3 font-black text-xl text-slate-500 transition-all duration-300 cursor-default ${brand.color}`}>
+            <div key={i} className={`bg-gray-800/60 border border-gray-700 rounded-lg px-6 py-3 font-black text-xl text-gray-500 transition-all duration-300 cursor-default ${brand.color}`}>
               {brand.name}
             </div>
           ))}
@@ -384,7 +412,7 @@ function Home() {
       </section>
 
       {/* 10 & 11. Ingenieria / Suministros */}
-      <section className="py-24 bg-slate-900/30">
+      <section className="py-24 bg-gray-800/30">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16">
             
@@ -419,21 +447,21 @@ function Home() {
                   <div className="bg-red-500/10 p-4 rounded-xl"><Wrench className="w-6 h-6 text-red-500" /></div>
                   <div>
                     <h4 className="font-bold text-white uppercase mb-1">Herramientas</h4>
-                    <p className="text-sm text-slate-400">Equipo especializado para operación</p>
+                    <p className="text-sm text-gray-400">Equipo especializado para operación</p>
                   </div>
                 </GlassCard>
                 <GlassCard className="flex items-center gap-6 p-5">
                   <div className="bg-red-500/10 p-4 rounded-xl"><Settings className="w-6 h-6 text-red-500" /></div>
                   <div>
                     <h4 className="font-bold text-white uppercase mb-1">Refacciones</h4>
-                    <p className="text-sm text-slate-400">Componentes originales para maquinaria</p>
+                    <p className="text-sm text-gray-400">Componentes originales para maquinaria</p>
                   </div>
                 </GlassCard>
                 <GlassCard className="flex items-center gap-6 p-5">
                   <div className="bg-red-500/10 p-4 rounded-xl"><Factory className="w-6 h-6 text-red-500" /></div>
                   <div>
                     <h4 className="font-bold text-white uppercase mb-1">Consumibles</h4>
-                    <p className="text-sm text-slate-400">Materiales para uso diario en planta</p>
+                    <p className="text-sm text-gray-400">Materiales para uso diario en planta</p>
                   </div>
                 </GlassCard>
               </div>
@@ -465,7 +493,7 @@ function Home() {
                     {s.icon}
                   </div>
                   <h3 className="text-xl font-bold text-white uppercase mb-3">{s.title}</h3>
-                  <p className="text-slate-400">{s.desc}</p>
+                  <p className="text-gray-400">{s.desc}</p>
                 </div>
               </GlassCard>
             </FadeIn>
@@ -474,11 +502,11 @@ function Home() {
       </section>
 
       {/* 13. Nuestro Proceso */}
-      <section className="py-24 bg-slate-900/60 border-y border-slate-800">
+      <section className="py-24 bg-gray-800/60 border-y border-gray-700">
         <div className="container mx-auto px-6 lg:px-12">
           <SectionTitle className="text-center mx-auto flex flex-col items-center">Nuestro Proceso Operativo</SectionTitle>
           <div className="grid md:grid-cols-4 gap-8 mt-16 relative">
-            <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-slate-800" />
+            <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-gray-700" />
             {[
               { num: "1", title: "Diagnóstico", desc: "Evaluación técnica y análisis." },
               { num: "2", title: "Planeación", desc: "Estrategia y cronograma." },
@@ -486,11 +514,11 @@ function Home() {
               { num: "4", title: "Validación", desc: "Pruebas y liberación final." }
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1} className="relative z-10 text-center">
-                <div className="w-16 h-16 rounded-full bg-slate-900 border-4 border-red-500 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                <div className="w-16 h-16 rounded-full bg-gray-800 border-4 border-red-500 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
                   {p.num}
                 </div>
                 <h4 className="text-white font-bold uppercase mb-2">{p.title}</h4>
-                <p className="text-slate-400 text-sm">{p.desc}</p>
+                <p className="text-gray-400 text-sm">{p.desc}</p>
               </FadeIn>
             ))}
           </div>
@@ -505,7 +533,7 @@ function Home() {
             <h2 className="text-3xl md:text-4xl font-black text-white uppercase mb-10 text-center">Comprometidos con la Seguridad</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
               {['Seguridad Industrial', 'Cumplimiento NOM', 'Control de Riesgos', 'Calidad Operativa'].map((s, i) => (
-                <div key={i} className="bg-slate-900/80 border border-slate-700/50 rounded-xl p-4 text-center font-bold text-white">
+                <div key={i} className="bg-gray-800/80 border border-gray-600/50 rounded-xl p-4 text-center font-bold text-white">
                   <Shield className="w-6 h-6 text-red-500 mx-auto mb-2" />
                   {s}
                 </div>
@@ -516,7 +544,7 @@ function Home() {
       </section>
 
       {/* 16 & 17. Proyectos y Galeria */}
-      <section id="proyectos" className="py-24 bg-black/30">
+      <section id="proyectos" className="py-24 bg-gray-900/40">
         <div className="container mx-auto px-6 lg:px-12">
           <SectionTitle>Proyectos Destacados</SectionTitle>
           <div className="grid lg:grid-cols-3 gap-8 mb-24">
@@ -530,7 +558,7 @@ function Home() {
                   <div className="aspect-[4/3] overflow-hidden">
                     <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent flex flex-col justify-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent flex flex-col justify-end p-6">
                     <h3 className="text-xl font-bold text-white uppercase mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform">{p.title}</h3>
                     <p className="text-red-300 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity delay-100 transform translate-y-4 group-hover:translate-y-0">{p.desc}</p>
                   </div>
@@ -596,26 +624,26 @@ function Home() {
                   <MapPin className="w-6 h-6 text-red-500 shrink-0 mt-1" />
                   <div>
                     <h5 className="text-white font-bold uppercase mb-1">Ubicación</h5>
-                    <p className="text-slate-400">Lago Azul #45, Jardín de la Montaña<br/>Nogales, Sonora, México</p>
+                    <p className="text-gray-400">Lago Azul #45, Jardín de la Montaña<br/>Nogales, Sonora, México</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
                   <Phone className="w-6 h-6 text-red-500 shrink-0 mt-1" />
                   <div>
                     <h5 className="text-white font-bold uppercase mb-1">Teléfono (24/7)</h5>
-                    <p className="text-slate-400">631 318 5564</p>
+                    <p className="text-gray-400">631 318 5564</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
                   <Mail className="w-6 h-6 text-red-500 shrink-0 mt-1" />
                   <div>
                     <h5 className="text-white font-bold uppercase mb-1">Correo Electrónico</h5>
-                    <p className="text-slate-400">sginogales@gmail.com</p>
+                    <p className="text-gray-400">sginogales@gmail.com</p>
                   </div>
                 </li>
               </ul>
             </GlassCard>
-            <div className="h-64 rounded-2xl overflow-hidden border border-slate-800">
+            <div className="h-64 rounded-2xl overflow-hidden border border-gray-700">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111287.0506316104!2d-111.00287135!3d31.30861615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86d6ade33f86eb83%3A0xc6ba221141ba59ec!2sNogales%2C%20Son.!5e0!3m2!1sen!2smx!4v1700000000000!5m2!1sen!2smx" 
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
@@ -637,9 +665,9 @@ function Home() {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Nombre o Empresa</FormLabel>
+                      <FormLabel className="text-gray-300">Nombre o Empresa</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ej. Maquiladora SA" className="bg-slate-900 border-slate-700 text-white" {...field} />
+                        <Input placeholder="Ej. Maquiladora SA" className="bg-gray-800 border-gray-700 text-white" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -647,18 +675,18 @@ function Home() {
                   <div className="grid grid-cols-2 gap-4">
                     <FormField control={form.control} name="email" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300">Correo Electrónico</FormLabel>
+                        <FormLabel className="text-gray-300">Correo Electrónico</FormLabel>
                         <FormControl>
-                          <Input placeholder="correo@empresa.com" className="bg-slate-900 border-slate-700 text-white" {...field} />
+                          <Input placeholder="correo@empresa.com" className="bg-gray-800 border-gray-700 text-white" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )} />
                     <FormField control={form.control} name="phone" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300">Teléfono (opcional)</FormLabel>
+                        <FormLabel className="text-gray-300">Teléfono (opcional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="631..." className="bg-slate-900 border-slate-700 text-white" {...field} />
+                          <Input placeholder="631..." className="bg-gray-800 border-gray-700 text-white" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -666,14 +694,14 @@ function Home() {
                   </div>
                   <FormField control={form.control} name="service" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Tipo de Servicio</FormLabel>
+                      <FormLabel className="text-gray-300">Tipo de Servicio</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="bg-slate-900 border-slate-700 text-white">
+                          <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                             <SelectValue placeholder="Seleccione un servicio" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="bg-slate-900 border-slate-700 text-white">
+                        <SelectContent className="bg-gray-800 border-gray-700 text-white">
                           <SelectItem value="Mantenimiento Industrial">Mantenimiento Industrial</SelectItem>
                           <SelectItem value="Moldeo por Inyección">Moldeo por Inyección</SelectItem>
                           <SelectItem value="HVAC">HVAC</SelectItem>
@@ -688,9 +716,9 @@ function Home() {
                   )} />
                   <FormField control={form.control} name="message" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300">Mensaje</FormLabel>
+                      <FormLabel className="text-gray-300">Mensaje</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Describa el requerimiento o problema..." className="bg-slate-900 border-slate-700 text-white min-h-[120px]" {...field} />
+                        <Textarea placeholder="Describa el requerimiento o problema..." className="bg-gray-800 border-gray-700 text-white min-h-[120px]" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -707,12 +735,12 @@ function Home() {
       </section>
 
       {/* 21. Footer */}
-      <footer className="bg-slate-950 border-t-2 border-t-red-600 pt-16 pb-8">
+      <footer className="bg-gray-950 border-t-2 border-t-red-600 pt-16 pb-8">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <img src={logoSrc} alt="SGI Logo" className="h-16 w-auto mb-6" />
-              <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
                 Servicios Generales de Ingeniería. Especialistas en proveer soluciones técnicas robustas para la industria manufacturera en Nogales, Sonora.
               </p>
             </div>
@@ -721,7 +749,7 @@ function Home() {
               <ul className="space-y-3">
                 {['Inicio', 'Nosotros', 'Servicios', 'Proyectos', 'Contacto'].map(item => (
                   <li key={item}>
-                    <button onClick={() => scrollTo(item.toLowerCase())} className="text-slate-400 hover:text-red-400 text-sm transition-colors">
+                    <button onClick={() => scrollTo(item.toLowerCase())} className="text-gray-400 hover:text-red-400 text-sm transition-colors">
                       {item}
                     </button>
                   </li>
@@ -730,7 +758,7 @@ function Home() {
             </div>
             <div>
               <h4 className="text-white font-bold uppercase tracking-widest mb-6">Información</h4>
-              <ul className="space-y-3 text-slate-400 text-sm">
+              <ul className="space-y-3 text-gray-400 text-sm">
                 <li>Nogales, Sonora, México</li>
                 <li>Tel: 631 318 5564</li>
                 <li>Email: sginogales@gmail.com</li>
@@ -738,8 +766,8 @@ function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-slate-800 pt-8 text-center md:text-left md:flex justify-between items-center">
-            <p className="text-slate-500 text-xs">
+          <div className="border-t border-gray-700 pt-8 text-center md:text-left md:flex justify-between items-center">
+            <p className="text-gray-500 text-xs">
               © {new Date().getFullYear()} Servicios Generales de Ingeniería (SGI). Todos los derechos reservados.
             </p>
           </div>
