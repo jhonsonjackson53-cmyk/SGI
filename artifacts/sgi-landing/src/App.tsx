@@ -22,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
+const logoSrc = "/logo-sgi.png";
 const queryClient = new QueryClient();
 
 // Number Counter Hook
@@ -85,6 +86,7 @@ const contactSchema = z.object({
 
 function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
 
@@ -98,6 +100,7 @@ function Home() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      setShowScrollTop(window.scrollY > 600);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -131,8 +134,10 @@ function Home() {
       {/* 1. Navbar */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-red-900/20 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <div className="text-3xl font-black tracking-tighter text-white flex items-center cursor-pointer" onClick={() => scrollTo('inicio')}>
-            S<span className="text-red-500">G</span>I
+          <div className="flex items-center cursor-pointer" onClick={() => scrollTo('inicio')}>
+            <div className="bg-white/95 rounded-xl px-4 py-2">
+              <img src={logoSrc} alt="SGI Logo" className="h-14 w-auto" />
+            </div>
           </div>
           <div className="hidden lg:flex gap-8 items-center font-medium text-sm tracking-wide">
             {['Inicio', 'Nosotros', 'Servicios', 'Moldeo', 'Proyectos', 'Contacto'].map(item => (
@@ -706,9 +711,7 @@ function Home() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <div className="text-3xl font-black tracking-tighter text-white mb-6">
-                S<span className="text-red-500">G</span>I
-              </div>
+              <img src={logoSrc} alt="SGI Logo" className="h-16 w-auto mb-6" />
               <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
                 Servicios Generales de Ingeniería. Especialistas en proveer soluciones técnicas robustas para la industria manufacturera en Nogales, Sonora.
               </p>
@@ -753,7 +756,7 @@ function Home() {
         <Phone className="w-7 h-7" />
       </a>
       
-      {isScrolled && (
+      {showScrollTop && (
         <button 
           onClick={() => scrollTo('inicio')}
           className="fixed bottom-24 right-6 w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg shadow-red-500/30 z-50 transition-all hover:-translate-y-1"
