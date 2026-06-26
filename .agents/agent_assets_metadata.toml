@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "1oyAcFgJHk934E3KF-1Wv"
+uri = "file://sgi-landing-src.zip"
+type = "unspecified"
+title = "SGI Landing — App.tsx + index.css (gris + rojo)"
