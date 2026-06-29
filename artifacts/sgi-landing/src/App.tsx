@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, useInView } from "framer-motion";
+import * as THREE from "three";
 import {
   Menu, X, ChevronUp, MapPin, Phone, Mail,
   Settings, Zap, Shield, Factory, CheckCircle2,
@@ -24,6 +25,269 @@ import { Button } from "@/components/ui/button";
 
 const logoSrc = "/logo-sgi.png";
 const queryClient = new QueryClient();
+
+function IndustrialPlantScene() {
+  const hostRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x111827, 7, 24);
+
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(6, 5, 9);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+    renderer.setClearColor(0x000000, 0);
+    host.appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    keyLight.position.set(5, 8, 6);
+    scene.add(keyLight);
+    const redLight = new THREE.PointLight(0xef4444, 2.5, 18);
+    redLight.position.set(-3.5, 2.5, 3);
+    scene.add(redLight);
+    const blueLight = new THREE.PointLight(0x38bdf8, 1.4, 15);
+    blueLight.position.set(4, 2, -2);
+    scene.add(blueLight);
+
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x202938, roughness: 0.72, metalness: 0.25 });
+    const metalMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.42, metalness: 0.65 });
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.58, metalness: 0.35 });
+    const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.38, metalness: 0.45 });
+    const amberMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.38, metalness: 0.25 });
+    const greenMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.38, metalness: 0.25 });
+    const cyanMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.38, metalness: 0.25 });
+    const concreteMat = new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.85, metalness: 0.08 });
+    const yellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.45, metalness: 0.25 });
+    const cableMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.5, metalness: 0.45 });
+    const panelMat = new THREE.MeshStandardMaterial({ color: 0xe5e7eb, roughness: 0.5, metalness: 0.4 });
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, roughness: 0.18, metalness: 0.1, transparent: true, opacity: 0.48 });
+    const emissiveRedMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xef4444, emissiveIntensity: 0.55 });
+    const emissiveGreenMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 0.45 });
+    const spinningFans: THREE.Group[] = [];
+    const beaconLights: THREE.Mesh[] = [];
+
+    const floor = new THREE.Mesh(new THREE.BoxGeometry(12, 0.18, 8), floorMat);
+    floor.position.y = -0.12;
+    group.add(floor);
+
+    const grid = new THREE.GridHelper(12, 12, 0xef4444, 0x475569);
+    grid.position.y = 0.02;
+    group.add(grid);
+
+    const modulePositions = [
+      [-3.6, 0.45, -1.7, 1.3, 0.9, 1.2, redMat],
+      [-1.2, 0.55, 1.2, 1.6, 1.1, 1.1, metalMat],
+      [1.4, 0.65, -1.4, 1.4, 1.3, 1.4, darkMat],
+      [3.5, 0.45, 1.1, 1.2, 0.9, 1.5, metalMat],
+    ] as const;
+
+    modulePositions.forEach(([x, y, z, w, h, d, mat]) => {
+      const module = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+      module.position.set(x, y, z);
+      group.add(module);
+    });
+
+    const pipeMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.32, metalness: 0.75 });
+    for (let i = 0; i < 5; i += 1) {
+      const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 6.5, 24), pipeMat);
+      pipe.rotation.z = Math.PI / 2;
+      pipe.position.set(0, 1.15 + i * 0.22, -2.9 + i * 0.22);
+      group.add(pipe);
+    }
+
+    const duct = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.28, 0.38), darkMat);
+    duct.position.set(0.4, 2.15, -2.15);
+    group.add(duct);
+
+    const conveyor = new THREE.Mesh(new THREE.BoxGeometry(6.4, 0.16, 0.85), metalMat);
+    conveyor.position.set(0.2, 0.35, 0.1);
+    group.add(conveyor);
+
+    const conveyorBelt = new THREE.Mesh(new THREE.BoxGeometry(6.1, 0.04, 0.55), cableMat);
+    conveyorBelt.position.set(0.2, 0.47, 0.1);
+    group.add(conveyorBelt);
+
+    [-4.8, 4.8].forEach((x) => {
+      [-3.15, 2.95].forEach((z) => {
+        const column = new THREE.Mesh(new THREE.BoxGeometry(0.22, 2.35, 0.22), concreteMat);
+        column.position.set(x, 1.05, z);
+        group.add(column);
+      });
+    });
+    const frontBeam = new THREE.Mesh(new THREE.BoxGeometry(9.9, 0.18, 0.18), concreteMat);
+    frontBeam.position.set(0, 2.25, 2.95);
+    group.add(frontBeam);
+    const backBeam = frontBeam.clone();
+    backBeam.position.z = -3.15;
+    group.add(backBeam);
+    const sideBeamA = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 6.3), concreteMat);
+    sideBeamA.position.set(-4.8, 2.25, -0.1);
+    group.add(sideBeamA);
+    const sideBeamB = sideBeamA.clone();
+    sideBeamB.position.x = 4.8;
+    group.add(sideBeamB);
+
+    const addHvacUnit = (x: number, z: number, colorMat: THREE.Material) => {
+      const unit = new THREE.Group();
+      const base = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.38, 0.86), panelMat);
+      base.position.y = 0.22;
+      unit.add(base);
+      const grille = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.05, 0.12), darkMat);
+      grille.position.set(0, 0.46, 0.42);
+      unit.add(grille);
+      const fan = new THREE.Group();
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26, 0.025, 10, 32), colorMat);
+      ring.rotation.x = Math.PI / 2;
+      fan.add(ring);
+      for (let i = 0; i < 3; i += 1) {
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.025, 0.08), darkMat);
+        blade.rotation.y = (Math.PI * 2 * i) / 3;
+        fan.add(blade);
+      }
+      fan.position.y = 0.5;
+      unit.add(fan);
+      spinningFans.push(fan);
+      unit.position.set(x, 0.08, z);
+      group.add(unit);
+    };
+    addHvacUnit(-3.25, 2.15, cyanMat);
+    addHvacUnit(3.1, -2.55, redMat);
+
+    const tray = new THREE.Group();
+    const trayRailA = new THREE.Mesh(new THREE.BoxGeometry(5.8, 0.08, 0.08), yellowMat);
+    trayRailA.position.set(0, 1.72, 2.35);
+    tray.add(trayRailA);
+    const trayRailB = trayRailA.clone();
+    trayRailB.position.z = 2.68;
+    tray.add(trayRailB);
+    for (let i = 0; i < 13; i += 1) {
+      const rung = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.06, 0.42), yellowMat);
+      rung.position.set(-2.9 + i * 0.48, 1.72, 2.52);
+      tray.add(rung);
+    }
+    group.add(tray);
+
+    const cableCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-2.7, 1.84, 2.52),
+      new THREE.Vector3(-1.15, 2.02, 2.7),
+      new THREE.Vector3(0.9, 1.82, 2.48),
+      new THREE.Vector3(2.6, 1.96, 2.62),
+    ]);
+    group.add(new THREE.Mesh(new THREE.TubeGeometry(cableCurve, 40, 0.035, 8), cableMat));
+
+    const panel = new THREE.Group();
+    const cabinet = new THREE.Mesh(new THREE.BoxGeometry(0.78, 1.25, 0.28), panelMat);
+    cabinet.position.y = 0.72;
+    panel.add(cabinet);
+    const screen = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.26, 0.035), glassMat);
+    screen.position.set(0, 0.98, 0.16);
+    panel.add(screen);
+    for (let i = 0; i < 3; i += 1) {
+      const light = new THREE.Mesh(new THREE.SphereGeometry(0.055, 16, 16), i === 0 ? emissiveRedMat : emissiveGreenMat);
+      light.position.set(-0.22 + i * 0.22, 0.52, 0.17);
+      beaconLights.push(light);
+      panel.add(light);
+    }
+    panel.position.set(4.25, 0.02, -0.65);
+    group.add(panel);
+
+    const crane = new THREE.Group();
+    const mast = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.6, 0.16), yellowMat);
+    mast.position.y = 0.8;
+    crane.add(mast);
+    const boom = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.13, 0.13), yellowMat);
+    boom.position.set(0.6, 1.55, 0);
+    crane.add(boom);
+    const hookCable = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.55, 10), cableMat);
+    hookCable.position.set(1.22, 1.22, 0);
+    crane.add(hookCable);
+    const hook = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.018, 8, 18, Math.PI * 1.35), redMat);
+    hook.position.set(1.22, 0.92, 0);
+    hook.rotation.z = -Math.PI / 5;
+    crane.add(hook);
+    crane.position.set(-4.2, 0.02, 0.95);
+    group.add(crane);
+
+    const processLights: THREE.Mesh[] = [];
+    const lightMats = [redMat, amberMat, greenMat, cyanMat];
+    for (let i = 0; i < 18; i += 1) {
+      const chip = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.08, 0.16), lightMats[i % lightMats.length]);
+      chip.position.set(-3 + i * 0.35, 0.55, 0.1 + (i % 2) * 0.24);
+      processLights.push(chip);
+      group.add(chip);
+    }
+
+    const mouse = { x: 0, y: 0 };
+    const onPointerMove = (event: PointerEvent) => {
+      const rect = host.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      mouse.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    };
+    host.addEventListener("pointermove", onPointerMove);
+
+    const resize = () => {
+      const width = host.clientWidth || 1;
+      const height = host.clientHeight || 1;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(host);
+    resize();
+
+    let frame = 0;
+    let animationId = 0;
+    const animate = () => {
+      frame += 0.01;
+      group.rotation.y += ((mouse.x * 0.16) - group.rotation.y) * 0.035;
+      group.rotation.x += ((-mouse.y * 0.08) - group.rotation.x) * 0.035;
+      group.position.y = Math.sin(frame) * 0.07;
+      processLights.forEach((chip, index) => {
+        chip.scale.y = 1 + Math.sin(frame * 5 + index * 0.7) * 0.45;
+      });
+      spinningFans.forEach((fan, index) => {
+        fan.rotation.y += 0.08 + index * 0.015;
+      });
+      beaconLights.forEach((light, index) => {
+        const pulse = 0.8 + Math.sin(frame * 6 + index * 1.6) * 0.22;
+        light.scale.setScalar(pulse);
+      });
+      redLight.intensity = 2.1 + Math.sin(frame * 3) * 0.45;
+      renderer.render(scene, camera);
+      animationId = window.requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.cancelAnimationFrame(animationId);
+      resizeObserver.disconnect();
+      host.removeEventListener("pointermove", onPointerMove);
+      host.removeChild(renderer.domElement);
+      renderer.dispose();
+      scene.traverse((object) => {
+        if (object instanceof THREE.Mesh) {
+          object.geometry.dispose();
+          const material = object.material;
+          if (Array.isArray(material)) material.forEach((item) => item.dispose());
+          else material.dispose();
+        }
+      });
+    };
+  }, []);
+
+  return <div ref={hostRef} className="absolute inset-0" aria-hidden="true" />;
+}
 
 function useCounter(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
@@ -169,6 +433,110 @@ function Home() {
   };
 
   const navLinks = ["Inicio", "Nosotros", "Servicios", "Moldeo", "Proyectos", "Contacto"];
+  const [activeSafety, setActiveSafety] = useState(0);
+  const [activeBrand, setActiveBrand] = useState(0);
+  const [activeSector, setActiveSector] = useState(0);
+  const [activeSupplier, setActiveSupplier] = useState(0);
+  const [activeExperience, setActiveExperience] = useState(0);
+  const [activeEngineering, setActiveEngineering] = useState(0);
+  const [activeSupply, setActiveSupply] = useState(0);
+  const safetyItems = [
+    {
+      label: "Seguridad Industrial",
+      icon: <Shield className="w-6 h-6" />,
+      color: "text-red-600",
+      bg: "bg-red-50",
+      ring: "ring-red-200",
+      image: "/proyectos/sgi-instalacion-maquinaria.jpg",
+      summary: "Protocolos de trabajo en planta para cuidar al equipo y mantener continuidad operativa.",
+      points: ["Equipo de protección", "Áreas controladas", "Trabajo seguro en sitio"],
+    },
+    {
+      label: "Cumplimiento NOM",
+      icon: <FileText className="w-6 h-6" />,
+      color: "text-blue-600",
+      bg: "bg-blue-50",
+      ring: "ring-blue-200",
+      image: "/proyectos/sgi-certificado-rjg.jpg",
+      summary: "Documentación, evidencias y estándares aplicables para entregar trabajos verificables.",
+      points: ["Bitácoras y reportes", "Evidencia fotográfica", "Revisión de lineamientos"],
+    },
+    {
+      label: "Control de Riesgos",
+      icon: <AlertTriangle className="w-6 h-6" />,
+      color: "text-amber-600",
+      bg: "bg-amber-50",
+      ring: "ring-amber-200",
+      image: "/proyectos/sgi-scrubber-antes-despues.jpg",
+      summary: "Identificación de condiciones críticas antes de intervenir maquinaria o infraestructura.",
+      points: ["Inspección previa", "Aislamiento de riesgos", "Respuesta ordenada"],
+    },
+    {
+      label: "Calidad Operativa",
+      icon: <CheckCircle2 className="w-6 h-6" />,
+      color: "text-emerald-600",
+      bg: "bg-emerald-50",
+      ring: "ring-emerald-200",
+      image: "/proyectos/sgi-mantenimiento-rodamiento.jpg",
+      summary: "Validación final para entregar trabajos funcionales, limpios y listos para operación.",
+      points: ["Pruebas finales", "Liberación técnica", "Seguimiento post-servicio"],
+    },
+  ];
+  const activeSafetyItem = safetyItems[activeSafety];
+  const brandItems = [
+    { name: "ENGEL", image: "/marcas-tecnologias/Engel.png", color: "text-orange-600", bg: "bg-orange-50", summary: "Soporte y mantenimiento para equipos de moldeo de alto desempeño.", points: ["Inyección", "Procesos", "Diagnóstico"] },
+    { name: "ARBURG", image: "/marcas-tecnologias/Arburg.png", color: "text-yellow-700", bg: "bg-yellow-50", summary: "Experiencia en maquinaria de inyección, ajustes y continuidad operativa.", points: ["Moldeo", "Ajustes", "Servicio"] },
+    { name: "HUSKY", image: "/marcas-tecnologias/Husky.png", color: "text-blue-600", bg: "bg-blue-50", summary: "Atención técnica para sistemas robustos de producción plástica.", points: ["Producción", "Moldes", "Mejora"] },
+    { name: "KEYENCE", image: "/marcas-tecnologias/Keyence.png", color: "text-red-600", bg: "bg-red-50", summary: "Integración de sensores, medición y control para líneas industriales.", points: ["Sensores", "Medición", "Control"] },
+    { name: "EATON", image: "/marcas-tecnologias/Eaton.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Componentes eléctricos y soluciones para operación segura en planta.", points: ["Eléctrico", "Protección", "Tableros"] },
+    { name: "3M", image: "/marcas-tecnologias/3M.png", color: "text-red-600", bg: "bg-red-50", summary: "Consumibles y materiales técnicos para mantenimiento y seguridad.", points: ["Materiales", "EPP", "Consumibles"] },
+    { name: "HILTI", image: "/marcas-tecnologias/Hilti.png", color: "text-red-600", bg: "bg-red-50", summary: "Herramientas y soluciones de fijación para obra civil e instalación.", points: ["Fijación", "Obra civil", "Herramientas"] },
+    { name: "MAKITA", image: "/marcas-tecnologias/Maquita.png", color: "text-cyan-700", bg: "bg-cyan-50", summary: "Herramienta eléctrica para trabajos de instalación y mantenimiento.", points: ["Instalación", "Taller", "Campo"] },
+    { name: "MILWAUKEE", image: "/marcas-tecnologias/Milwaukee.png", color: "text-red-700", bg: "bg-red-50", summary: "Herramientas para trabajos exigentes en planta y servicio industrial.", points: ["Potencia", "Servicio", "Mantenimiento"] },
+    { name: "BALLUFF", image: "/marcas-tecnologias/Balluff.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Sensórica y automatización para monitoreo de equipos y procesos.", points: ["Automatización", "Sensores", "Control"] },
+  ];
+  const sectorItems = [
+    { name: "Maquiladoras", icon: <Factory className="w-7 h-7" />, image: "/clientes-sectores/Maquiladora.png", desc: "Plantas de manufactura", color: "text-blue-600", bg: "bg-blue-50", summary: "Soporte integral para líneas de producción, mantenimiento y servicios generales.", points: ["Continuidad operativa", "Mantenimiento", "Respuesta rápida"] },
+    { name: "Automotriz", icon: <Settings className="w-7 h-7" />, image: "/clientes-sectores/Automotriz.png", desc: "Tier 1 y Tier 2", color: "text-orange-500", bg: "bg-orange-50", summary: "Atención a procesos críticos, herramentales, instalaciones y maquinaria de producción.", points: ["Procesos críticos", "Precisión", "Soporte técnico"] },
+    { name: "Electrónica", icon: <Zap className="w-7 h-7" />, image: "/clientes-sectores/Electronica.png", desc: "Ensamble y producción", color: "text-amber-500", bg: "bg-amber-50", summary: "Servicios para áreas de ensamble, infraestructura eléctrica y operación limpia.", points: ["Ensamble", "Instalación", "Control"] },
+    { name: "Plásticos", icon: <Beaker className="w-7 h-7" />, image: "/clientes-sectores/Plasticos.png", desc: "Moldeo e inyección", color: "text-purple-600", bg: "bg-purple-50", summary: "Mantenimiento especializado en moldeo, moldes y maquinaria de inyección.", points: ["Moldeo", "Moldes", "Optimización"] },
+    { name: "Construcción", icon: <HardHat className="w-7 h-7" />, image: "/clientes-sectores/Construccion.png", desc: "Obra civil y remodelación", color: "text-amber-700", bg: "bg-amber-50", summary: "Obra civil, adecuaciones, estructuras y mejoras operativas en planta.", points: ["Obra civil", "Remodelación", "Estructuras"] },
+    { name: "Alimentos", icon: <CheckCircle2 className="w-7 h-7" />, image: "/clientes-sectores/Alimentos.png", desc: "Procesamiento y empaque", color: "text-emerald-600", bg: "bg-emerald-50", summary: "Servicios enfocados en continuidad, limpieza operativa y mantenimiento preventivo.", points: ["Procesamiento", "Empaque", "Preventivo"] },
+    { name: "Logística", icon: <ArrowRight className="w-7 h-7" />, image: "/clientes-sectores/Logistica.png", desc: "Almacenes y distribución", color: "text-cyan-600", bg: "bg-cyan-50", summary: "Adecuaciones para almacenes, flujo de materiales e instalaciones de soporte.", points: ["Almacenes", "Flujo", "Instalaciones"] },
+    { name: "Hospitalario", icon: <Shield className="w-7 h-7" />, image: "/clientes-sectores/Hospitalario.png", desc: "Equipos médicos", color: "text-red-600", bg: "bg-red-50", summary: "Servicios técnicos con enfoque en seguridad, calidad y operación confiable.", points: ["Seguridad", "Calidad", "Confiabilidad"] },
+  ];
+  const supplierItems = [
+    { name: "GRAINGER", image: "/proveedores-socios/Grainger.png", color: "text-red-600", bg: "bg-red-50", summary: "Abastecimiento de MRO, herramienta y consumibles industriales para planta.", points: ["MRO", "Herramienta", "Consumibles"] },
+    { name: "FASTENAL", image: "/proveedores-socios/Fastenal.png", color: "text-blue-600", bg: "bg-blue-50", summary: "Fijación, tornillería, seguridad y materiales de uso diario en operación.", points: ["Fijación", "Seguridad", "Inventario"] },
+    { name: "ABB", image: "/proveedores-socios/ABB.png", color: "text-red-600", bg: "bg-red-50", summary: "Componentes eléctricos, automatización y soluciones para control industrial.", points: ["Eléctrico", "Control", "Automatización"] },
+    { name: "SONEPAR", image: "/proveedores-socios/Sonepar.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Distribución eléctrica para instalaciones, tableros y mantenimiento.", points: ["Distribución", "Instalación", "Tableros"] },
+    { name: "MCMASTER", image: "/proveedores-socios/McMaster.png", color: "text-orange-600", bg: "bg-orange-50", summary: "Componentes técnicos, refacciones y elementos mecánicos especializados.", points: ["Refacciones", "Mecánica", "Componentes"] },
+  ];
+  const experienceItems = [
+    { title: "Moldeo por Inyeccion", icon: <Beaker className="w-6 h-6" />, image: "/proyectos/sgi-moldeo-detalle.jpg", color: "text-violet-600", bg: "bg-violet-50", desc: "Mantenimiento, instalacion y soporte a maquinaria de inyeccion.", points: ["Setups de proceso", "Moldes y perifericos", "Reduccion de paros"] },
+    { title: "Scrubbers", icon: <Wind className="w-6 h-6" />, image: "/proyectos/sgi-scrubber-antes-despues.jpg", color: "text-cyan-600", bg: "bg-cyan-50", desc: "Operacion, mantenimiento y optimizacion de sistemas ambientales.", points: ["Inspeccion visual", "Flujo y extraccion", "Mantenimiento seguro"] },
+    { title: "Manejo de Quimicos", icon: <Thermometer className="w-6 h-6" />, image: "/proyectos/sgi-certificado-rjg.jpg", color: "text-amber-600", bg: "bg-amber-50", desc: "Procedimientos industriales bajo practicas seguras.", points: ["Procedimientos", "EPP", "Control documental"] },
+    { title: "Espacios Confinados", icon: <Shield className="w-6 h-6" />, image: "/clientes-sectores/Construccion.png", color: "text-red-600", bg: "bg-red-50", desc: "Intervenciones seguras bajo estrictos protocolos industriales.", points: ["Permisos", "Monitoreo", "Rescate preventivo"] },
+    { title: "Equipos Auxiliares", icon: <Wrench className="w-6 h-6" />, image: "/proyectos/sgi-mantenimiento-rodamiento.jpg", color: "text-blue-600", bg: "bg-blue-50", desc: "Diagnostico y mantenimiento especializado.", points: ["Diagnostico", "Refacciones", "Ajuste tecnico"] },
+    { title: "Automatizacion", icon: <Zap className="w-6 h-6" />, image: "/marcas-tecnologias/Balluff.png", color: "text-emerald-600", bg: "bg-emerald-50", desc: "Sensores, control industrial y sistemas de produccion.", points: ["Sensores", "Tableros", "Control"] },
+  ];
+  const engineeringItems = [
+    { label: "Diseno", icon: <PenTool className="w-6 h-6" />, image: "/ingenieria-suministros/diseno.png", color: "text-cyan-600", bg: "bg-cyan-50", summary: "Levantamiento tecnico, propuesta visual y solucion ajustada al piso de produccion.", points: ["Layout", "Concepto", "Viabilidad"] },
+    { label: "Propuesta", icon: <FileText className="w-6 h-6" />, image: "/ingenieria-suministros/propuesta.png", color: "text-amber-600", bg: "bg-amber-50", summary: "Documentacion clara para alcance, materiales, tiempos y criterios de entrega.", points: ["Alcance", "Materiales", "Cronograma"] },
+    { label: "Prototipos", icon: <Beaker className="w-6 h-6" />, image: "/ingenieria-suministros/prototipos.png", color: "text-violet-600", bg: "bg-violet-50", summary: "Validacion de ideas y componentes antes de ejecutar en produccion.", points: ["Prueba fisica", "Ajustes", "Validacion"] },
+    { label: "Pruebas", icon: <CheckCircle2 className="w-6 h-6" />, image: "/ingenieria-suministros/pruebas.png", color: "text-emerald-600", bg: "bg-emerald-50", summary: "Revision funcional y liberacion tecnica para operar con confianza.", points: ["Checklist", "Funcionamiento", "Liberacion"] },
+  ];
+  const supplyItems = [
+    { title: "Herramientas", icon: <Wrench className="w-6 h-6" />, image: "/ingenieria-suministros/herramientas.png", color: "text-blue-600", bg: "bg-blue-50", desc: "Equipo especializado para operacion, mantenimiento e instalacion.", points: ["Herramienta manual", "Equipo electrico", "Trabajo en campo"] },
+    { title: "Refacciones", icon: <Settings className="w-6 h-6" />, image: "/ingenieria-suministros/refacciones.png", color: "text-orange-600", bg: "bg-orange-50", desc: "Componentes originales o equivalentes para maquinaria y servicios auxiliares.", points: ["Mecanicas", "Electricas", "Criticas"] },
+    { title: "Consumibles", icon: <Factory className="w-6 h-6" />, image: "/ingenieria-suministros/consumible1.png", color: "text-emerald-600", bg: "bg-emerald-50", desc: "Materiales de uso diario para mantener la operacion en movimiento.", points: ["MRO", "Seguridad", "Inventario"] },
+  ];
+  const activeBrandItem = brandItems[activeBrand];
+  const activeSectorItem = sectorItems[activeSector];
+  const activeSupplierItem = supplierItems[activeSupplier];
+  const activeExperienceItem = experienceItems[activeExperience];
+  const activeEngineeringItem = engineeringItems[activeEngineering];
+  const activeSupplyItem = supplyItems[activeSupply];
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans overflow-x-hidden selection:bg-red-100">
@@ -236,9 +604,12 @@ function Home() {
 
       {/* ── HERO ── */}
       <section id="inicio" className="relative min-h-[100dvh] flex items-center">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/92 via-gray-900/65 to-gray-900/80" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gray-950 overflow-hidden">
+          <IndustrialPlantScene />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none" />
         <div className="container relative mx-auto px-6 lg:px-12 z-10 pt-24">
           <FadeIn className="max-w-3xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-4 border border-red-400/40 bg-red-600/10 rounded-full text-red-300 font-bold tracking-widest text-xs mb-8 backdrop-blur-sm">
@@ -285,7 +656,7 @@ function Home() {
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 py-6 px-8 group cursor-default">
                 <div className={`${item.bg} p-3 rounded-xl transition-colors`}>
-                  {React.cloneElement(item.icon as React.ReactElement, { className: `w-7 h-7 ${item.color}` })}
+                  {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: `w-7 h-7 ${item.color}` })}
                 </div>
                 <span className="font-bold text-gray-800 uppercase text-sm tracking-wide">{item.name}</span>
               </div>
@@ -441,7 +812,7 @@ function Home() {
               <FadeIn key={i} delay={i * 0.08}>
                 <Card className={`p-8 h-full group transition-all ${s.border}`}>
                   <div className={`${s.bg} w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors`}>
-                    {React.cloneElement(s.icon as React.ReactElement, { className: `w-6 h-6 ${s.color}` })}
+                    {React.cloneElement(s.icon as React.ReactElement<{ className?: string }>, { className: `w-6 h-6 ${s.color}` })}
                   </div>
                   <h3 className="text-lg font-black text-gray-900 uppercase mb-3">{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
@@ -460,7 +831,7 @@ function Home() {
               <div className="relative">
                 <div className="absolute inset-0 bg-red-600/10 translate-x-3 translate-y-3 rounded-2xl" />
                 <img
-                  src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80"
+                  src="/proyectos/sgi-taller-moldeo.jpg"
                   alt="Moldeo por Inyección"
                   className="relative z-10 rounded-2xl border border-gray-200 w-full object-cover aspect-[4/3] shadow-lg"
                 />
@@ -499,38 +870,38 @@ function Home() {
             <SectionLabel>Equipos que manejamos</SectionLabel>
             <h3 className="text-2xl font-black text-gray-900 uppercase">Marcas y Tecnologías</h3>
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
-            {[
-              { name: "ENGEL",     color: "#ff6600", bg: "#fff4ee" },
-              { name: "ARBURG",    color: "#c8a000", bg: "#fffbee" },
-              { name: "HUSKY",     color: "#005bac", bg: "#eef4ff" },
-              { name: "KEYENCE",   color: "#c00000", bg: "#fff0f0" },
-              { name: "EATON",     color: "#006db7", bg: "#eef5ff" },
-              { name: "3M",        color: "#e31837", bg: "#fff0f2" },
-              { name: "HILTI",     color: "#e20020", bg: "#fff0f2" },
-              { name: "MAKITA",    color: "#007dbf", bg: "#eef6ff" },
-              { name: "MILWAUKEE", color: "#c00000", bg: "#fff0f0" },
-              { name: "BALLUFF",   color: "#00468b", bg: "#eef3ff" },
-            ].map((brand, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {brandItems.map((brand, i) => (
               <FadeIn key={i} delay={i * 0.04}>
-                <div
-                  className="border border-gray-200 rounded-xl p-5 flex flex-col items-center justify-center gap-2 hover:border-red-200 transition-all cursor-default group min-h-[90px]"
-                  style={{ backgroundColor: "#fff" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = brand.bg; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = "#fff"; }}
+                <button
+                  type="button"
+                  onClick={() => setActiveBrand(i)}
+                  className={`bg-white border rounded-xl p-4 flex items-center justify-center min-h-[96px] transition-all hover:-translate-y-1 hover:shadow-md ${
+                    activeBrand === i ? "border-red-300 shadow-md ring-4 ring-red-50" : "border-gray-200"
+                  }`}
                 >
-                  <span
-                    className="font-black text-lg tracking-tight transition-colors"
-                    style={{ color: "#9ca3af" }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLSpanElement).style.color = brand.color; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLSpanElement).style.color = "#9ca3af"; }}
-                  >
-                    {brand.name}
-                  </span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-widest">Equipo</span>
-                </div>
+                  <img src={brand.image} alt={brand.name} className="max-h-12 max-w-full object-contain" />
+                </button>
               </FadeIn>
             ))}
+          </div>
+          <div className="mt-8 bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.9fr_1.1fr] shadow-sm">
+            <div className={`${activeBrandItem.bg} p-8 flex items-center justify-center min-h-56`}>
+              <img src={activeBrandItem.image} alt={activeBrandItem.name} className="max-h-28 max-w-[70%] object-contain drop-shadow-sm" />
+            </div>
+            <div className="p-6 md:p-8">
+              <span className={`text-xs font-black uppercase tracking-widest ${activeBrandItem.color}`}>Tecnologia aplicada</span>
+              <h4 className="text-2xl font-black text-gray-900 uppercase mt-2 mb-3">{activeBrandItem.name}</h4>
+              <p className="text-gray-600 leading-relaxed mb-5">{activeBrandItem.summary}</p>
+              <div className="grid sm:grid-cols-3 gap-3">
+                {activeBrandItem.points.map((point) => (
+                  <div key={point} className="bg-white border border-gray-200 rounded-xl p-4">
+                    <CheckCircle2 className={`w-5 h-5 ${activeBrandItem.color} mb-2`} />
+                    <span className="text-xs font-black uppercase text-gray-800">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -543,68 +914,140 @@ function Home() {
             <h3 className="text-2xl font-black text-gray-900 uppercase">Clientes y Sectores</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { name: "Maquiladoras", icon: <Factory     className="w-8 h-8" />, desc: "Plantas de manufactura",    color: "text-blue-600",    bg: "bg-blue-50"    },
-              { name: "Automotriz",   icon: <Settings    className="w-8 h-8" />, desc: "Tier 1 y Tier 2",           color: "text-orange-500",  bg: "bg-orange-50"  },
-              { name: "Electrónica",  icon: <Zap         className="w-8 h-8" />, desc: "Ensamble y producción",     color: "text-amber-500",   bg: "bg-amber-50"   },
-              { name: "Plásticos",    icon: <Beaker      className="w-8 h-8" />, desc: "Moldeo e inyección",        color: "text-purple-600",  bg: "bg-purple-50"  },
-              { name: "Construcción", icon: <HardHat     className="w-8 h-8" />, desc: "Obra civil y remodelación", color: "text-amber-700",   bg: "bg-amber-50"   },
-              { name: "Alimentos",    icon: <CheckCircle2 className="w-8 h-8" />,desc: "Procesamiento y empaque",   color: "text-emerald-600", bg: "bg-emerald-50" },
-              { name: "Logística",    icon: <ArrowRight  className="w-8 h-8" />, desc: "Almacenes y distribución",  color: "text-cyan-600",    bg: "bg-cyan-50"    },
-              { name: "Hospitalario", icon: <Shield      className="w-8 h-8" />, desc: "Equipos médicos",           color: "text-red-600",     bg: "bg-red-50"     },
-            ].map((c, i) => (
+            {sectorItems.map((c, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <Card className="p-6 text-center group hover:shadow-md transition-all" hover={false}>
+                <button
+                  type="button"
+                  onClick={() => setActiveSector(i)}
+                  className={`bg-white rounded-xl p-6 text-center group hover:shadow-md transition-all border ${
+                    activeSector === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-transparent"
+                  }`}
+                >
                   <div className={`${c.bg} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    {React.cloneElement(c.icon as React.ReactElement, { className: `w-8 h-8 ${c.color}` })}
+                    {React.cloneElement(c.icon as React.ReactElement<{ className?: string }>, { className: `w-7 h-7 ${c.color}` })}
                   </div>
                   <h4 className="font-black text-gray-900 uppercase text-sm mb-1">{c.name}</h4>
                   <p className="text-gray-500 text-xs">{c.desc}</p>
-                </Card>
+                </button>
               </FadeIn>
             ))}
+          </div>
+          <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[1fr_1.1fr] shadow-sm">
+            <div className="relative min-h-64">
+              <img src={activeSectorItem.image} alt={activeSectorItem.name} className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-gray-950/10 to-transparent" />
+              <div className="absolute left-5 bottom-5 flex items-center gap-3">
+                <div className={`${activeSectorItem.bg} ${activeSectorItem.color} w-12 h-12 rounded-xl flex items-center justify-center`}>
+                  {activeSectorItem.icon}
+                </div>
+                <div>
+                  <h4 className="font-black text-white uppercase text-lg">{activeSectorItem.name}</h4>
+                  <p className="text-white/80 text-sm">{activeSectorItem.desc}</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-6 md:p-8 bg-gray-50">
+              <span className={`text-xs font-black uppercase tracking-widest ${activeSectorItem.color}`}>Sector atendido</span>
+              <p className="text-gray-600 leading-relaxed mt-3 mb-5">{activeSectorItem.summary}</p>
+              <div className="grid sm:grid-cols-3 gap-3">
+                {activeSectorItem.points.map((point) => (
+                  <div key={point} className="bg-white border border-gray-200 rounded-xl p-4">
+                    <CheckCircle2 className={`w-5 h-5 ${activeSectorItem.color} mb-2`} />
+                    <span className="text-xs font-black uppercase text-gray-800">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           {/* Partner logos row */}
           <div className="mt-12 pt-10 border-t border-gray-200">
             <p className="text-center text-xs text-gray-400 uppercase tracking-widest mb-8">Proveedores y socios estratégicos</p>
             <div className="flex flex-wrap justify-center items-center gap-6">
-              {[
-                { name: "GRAINGER",  color: "#cc0000" },
-                { name: "FASTENAL",  color: "#0052a5" },
-                { name: "ABB",       color: "#ff000f" },
-                { name: "SONEPAR",   color: "#003da5" },
-                { name: "MCMASTER",  color: "#cc5500" },
-              ].map((p, i) => (
-                <span key={i} className="text-gray-300 hover:text-gray-500 font-black text-lg tracking-tight transition-colors cursor-default" style={{ letterSpacing: "-0.02em" }}>
-                  {p.name}
-                </span>
+              {supplierItems.map((p, i) => (
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => setActiveSupplier(i)}
+                  className={`bg-white border rounded-xl px-5 py-4 min-w-36 transition-all hover:-translate-y-1 hover:shadow-md ${
+                    activeSupplier === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
+                  }`}
+                >
+                  <img src={p.image} alt={p.name} className="h-9 max-w-28 object-contain mx-auto" />
+                </button>
               ))}
+            </div>
+            <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.8fr_1.2fr] shadow-sm">
+              <div className={`${activeSupplierItem.bg} p-8 flex items-center justify-center min-h-48`}>
+                <img src={activeSupplierItem.image} alt={activeSupplierItem.name} className="max-h-24 max-w-[70%] object-contain" />
+              </div>
+              <div className="p-6 md:p-8 bg-gray-50">
+                <span className={`text-xs font-black uppercase tracking-widest ${activeSupplierItem.color}`}>Socio estrategico</span>
+                <h4 className="text-2xl font-black text-gray-900 uppercase mt-2 mb-3">{activeSupplierItem.name}</h4>
+                <p className="text-gray-600 leading-relaxed mb-5">{activeSupplierItem.summary}</p>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {activeSupplierItem.points.map((point) => (
+                    <div key={point} className="bg-white border border-gray-200 rounded-xl p-4">
+                      <CheckCircle2 className={`w-5 h-5 ${activeSupplierItem.color} mb-2`} />
+                      <span className="text-xs font-black uppercase text-gray-800">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── EXPERIENCIA TÉCNICA ── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-200 to-transparent" />
         <div className="container mx-auto px-6 lg:px-12">
           <SectionLabel>Capacidades</SectionLabel>
           <SectionTitle>Experiencia Técnica</SectionTitle>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-            {[
-              { title: "Moldeo por Inyección",   desc: "Mantenimiento, instalación y soporte a maquinaria de inyección." },
-              { title: "Scrubbers",              desc: "Operación, mantenimiento y optimización de sistemas ambientales." },
-              { title: "Manejo de Químicos",     desc: "Procedimientos industriales bajo prácticas seguras." },
-              { title: "Espacios Confinados",    desc: "Intervenciones seguras bajo estrictos protocolos industriales." },
-              { title: "Equipos Auxiliares",     desc: "Diagnóstico y mantenimiento especializado." },
-              { title: "Automatización",         desc: "Sensores, control industrial y sistemas de producción." },
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 0.08}>
-                <Card className="p-6 h-full border-l-4 border-l-red-600 rounded-l-none">
-                  <h4 className="font-black text-gray-900 mb-2 uppercase">{item.title}</h4>
-                  <p className="text-gray-500 text-sm">{item.desc}</p>
-                </Card>
-              </FadeIn>
-            ))}
+          <div className="grid lg:grid-cols-[0.95fr_1.25fr] gap-8 mt-10 items-stretch">
+            <div className="grid sm:grid-cols-2 gap-4">
+              {experienceItems.map((item, i) => (
+                <FadeIn key={item.title} delay={i * 0.05}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveExperience(i)}
+                    className={`group bg-white border rounded-xl p-5 text-left h-full transition-all hover:-translate-y-1 hover:shadow-md ${
+                      activeExperience === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
+                    }`}
+                  >
+                    <div className={`${item.bg} ${item.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      {item.icon}
+                    </div>
+                    <h4 className="font-black text-gray-900 uppercase text-sm mb-2">{item.title}</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                  </button>
+                </FadeIn>
+              ))}
+            </div>
+            <div className="bg-gray-950 rounded-2xl overflow-hidden grid md:grid-cols-[0.9fr_1fr] min-h-[420px] shadow-xl">
+              <div className="relative min-h-72">
+                <img src={activeExperienceItem.image} alt={activeExperienceItem.title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-950/25 to-transparent" />
+                <div className="absolute left-5 bottom-5">
+                  <div className={`${activeExperienceItem.bg} ${activeExperienceItem.color} w-12 h-12 rounded-xl flex items-center justify-center mb-3`}>
+                    {activeExperienceItem.icon}
+                  </div>
+                  <h4 className="text-white font-black uppercase text-xl">{activeExperienceItem.title}</h4>
+                </div>
+              </div>
+              <div className="p-6 md:p-8 flex flex-col justify-center">
+                <span className={`text-xs font-black uppercase tracking-widest ${activeExperienceItem.color}`}>Capacidad tecnica</span>
+                <p className="text-gray-300 leading-relaxed mt-3 mb-6">{activeExperienceItem.desc}</p>
+                <div className="space-y-3">
+                  {activeExperienceItem.points.map((point) => (
+                    <div key={point} className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-3">
+                      <CheckCircle2 className={`w-5 h-5 ${activeExperienceItem.color} shrink-0`} />
+                      <span className="text-sm font-bold uppercase text-white">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -612,41 +1055,84 @@ function Home() {
       {/* ── INGENIERÍA / SUMINISTROS ── */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-10">
             <div>
               <SectionLabel>Desarrollo</SectionLabel>
               <SectionTitle>Ingeniería y Desarrollo</SectionTitle>
               <div className="grid grid-cols-2 gap-4">
-                {[
-                  { icon: <PenTool className="w-7 h-7 text-red-600" />,      label: "Diseño" },
-                  { icon: <FileText className="w-7 h-7 text-red-600" />,     label: "Propuesta" },
-                  { icon: <Beaker className="w-7 h-7 text-red-600" />,       label: "Prototipos" },
-                  { icon: <CheckCircle2 className="w-7 h-7 text-red-600" />, label: "Pruebas" },
-                ].map((s, i) => (
-                  <Card key={i} className="p-6 text-center" hover={false}>
-                    <div className="flex justify-center mb-3">{s.icon}</div>
+                {engineeringItems.map((s, i) => (
+                  <button
+                    key={s.label}
+                    type="button"
+                    onClick={() => setActiveEngineering(i)}
+                    className={`bg-white rounded-xl p-5 text-center border transition-all hover:-translate-y-1 hover:shadow-md ${
+                      activeEngineering === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
+                    }`}
+                  >
+                    <div className={`${s.bg} ${s.color} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3`}>
+                      {s.icon}
+                    </div>
                     <h4 className="font-bold text-gray-900 uppercase text-sm">{s.label}</h4>
-                  </Card>
+                  </button>
                 ))}
+              </div>
+              <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                <div className="relative min-h-56">
+                  <img src={activeEngineeringItem.image} alt={activeEngineeringItem.label} className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/10 to-transparent" />
+                  <h4 className="absolute left-5 bottom-5 text-white font-black uppercase text-xl">{activeEngineeringItem.label}</h4>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 leading-relaxed mb-4">{activeEngineeringItem.summary}</p>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {activeEngineeringItem.points.map((point) => (
+                      <div key={point} className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+                        <CheckCircle2 className={`w-4 h-4 ${activeEngineeringItem.color} mb-2`} />
+                        <span className="text-[11px] font-black uppercase text-gray-800">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
             <div>
               <SectionLabel>Abastecimiento</SectionLabel>
               <SectionTitle>Suministros Industriales</SectionTitle>
               <div className="space-y-4">
-                {[
-                  { icon: <Wrench className="w-6 h-6 text-red-600" />,  title: "Herramientas",  desc: "Equipo especializado para operación" },
-                  { icon: <Settings className="w-6 h-6 text-red-600" />, title: "Refacciones",  desc: "Componentes originales para maquinaria" },
-                  { icon: <Factory className="w-6 h-6 text-red-600" />,  title: "Consumibles",  desc: "Materiales para uso diario en planta" },
-                ].map((s, i) => (
-                  <Card key={i} className="flex items-center gap-5 p-5" hover={false}>
-                    <div className="bg-red-50 p-3 rounded-xl shrink-0">{s.icon}</div>
+                {supplyItems.map((s, i) => (
+                  <button
+                    key={s.title}
+                    type="button"
+                    onClick={() => setActiveSupply(i)}
+                    className={`w-full bg-white flex items-center gap-5 p-5 rounded-xl border text-left transition-all hover:-translate-y-1 hover:shadow-md ${
+                      activeSupply === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
+                    }`}
+                  >
+                    <div className={`${s.bg} ${s.color} p-3 rounded-xl shrink-0`}>{s.icon}</div>
                     <div>
                       <h4 className="font-bold text-gray-900 uppercase mb-0.5">{s.title}</h4>
                       <p className="text-sm text-gray-500">{s.desc}</p>
                     </div>
-                  </Card>
+                  </button>
                 ))}
+              </div>
+              <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                <div className={`${activeSupplyItem.bg} min-h-56 flex items-center justify-center p-6`}>
+                  <img src={activeSupplyItem.image} alt={activeSupplyItem.title} className="max-h-48 max-w-full object-contain drop-shadow-md" />
+                </div>
+                <div className="p-6">
+                  <span className={`text-xs font-black uppercase tracking-widest ${activeSupplyItem.color}`}>Suministro tecnico</span>
+                  <h4 className="text-xl font-black text-gray-900 uppercase mt-2 mb-2">{activeSupplyItem.title}</h4>
+                  <p className="text-gray-600 leading-relaxed mb-4">{activeSupplyItem.desc}</p>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {activeSupplyItem.points.map((point) => (
+                      <div key={point} className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+                        <CheckCircle2 className={`w-4 h-4 ${activeSupplyItem.color} mb-2`} />
+                        <span className="text-[11px] font-black uppercase text-gray-800">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -663,17 +1149,20 @@ function Home() {
           <div className="grid md:grid-cols-4 gap-8 mt-14 relative">
             <div className="hidden md:block absolute top-7 left-[12%] right-[12%] h-0.5 bg-gray-700" />
             {[
-              { num: "1", title: "Diagnóstico",     desc: "Evaluación técnica y análisis de la situación." },
-              { num: "2", title: "Planeación",       desc: "Estrategia, cronograma y asignación de recursos." },
-              { num: "3", title: "Implementación",   desc: "Ejecución bajo estándares de seguridad y calidad." },
-              { num: "4", title: "Validación",       desc: "Pruebas, entrega formal y liberación del sistema." },
+              { num: "1", icon: <Target className="w-6 h-6" />, color: "text-blue-400", bg: "bg-blue-500/15", border: "border-blue-500/30", title: "Diagnóstico",     desc: "Evaluación técnica y análisis de la situación." },
+              { num: "2", icon: <FileText className="w-6 h-6" />, color: "text-amber-400", bg: "bg-amber-500/15", border: "border-amber-500/30", title: "Planeación",       desc: "Estrategia, cronograma y asignación de recursos." },
+              { num: "3", icon: <Wrench className="w-6 h-6" />, color: "text-red-400", bg: "bg-red-500/15", border: "border-red-500/30", title: "Implementación",   desc: "Ejecución bajo estándares de seguridad y calidad." },
+              { num: "4", icon: <CheckCircle2 className="w-6 h-6" />, color: "text-emerald-400", bg: "bg-emerald-500/15", border: "border-emerald-500/30", title: "Validación",       desc: "Pruebas, entrega formal y liberación del sistema." },
             ].map((p, i) => (
-              <FadeIn key={i} delay={i * 0.12} className="relative z-10 text-center">
-                <div className="w-14 h-14 rounded-full bg-red-600 text-white font-black text-xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-red-600/30">
-                  {p.num}
+              <FadeIn key={i} delay={i * 0.12} className="relative z-10">
+                <div className={`bg-white/5 border ${p.border} rounded-2xl p-6 h-full text-center hover:-translate-y-1 hover:bg-white/10 transition-all`}>
+                  <div className={`${p.bg} ${p.color} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 relative`}>
+                    {p.icon}
+                    <span className="absolute -top-2 -right-2 bg-gray-950 border border-white/10 text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">{p.num}</span>
+                  </div>
+                  <h4 className="text-white font-bold uppercase mb-2">{p.title}</h4>
+                  <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
                 </div>
-                <h4 className="text-white font-bold uppercase mb-2">{p.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
               </FadeIn>
             ))}
           </div>
@@ -683,20 +1172,57 @@ function Home() {
       {/* ── SEGURIDAD ── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="bg-red-600 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-            <AlertTriangle className="absolute -bottom-8 -right-8 w-48 h-48 text-white/5" />
+          <div className="bg-red-600 rounded-2xl p-6 md:p-10 relative overflow-hidden shadow-xl shadow-red-600/20">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(17,24,39,0.18),transparent_28%)]" />
+            <AlertTriangle className="absolute -bottom-8 -right-8 w-48 h-48 text-white/10" />
             <div className="relative z-10">
               <div className="text-center mb-8">
                 <span className="text-red-100 text-xs font-bold uppercase tracking-widest">Nuestra prioridad</span>
                 <h2 className="text-3xl font-black text-white uppercase mt-2">Comprometidos con la Seguridad</h2>
               </div>
-              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {["Seguridad Industrial", "Cumplimiento NOM", "Control de Riesgos", "Calidad Operativa"].map((s, i) => (
-                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-5 text-center">
-                    <Shield className="w-6 h-6 text-white mx-auto mb-2" />
-                    <span className="font-bold text-white text-sm">{s}</span>
-                  </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {safetyItems.map((s, i) => (
+                  <button
+                    key={s.label}
+                    type="button"
+                    onClick={() => setActiveSafety(i)}
+                    className={`group bg-white/95 rounded-xl p-5 text-center shadow-md border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                      activeSafety === i ? "ring-4 ring-white/60 border-white" : "border-white/40"
+                    }`}
+                  >
+                    <div className={`${s.bg} ${s.color} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 transition-transform duration-300 group-hover:scale-110`}>
+                      {s.icon}
+                    </div>
+                    <span className="font-black text-gray-900 text-sm uppercase">{s.label}</span>
+                  </button>
                 ))}
+              </div>
+              <div className="mt-6 bg-white rounded-2xl overflow-hidden shadow-lg grid lg:grid-cols-[1fr_1.15fr] border border-red-100">
+                <div className="relative min-h-56">
+                  <img
+                    src={activeSafetyItem.image}
+                    alt={activeSafetyItem.label}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/20 to-transparent" />
+                  <div className="absolute left-5 bottom-5 flex items-center gap-3">
+                    <div className={`${activeSafetyItem.bg} ${activeSafetyItem.color} w-12 h-12 rounded-xl flex items-center justify-center`}>
+                      {activeSafetyItem.icon}
+                    </div>
+                    <h3 className="text-white font-black uppercase text-lg">{activeSafetyItem.label}</h3>
+                  </div>
+                </div>
+                <div className="p-6 md:p-8 bg-gray-50">
+                  <p className="text-gray-600 leading-relaxed mb-5">{activeSafetyItem.summary}</p>
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    {activeSafetyItem.points.map((point) => (
+                      <div key={point} className={`bg-white rounded-xl p-4 border ${activeSafetyItem.ring} shadow-sm`}>
+                        <CheckCircle2 className={`w-5 h-5 ${activeSafetyItem.color} mb-2`} />
+                        <span className="text-xs font-black uppercase text-gray-800 leading-snug block">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -710,9 +1236,9 @@ function Home() {
           <SectionTitle>Proyectos Destacados</SectionTitle>
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {[
-              { title: "Mantenimiento Industrial", desc: "Optimización y recuperación de equipos.", img: "https://images.unsplash.com/photo-1581092918484-8313b6db8e8c?auto=format&fit=crop&w=1000&q=80" },
-              { title: "Obra Civil",               desc: "Infraestructura y mejoras operativas.",  img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" },
-              { title: "Moldeo por Inyección",     desc: "Servicio especializado para maquinaria.", img: "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1000&q=80" },
+              { title: "Mantenimiento Industrial", desc: "Optimización y recuperación de equipos.", img: "/proyectos/sgi-mantenimiento-rodamiento.jpg" },
+              { title: "Obra Civil",               desc: "Infraestructura y mejoras operativas.",  img: "/proyectos/sgi-obra-civil-panel.jpg" },
+              { title: "Moldeo por Inyección",     desc: "Servicio especializado para maquinaria.", img: "/proyectos/sgi-moldeo-detalle.jpg" },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
@@ -730,10 +1256,14 @@ function Home() {
           <h3 className="text-xl font-black text-gray-900 uppercase mt-20 mb-8">Galería de Trabajos</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=900&q=80",
-              "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80",
-              "https://images.unsplash.com/photo-1581092918484-8313b6db8e8c?auto=format&fit=crop&w=900&q=80",
-              "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=900&q=80",
+              "/proyectos/sgi-herreria-estructura.jpg",
+              "/proyectos/sgi-fabricacion-racks.jpg",
+              "/proyectos/sgi-scrubber-antes-despues.jpg",
+              "/proyectos/sgi-cortina-industrial.jpg",
+              "/proyectos/sgi-maquinado-molde.jpg",
+              "/proyectos/sgi-obra-civil-azotea.jpg",
+              "/proyectos/sgi-herreria-marcos.jpg",
+              "/proyectos/sgi-certificado-arburg.jpg",
             ].map((img, i) => (
               <img key={i} src={img} alt="Galeria" className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
