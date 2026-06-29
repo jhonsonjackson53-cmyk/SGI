@@ -141,6 +141,7 @@
   --chart-5: 220 14% 14%;
 
   --app-font-sans: 'Roboto', sans-serif;
+  --app-font-heading: 'Roboto Condensed', 'Roboto', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --radius: .5rem;
