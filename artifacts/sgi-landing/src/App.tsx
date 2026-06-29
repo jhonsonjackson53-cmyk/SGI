@@ -154,6 +154,7 @@ function Home() {
   const { count: satCount, nodeRef: satRef } = useCounter(98);
   const { count: respCount, nodeRef: respRef } = useCounter(2);
   const [addressCopied, setAddressCopied] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const SGI_ADDRESS = "Lago Azul #45, Jardín de la Montaña, Nogales, Sonora, México";
   const GOOGLE_MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=31.3236,-110.9340";
@@ -767,6 +768,108 @@ function Home() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12 max-w-3xl">
+          <div className="text-center mb-4">
+            <SectionLabel>Preguntas frecuentes</SectionLabel>
+          </div>
+          <SectionTitle center>Todo lo que necesitas saber</SectionTitle>
+          <div className="mt-10 space-y-3">
+            {[
+              {
+                q: "¿Están disponibles las 24 horas, los 7 días de la semana?",
+                a: "Sí. Contamos con atención y respuesta de emergencia 24/7 los 365 días del año. Entendemos que un paro de producción no espera horario de oficina — nuestro equipo técnico está disponible para atender cualquier urgencia industrial de forma inmediata."
+              },
+              {
+                q: "¿En qué zonas geográficas operan?",
+                a: "Nuestra base de operaciones es Nogales, Sonora, pero atendemos proyectos en toda la región fronteriza: Agua Prieta, Cananea, Santa Ana, Hermosillo y Arizona (EUA). Para proyectos de gran escala evaluamos disponibilidad en otras ciudades de Sonora."
+              },
+              {
+                q: "¿Ofrecen contratos de mantenimiento preventivo?",
+                a: "Sí. Diseñamos planes de mantenimiento preventivo a medida según el tipo de maquinaria, frecuencia de uso y criticidad del equipo. Esto reduce el costo de mantenimiento correctivo y aumenta significativamente la vida útil del equipo."
+              },
+              {
+                q: "¿Cuánto tiempo tardan en responder a una emergencia?",
+                a: "Nuestro tiempo de respuesta promedio es de menos de 2 horas para clientes en Nogales y alrededores. Para zonas fuera de la ciudad coordinamos el desplazamiento con la mayor rapidez posible. Siempre tenemos personal en standby."
+              },
+              {
+                q: "¿Trabajan con maquiladoras y empresas grandes?",
+                a: "Sí, es nuestro mercado principal. Tenemos experiencia trabajando en plantas maquiladoras, empresas Tier 1 y Tier 2 automotrices, electrónica de consumo, plásticos y construcción industrial. Nos adaptamos a los protocolos de seguridad y calidad de cada empresa."
+              },
+              {
+                q: "¿Cómo solicito una cotización?",
+                a: "Puedes usar el formulario de contacto en esta página, que enviará tu solicitud directamente por WhatsApp, o llamarnos directo al 631 318 5564. Respondemos con una propuesta en menos de 24 horas para trabajos planificados y de forma inmediata para emergencias."
+              },
+              {
+                q: "¿Qué pasa si necesito servicio de moldeo por inyección fuera de horario?",
+                a: "El servicio de moldeo y mantenimiento de inyectoras está incluido en nuestra cobertura 24/7. Si su inyectora falla en turno nocturno o fin de semana, llámenos y enviamos a un especialista. Manejamos marcas como ENGEL, ARBURG, HUSKY, MILACRON y más."
+              },
+            ].map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <FadeIn key={i} delay={i * 0.05}>
+                  <div
+                    className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-red-200 shadow-md shadow-red-50" : "border-gray-200 shadow-sm hover:border-gray-300"}`}
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 p-6 text-left group"
+                    >
+                      <span className={`font-bold text-base leading-snug transition-colors ${isOpen ? "text-red-600" : "text-gray-900 group-hover:text-red-600"}`}>
+                        {faq.q}
+                      </span>
+                      <motion.div
+                        animate={{ rotate: isOpen ? 45 : 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isOpen ? "bg-red-600 text-white" : "bg-gray-100 text-gray-500 group-hover:bg-red-50 group-hover:text-red-500"}`}
+                      >
+                        <ArrowRight className="w-4 h-4 rotate-[-90deg]" style={{ transform: "rotate(-45deg)" }} />
+                      </motion.div>
+                    </button>
+                    <motion.div
+                      initial={false}
+                      animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="px-6 pb-6">
+                        <div className="h-px bg-red-100 mb-4" />
+                        <p className="text-gray-600 leading-relaxed text-sm">{faq.a}</p>
+                        {i === 5 && (
+                          <button
+                            onClick={() => scrollTo("contacto")}
+                            className="mt-4 inline-flex items-center gap-2 text-red-600 font-bold text-sm hover:text-red-700 transition-colors"
+                          >
+                            Ir al formulario de contacto <ArrowRight className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+
+          {/* CTA bajo FAQ */}
+          <FadeIn delay={0.3}>
+            <div className="mt-10 text-center bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+              <p className="text-gray-600 mb-4">¿Tienes una pregunta que no está aquí?</p>
+              <a
+                href="https://wa.me/526313185564?text=Hola%2C%20tengo%20una%20pregunta%20sobre%20sus%20servicios"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-6 py-3 rounded-xl transition-colors text-sm uppercase tracking-wide"
+              >
+                <Phone className="w-4 h-4" />
+                Pregúntanos por WhatsApp
+              </a>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
