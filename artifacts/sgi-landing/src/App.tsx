@@ -9,7 +9,7 @@ import {
   Settings, Zap, Shield, Factory, CheckCircle2,
   Target, Lightbulb, Wrench, Thermometer, Hammer,
   HardHat, Wind, Power, PenTool, FileText, Beaker,
-  AlertTriangle, ArrowRight, Star
+  AlertTriangle, ArrowRight, Star, Navigation, Copy, Check
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -153,6 +153,19 @@ function Home() {
   const { count: proyCount, nodeRef: proyRef } = useCounter(300);
   const { count: satCount, nodeRef: satRef } = useCounter(98);
   const { count: respCount, nodeRef: respRef } = useCounter(2);
+  const [addressCopied, setAddressCopied] = useState(false);
+
+  const SGI_ADDRESS = "Lago Azul #45, Jardín de la Montaña, Nogales, Sonora, México";
+  const GOOGLE_MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=31.3236,-110.9340";
+  const WAZE_URL = "https://waze.com/ul?ll=31.3236,-110.9340&navigate=yes";
+  const APPLE_MAPS_URL = "https://maps.apple.com/?daddr=31.3236,-110.9340";
+
+  const copyAddress = () => {
+    navigator.clipboard.writeText(SGI_ADDRESS).then(() => {
+      setAddressCopied(true);
+      setTimeout(() => setAddressCopied(false), 2500);
+    });
+  };
 
   const navLinks = ["Inicio", "Nosotros", "Servicios", "Moldeo", "Proyectos", "Contacto"];
 
@@ -812,11 +825,81 @@ function Home() {
                   </li>
                 </ul>
               </Card>
-              <div className="h-60 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111287.0506316104!2d-111.00287135!3d31.30861615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86d6ade33f86eb83%3A0xc6ba221141ba59ec!2sNogales%2C%20Son.!5e0!3m2!1sen!2smx!4v1700000000000!5m2!1sen!2smx"
-                  width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-                />
+              {/* ── MAPA INTERACTIVO ── */}
+              <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+                {/* OpenStreetMap embed — sin API key, siempre funciona */}
+                <div className="relative h-56 overflow-hidden">
+                  <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-110.9490%2C31.3136%2C-110.9190%2C31.3336&layer=mapnik&marker=31.3236%2C-110.9340"
+                    width="100%" height="100%"
+                    style={{ border: 0, filter: "saturate(0.85) contrast(1.05)" }}
+                    loading="lazy"
+                    title="Ubicación SGI Nogales"
+                  />
+                  {/* Pin overlay animado */}
+                  <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                    <motion.div
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="drop-shadow-2xl"
+                    >
+                      <div className="bg-red-600 text-white rounded-full p-2 shadow-xl ring-4 ring-white">
+                        <MapPin className="w-5 h-5" />
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Dirección + botones de navegación */}
+                <div className="bg-white p-4 border-t border-gray-100">
+                  {/* Dirección con botón copiar */}
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="bg-blue-50 p-1.5 rounded-lg shrink-0 mt-0.5">
+                      <MapPin className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-gray-800 text-sm font-medium leading-snug">{SGI_ADDRESS}</p>
+                    </div>
+                    <button
+                      onClick={copyAddress}
+                      title="Copiar dirección"
+                      className={`shrink-0 p-1.5 rounded-lg transition-all ${addressCopied ? "bg-emerald-50 text-emerald-600" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
+                    >
+                      {addressCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </button>
+                  </div>
+
+                  {/* Botones de navegación */}
+                  <div className="grid grid-cols-3 gap-2">
+                    <a
+                      href={GOOGLE_MAPS_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-colors text-center group"
+                    >
+                      <Navigation className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-[10px] font-bold uppercase tracking-wide">Google</span>
+                    </a>
+                    <a
+                      href={WAZE_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white transition-colors text-center group"
+                    >
+                      <Navigation className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-[10px] font-bold uppercase tracking-wide">Waze</span>
+                    </a>
+                    <a
+                      href={APPLE_MAPS_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-gray-800 hover:bg-gray-900 text-white transition-colors text-center group"
+                    >
+                      <Navigation className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-[10px] font-bold uppercase tracking-wide">Apple</span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </FadeIn>
 
