@@ -4,18 +4,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, useInView } from "framer-motion";
-import { 
-  Menu, X, ChevronUp, MapPin, Phone, Mail, 
-  Settings, Zap, Shield, Factory, CheckCircle2, 
-  Target, Lightbulb, Wrench, Thermometer, Hammer, 
+import {
+  Menu, X, ChevronUp, MapPin, Phone, Mail,
+  Settings, Zap, Shield, Factory, CheckCircle2,
+  Target, Lightbulb, Wrench, Thermometer, Hammer,
   HardHat, Wind, Power, PenTool, FileText, Beaker,
-  AlertTriangle, ArrowRight
+  AlertTriangle, ArrowRight, Star
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { 
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage 
+import {
+  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,12 +25,10 @@ import { Button } from "@/components/ui/button";
 const logoSrc = "/logo-sgi.png";
 const queryClient = new QueryClient();
 
-// Number Counter Hook
 function useCounter(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
   const nodeRef = useRef(null);
   const inView = useInView(nodeRef, { once: true, margin: "-50px" });
-
   useEffect(() => {
     if (inView) {
       let startTime: number | null = null;
@@ -38,31 +36,29 @@ function useCounter(end: number, duration: number = 2000) {
         if (!startTime) startTime = timestamp;
         const progress = Math.min((timestamp - startTime) / duration, 1);
         setCount(Math.floor(progress * end));
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
+        if (progress < 1) window.requestAnimationFrame(step);
       };
       window.requestAnimationFrame(step);
     }
   }, [inView, end, duration]);
-
   return { count, nodeRef };
 }
 
-// Fade in component with direction support
-const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: { children: React.ReactNode, delay?: number, className?: string, direction?: "up" | "left" | "right" | "down" }) => {
+const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: {
+  children: React.ReactNode; delay?: number; className?: string; direction?: "up" | "left" | "right" | "down";
+}) => {
   const variants = {
-    up:    { hidden: { opacity: 0, y: 50 },  visible: { opacity: 1, y: 0 } },
-    down:  { hidden: { opacity: 0, y: -50 }, visible: { opacity: 1, y: 0 } },
-    left:  { hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0 } },
-    right: { hidden: { opacity: 0, x: 60 },  visible: { opacity: 1, x: 0 } },
+    up:    { hidden: { opacity: 0, y: 40 },  visible: { opacity: 1, y: 0 } },
+    down:  { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } },
+    left:  { hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0 } },
+    right: { hidden: { opacity: 0, x: 50 },  visible: { opacity: 1, x: 0 } },
   };
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
       variants={variants[direction]}
       className={className}
     >
@@ -71,29 +67,41 @@ const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: { chi
   );
 };
 
-const SectionTitle = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className="inline-block text-red-600 text-xs font-bold uppercase tracking-[0.3em] mb-3">
+    {children}
+  </span>
+);
+
+const SectionTitle = ({ children, light = false, center = false }: {
+  children: React.ReactNode; light?: boolean; center?: boolean;
+}) => (
   <motion.div
-    className={`mb-12 ${className}`}
-    initial={{ opacity: 0, y: 30 }}
+    className={`mb-10 ${center ? "text-center" : ""}`}
+    initial={{ opacity: 0, y: 25 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.55 }}
   >
-    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">{children}</h2>
+    <h2 className={`text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 ${light ? "text-white" : "text-gray-900"}`}>
+      {children}
+    </h2>
     <motion.div
-      className="h-1.5 w-32 bg-red-500 rounded-full mx-auto md:mx-0"
+      className={`h-1 w-14 bg-red-600 rounded-full ${center ? "mx-auto" : ""}`}
       initial={{ scaleX: 0, originX: 0 }}
       whileInView={{ scaleX: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.45, delay: 0.2 }}
     />
   </motion.div>
 );
 
-const GlassCard = ({ children, className = "", hover = true }: { children: React.ReactNode, className?: string, hover?: boolean }) => (
+const Card = ({ children, className = "", hover = true }: {
+  children: React.ReactNode; className?: string; hover?: boolean;
+}) => (
   <motion.div
-    className={`bg-gray-800/60 backdrop-blur-md border border-red-900/20 rounded-2xl p-6 md:p-8 ${hover ? 'card-hover-glow' : ''} ${className}`}
-    whileHover={hover ? { scale: 1.015 } : {}}
+    className={`bg-white border border-gray-200 rounded-2xl shadow-sm ${className}`}
+    whileHover={hover ? { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.1)" } : {}}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
     {children}
@@ -105,7 +113,7 @@ const contactSchema = z.object({
   email: z.string().email("Correo inválido"),
   phone: z.string().optional(),
   service: z.string().min(1, "Seleccione un servicio"),
-  message: z.string().min(10, "Mensaje muy corto")
+  message: z.string().min(10, "Mensaje muy corto"),
 });
 
 function Home() {
@@ -116,9 +124,7 @@ function Home() {
 
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: "", email: "", phone: "", service: "", message: ""
-    }
+    defaultValues: { name: "", email: "", phone: "", service: "", message: "" },
   });
 
   useEffect(() => {
@@ -132,16 +138,12 @@ function Home() {
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const onSubmit = (data: z.infer<typeof contactSchema>) => {
-    const text = `*NUEVA SOLICITUD SGI*\n\n👤 Nombre: ${data.name}\n📧 Correo: ${data.email}\n📱 Teléfono: ${data.phone || 'N/A'}\n🛠 Servicio: ${data.service}\n\n📝 Descripción:\n${data.message}`;
-    const url = `https://wa.me/526313185564?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+    const text = `*NUEVA SOLICITUD SGI*\n\n👤 Nombre: ${data.name}\n📧 Correo: ${data.email}\n📱 Teléfono: ${data.phone || "N/A"}\n🛠 Servicio: ${data.service}\n\n📝 Descripción:\n${data.message}`;
+    window.open(`https://wa.me/526313185564?text=${encodeURIComponent(text)}`, "_blank");
     setFormSuccess(true);
     form.reset();
     setTimeout(() => setFormSuccess(false), 5000);
@@ -150,28 +152,48 @@ function Home() {
   const { count: expCount, nodeRef: expRef } = useCounter(10);
   const { count: proyCount, nodeRef: proyRef } = useCounter(300);
   const { count: satCount, nodeRef: satRef } = useCounter(98);
-  const { count: respCount, nodeRef: respRef } = useCounter(24);
+  const { count: respCount, nodeRef: respRef } = useCounter(2);
+
+  const navLinks = ["Inicio", "Nosotros", "Servicios", "Moldeo", "Proyectos", "Contacto"];
 
   return (
-    <div className="min-h-screen text-gray-300 font-sans selection:bg-red-500/30 overflow-x-hidden">
-      
-      {/* 1. Navbar */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-red-900/20 py-4' : 'bg-transparent py-6'}`}>
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans overflow-x-hidden selection:bg-red-100">
+
+      {/* ── NAVBAR ── */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200 py-3"
+          : "bg-transparent py-5"
+      }`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <div className="flex items-center cursor-pointer" onClick={() => scrollTo('inicio')}>
-            <div className="bg-white/95 rounded-xl px-4 py-2">
-              <img src={logoSrc} alt="SGI Logo" className="h-14 w-auto" />
+          <button onClick={() => scrollTo("inicio")} className="flex items-center">
+            <div className={`rounded-xl px-3 py-1.5 transition-colors ${isScrolled ? "bg-gray-100" : "bg-white/90"}`}>
+              <img src={logoSrc} alt="SGI Logo" className="h-12 w-auto" />
             </div>
-          </div>
-          <div className="hidden lg:flex gap-8 items-center font-medium text-sm tracking-wide">
-            {['Inicio', 'Nosotros', 'Servicios', 'Moldeo', 'Proyectos', 'Contacto'].map(item => (
-              <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="hover:text-red-400 transition-colors uppercase tracking-widest">{item}</button>
+          </button>
+          <div className="hidden lg:flex gap-8 items-center text-sm font-semibold">
+            {navLinks.map(item => (
+              <button
+                key={item}
+                onClick={() => scrollTo(item.toLowerCase())}
+                className={`transition-colors uppercase tracking-widest text-xs ${
+                  isScrolled ? "text-gray-600 hover:text-red-600" : "text-white hover:text-red-300"
+                }`}
+              >
+                {item}
+              </button>
             ))}
-            <button onClick={() => scrollTo('contacto')} className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold transition-all uppercase text-xs tracking-wider">
+            <button
+              onClick={() => scrollTo("contacto")}
+              className="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg font-bold transition-colors text-xs tracking-wider"
+            >
               Cotizar
             </button>
           </div>
-          <button className="lg:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button
+            className={`lg:hidden ${isScrolled ? "text-gray-700" : "text-white"}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -179,575 +201,679 @@ function Home() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-gray-900/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 lg:hidden">
-          {['Inicio', 'Nosotros', 'Servicios', 'Moldeo', 'Proyectos', 'Contacto'].map(item => (
-            <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="text-2xl font-bold text-white text-left uppercase">{item}</button>
+        <div className="fixed inset-0 z-40 bg-white pt-24 px-8 flex flex-col gap-6 lg:hidden shadow-xl">
+          {navLinks.map(item => (
+            <button
+              key={item}
+              onClick={() => scrollTo(item.toLowerCase())}
+              className="text-xl font-bold text-gray-900 text-left uppercase tracking-widest border-b border-gray-100 pb-4 hover:text-red-600 transition-colors"
+            >
+              {item}
+            </button>
           ))}
+          <button
+            onClick={() => scrollTo("contacto")}
+            className="bg-red-600 text-white font-bold py-3 rounded-lg uppercase tracking-widest mt-2"
+          >
+            Cotizar ahora
+          </button>
         </div>
       )}
 
-      {/* 2. Hero */}
-      <section id="inicio" className="relative min-h-[100dvh] flex items-center pt-20">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center bg-fixed" />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-gray-900/85" />
-        {/* Floating animated orbs */}
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-red-600/10 rounded-full blur-3xl animate-float pointer-events-none" />
-        <div className="absolute bottom-1/3 right-1/3 w-48 h-48 bg-red-500/8 rounded-full blur-2xl animate-float-delay pointer-events-none" />
-        <div className="absolute top-1/2 left-1/4 w-56 h-56 bg-gray-400/5 rounded-full blur-3xl animate-float-slow pointer-events-none" />
-        
-        <div className="container relative mx-auto px-6 lg:px-12 z-10">
-          <FadeIn className="max-w-4xl">
-            <span className="inline-block py-1 px-3 border border-red-500/50 bg-red-500/10 rounded-full text-red-400 font-bold tracking-widest text-xs mb-6 backdrop-blur-sm">
-              SERVICIOS GENERALES DE INGENIERÍA
+      {/* ── HERO ── */}
+      <section id="inicio" className="relative min-h-[100dvh] flex items-center">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/92 via-gray-900/65 to-gray-900/80" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="container relative mx-auto px-6 lg:px-12 z-10 pt-24">
+          <FadeIn className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 py-1.5 px-4 border border-red-400/40 bg-red-600/10 rounded-full text-red-300 font-bold tracking-widest text-xs mb-8 backdrop-blur-sm">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+              NOGALES, SONORA · MÉXICO
             </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-6 uppercase">
+            <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] mb-6 uppercase">
               Soluciones <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-red-300 to-red-600">
-                Industriales
-              </span> <br />
-              De Alto Nivel
+              <span className="text-red-500">Industriales</span><br />
+              de Alto Nivel
             </h1>
-            <p className="text-lg md:text-2xl text-gray-300 mb-10 max-w-2xl font-light">
-              Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. 24/7 en Nogales, Sonora.
+            <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-xl font-light leading-relaxed">
+              Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. Disponibles 24/7.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button onClick={() => scrollTo('contacto')} className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest flex items-center gap-2 transition-transform hover:scale-105">
+              <button
+                onClick={() => scrollTo("contacto")}
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest flex items-center gap-2 transition-all hover:shadow-lg hover:shadow-red-600/30"
+              >
                 Solicitar Cotización <ArrowRight className="w-4 h-4" />
               </button>
-              <button onClick={() => scrollTo('servicios')} className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest transition-colors backdrop-blur-sm">
+              <button
+                onClick={() => scrollTo("servicios")}
+                className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-colors"
+              >
                 Nuestros Servicios
               </button>
             </div>
           </FadeIn>
         </div>
+        {/* Hero bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50 to-transparent" />
       </section>
 
-      {/* 3. Industry Strip */}
-      <section className="relative z-20 -mt-16 container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { name: "Manufactura", icon: <Factory className="w-6 h-6 text-red-500 mb-3" /> },
-            { name: "Mantenimiento", icon: <Wrench className="w-6 h-6 text-red-500 mb-3" /> },
-            { name: "Instalaciones", icon: <Zap className="w-6 h-6 text-red-500 mb-3" /> },
-            { name: "Seguridad", icon: <Shield className="w-6 h-6 text-red-500 mb-3" /> },
-          ].map((item, i) => (
-            <GlassCard key={i} className="text-center p-6 bg-gray-800/80" hover={false}>
-              <div className="flex justify-center">{item.icon}</div>
-              <h3 className="font-bold text-white uppercase text-sm">{item.name}</h3>
-            </GlassCard>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. Quienes Somos */}
-      <section id="nosotros" className="py-24 container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <FadeIn>
-            <SectionTitle>¿Quiénes Somos?</SectionTitle>
-            <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-              Fundada en 2021, SGI nace para dar soporte integral a la industria maquiladora en la frontera de Nogales. Nuestro enfoque es directo: resolver problemas complejos con ingeniería precisa para garantizar la continuidad operativa de su planta.
-            </p>
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-              No somos solo proveedores, somos aliados estratégicos en el piso de producción. Entendemos el costo del downtime y respondemos con la urgencia, capacidad técnica y profesionalismo que la industria pesada exige.
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div className="grid grid-cols-2 gap-4">
-              <GlassCard className="text-center">
-                <div className="text-4xl font-black text-white mb-2">2021</div>
-                <div className="text-sm text-red-400 font-bold uppercase">Inicio de operaciones</div>
-              </GlassCard>
-              <GlassCard className="text-center">
-                <div className="text-4xl font-black text-white mb-2">24/7</div>
-                <div className="text-sm text-red-400 font-bold uppercase">Soporte industrial</div>
-              </GlassCard>
-              <GlassCard className="text-center">
-                <div className="text-4xl font-black text-white mb-2">100%</div>
-                <div className="text-sm text-red-400 font-bold uppercase">Compromiso</div>
-              </GlassCard>
-              <GlassCard className="text-center">
-                <div className="text-4xl font-black text-white mb-2">SGI</div>
-                <div className="text-sm text-red-400 font-bold uppercase">Engineering Integral</div>
-              </GlassCard>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* 5. Nuestra Filosofia */}
-      <section className="py-12 container mx-auto px-6 lg:px-12">
-        <div className="grid md:grid-cols-2 gap-8">
-          <FadeIn>
-            <GlassCard className="h-full">
-              <Target className="w-10 h-10 text-red-500 mb-6" />
-              <h3 className="text-2xl font-black text-white mb-4 uppercase">Misión</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Proveer servicios integrales de ingeniería y mantenimiento con los más altos estándares de calidad, seguridad y eficiencia, garantizando la continuidad operativa y el crecimiento de nuestros clientes en el sector industrial.
-              </p>
-            </GlassCard>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <GlassCard className="h-full">
-              <Lightbulb className="w-10 h-10 text-red-500 mb-6" />
-              <h3 className="text-2xl font-black text-white mb-4 uppercase">Visión</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Consolidarnos como el referente principal en soluciones industriales en la región, reconocidos por nuestra innovación tecnológica, capacidad de respuesta y confiabilidad técnica inquebrantable en cada proyecto ejecutado.
-              </p>
-            </GlassCard>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* 6. Stats Counters */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-red-900/10" />
-        <div className="container relative mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-white uppercase">Resultados que generan Confianza</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center" ref={expRef}>
-              <div className="text-5xl md:text-7xl font-black text-white mb-2">{countTo(expCount)}+</div>
-              <div className="text-red-400 font-bold uppercase tracking-wide text-sm">Años Experiencia</div>
-            </div>
-            <div className="text-center" ref={proyRef}>
-              <div className="text-5xl md:text-7xl font-black text-white mb-2">{countTo(proyCount)}+</div>
-              <div className="text-red-400 font-bold uppercase tracking-wide text-sm">Proyectos</div>
-            </div>
-            <div className="text-center" ref={satRef}>
-              <div className="text-5xl md:text-7xl font-black text-white mb-2">{countTo(satCount)}%</div>
-              <div className="text-red-400 font-bold uppercase tracking-wide text-sm">Satisfacción</div>
-            </div>
-            <div className="text-center" ref={respRef}>
-              <div className="text-5xl md:text-7xl font-black text-white mb-2">{countTo(respCount)}h</div>
-              <div className="text-red-400 font-bold uppercase tracking-wide text-sm">Respuesta</div>
-            </div>
+      {/* ── QUICK ICONS STRIP ── */}
+      <section className="relative z-10 bg-white border-b border-gray-200 shadow-sm">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
+            {[
+              { name: "Manufactura", icon: <Factory className="w-7 h-7 text-red-600" /> },
+              { name: "Mantenimiento", icon: <Wrench className="w-7 h-7 text-red-600" /> },
+              { name: "Instalaciones", icon: <Zap className="w-7 h-7 text-red-600" /> },
+              { name: "Seguridad", icon: <Shield className="w-7 h-7 text-red-600" /> },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4 py-6 px-8 group cursor-default">
+                <div className="bg-red-50 p-3 rounded-xl group-hover:bg-red-100 transition-colors">{item.icon}</div>
+                <span className="font-bold text-gray-800 uppercase text-sm tracking-wide">{item.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 7. Experiencia Tecnica */}
-      <section className="py-24 container mx-auto px-6 lg:px-12">
-        <FadeIn>
-          <SectionTitle className="text-center md:text-left">Experiencia Técnica</SectionTitle>
-        </FadeIn>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            { title: "Moldeo por Inyección", desc: "Mantenimiento, instalación y soporte a maquinaria de inyección." },
-            { title: "Scrubbers", desc: "Operación, mantenimiento y optimización de sistemas ambientales." },
-            { title: "Manejo de Químicos", desc: "Procedimientos industriales bajo prácticas seguras." },
-            { title: "Espacios Confinados", desc: "Intervenciones seguras bajo estrictos protocolos industriales." },
-            { title: "Equipos Auxiliares", desc: "Diagnóstico y mantenimiento especializado." },
-            { title: "Automatización", desc: "Sensores, control industrial y sistemas de producción." }
-          ].map((item, i) => (
-            <FadeIn key={i} delay={i * 0.1}>
-              <GlassCard className="h-full border-l-4 border-l-red-500">
-                <h4 className="text-xl font-bold text-white mb-3">{item.title}</h4>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-              </GlassCard>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. Especialistas en Moldeo */}
-      <section id="inyeccion" className="py-24 bg-gray-800/50">
+      {/* ── QUIÉNES SOMOS ── */}
+      <section id="nosotros" className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <FadeIn>
-              <div className="relative">
-                <div className="absolute inset-0 bg-red-500/20 translate-x-4 translate-y-4 rounded-3xl" />
-                <img 
-                  src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Moldeo por Inyección" 
-                  className="relative z-10 rounded-3xl border border-red-500/30 w-full object-cover aspect-[4/3] shadow-2xl"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <SectionTitle>Especialistas en Moldeo por Inyección</SectionTitle>
-              <p className="text-lg text-gray-300 mb-8">
-                Dominamos la tecnología detrás de las inyectoras más robustas de la industria. Reducimos el downtime y maximizamos la vida útil de su maquinaria.
+            <FadeIn direction="left">
+              <SectionLabel>Nuestra empresa</SectionLabel>
+              <SectionTitle>¿Quiénes Somos?</SectionTitle>
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                Fundada en 2021, SGI nace para dar soporte integral a la industria maquiladora en la frontera de Nogales. Nuestro enfoque es directo: resolver problemas complejos con ingeniería precisa para garantizar la continuidad operativa de su planta.
               </p>
-              <div className="space-y-4">
-                <GlassCard hover={false} className="p-5">
-                  <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Mantenimiento Preventivo</h4>
-                  <p className="text-sm text-gray-400 pl-7">Programas de inspección y conservación para reducir paros no programados.</p>
-                </GlassCard>
-                <GlassCard hover={false} className="p-5">
-                  <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Mantenimiento Correctivo</h4>
-                  <p className="text-sm text-gray-400 pl-7">Diagnóstico y reparación especializada para restaurar la operación inmediata.</p>
-                </GlassCard>
-                <GlassCard hover={false} className="p-5">
-                  <h4 className="text-white font-bold mb-1 flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-red-500" /> Optimización de Procesos</h4>
-                  <p className="text-sm text-gray-400 pl-7">Mejora de desempeño, eficiencia y confiabilidad del equipo.</p>
-                </GlassCard>
-              </div>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                No somos solo proveedores, somos aliados estratégicos en el piso de producción. Entendemos el costo del downtime y respondemos con la urgencia, capacidad técnica y profesionalismo que la industria pesada exige.
+              </p>
+              <button
+                onClick={() => scrollTo("contacto")}
+                className="bg-red-600 hover:bg-red-700 text-white px-7 py-3 rounded-lg font-bold text-sm uppercase tracking-widest transition-colors inline-flex items-center gap-2"
+              >
+                Hablar con un especialista <ArrowRight className="w-4 h-4" />
+              </button>
             </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Marcas y Tecnologias */}
-      <section className="py-20 container mx-auto px-6 lg:px-12">
-        <h3 className="text-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-10">Marcas y Tecnologías Relacionadas</h3>
-        <div className="flex flex-wrap justify-center gap-4">
-          {[
-            { name: "ENGEL", color: "hover:text-orange-500 hover:border-orange-500/50" },
-            { name: "ARBURG", color: "hover:text-yellow-500 hover:border-yellow-500/50" },
-            { name: "HUSKY", color: "hover:text-blue-500 hover:border-blue-500/50" },
-            { name: "KEYENCE", color: "hover:text-sky-400 hover:border-sky-400/50" },
-            { name: "BALLUFF", color: "hover:text-cyan-400 hover:border-cyan-400/50" },
-            { name: "EATON", color: "hover:text-indigo-400 hover:border-indigo-400/50" },
-            { name: "3M", color: "hover:text-red-500 hover:border-red-500/50" },
-            { name: "MILWAUKEE", color: "hover:text-red-600 hover:border-red-600/50" },
-            { name: "MAKITA", color: "hover:text-teal-400 hover:border-teal-400/50" },
-            { name: "HILTI", color: "hover:text-red-600 hover:border-red-600/50" }
-          ].map((brand, i) => (
-            <div key={i} className={`bg-gray-800/60 border border-gray-700 rounded-lg px-6 py-3 font-black text-xl text-gray-500 transition-all duration-300 cursor-default ${brand.color}`}>
-              {brand.name}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 10 & 11. Ingenieria / Suministros */}
-      <section className="py-24 bg-gray-800/30">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16">
-            
-            {/* Ingenieria y Desarrollo */}
-            <div>
-              <SectionTitle>Ingeniería y Desarrollo</SectionTitle>
+            <FadeIn delay={0.2} direction="right">
               <div className="grid grid-cols-2 gap-4">
-                <GlassCard className="p-5 text-center">
-                  <PenTool className="w-8 h-8 text-red-500 mx-auto mb-3" />
-                  <h4 className="font-bold text-white uppercase mb-1">Diseño</h4>
-                </GlassCard>
-                <GlassCard className="p-5 text-center">
-                  <FileText className="w-8 h-8 text-red-500 mx-auto mb-3" />
-                  <h4 className="font-bold text-white uppercase mb-1">Propuesta</h4>
-                </GlassCard>
-                <GlassCard className="p-5 text-center">
-                  <Beaker className="w-8 h-8 text-red-500 mx-auto mb-3" />
-                  <h4 className="font-bold text-white uppercase mb-1">Prototipos</h4>
-                </GlassCard>
-                <GlassCard className="p-5 text-center">
-                  <CheckCircle2 className="w-8 h-8 text-red-500 mx-auto mb-3" />
-                  <h4 className="font-bold text-white uppercase mb-1">Pruebas</h4>
-                </GlassCard>
+                {[
+                  { val: "2021", label: "Inicio de operaciones" },
+                  { val: "24/7", label: "Soporte disponible" },
+                  { val: "100%", label: "Compromiso" },
+                  { val: "SGI", label: "Ingeniería Integral" },
+                ].map((s, i) => (
+                  <Card key={i} className="p-8 text-center" hover={false}>
+                    <div className="text-4xl font-black text-gray-900 mb-2">{s.val}</div>
+                    <div className="text-xs text-red-600 font-bold uppercase tracking-wide">{s.label}</div>
+                  </Card>
+                ))}
               </div>
-            </div>
-
-            {/* Suministros */}
-            <div>
-              <SectionTitle>Suministros Industriales</SectionTitle>
-              <div className="space-y-4">
-                <GlassCard className="flex items-center gap-6 p-5">
-                  <div className="bg-red-500/10 p-4 rounded-xl"><Wrench className="w-6 h-6 text-red-500" /></div>
-                  <div>
-                    <h4 className="font-bold text-white uppercase mb-1">Herramientas</h4>
-                    <p className="text-sm text-gray-400">Equipo especializado para operación</p>
-                  </div>
-                </GlassCard>
-                <GlassCard className="flex items-center gap-6 p-5">
-                  <div className="bg-red-500/10 p-4 rounded-xl"><Settings className="w-6 h-6 text-red-500" /></div>
-                  <div>
-                    <h4 className="font-bold text-white uppercase mb-1">Refacciones</h4>
-                    <p className="text-sm text-gray-400">Componentes originales para maquinaria</p>
-                  </div>
-                </GlassCard>
-                <GlassCard className="flex items-center gap-6 p-5">
-                  <div className="bg-red-500/10 p-4 rounded-xl"><Factory className="w-6 h-6 text-red-500" /></div>
-                  <div>
-                    <h4 className="font-bold text-white uppercase mb-1">Consumibles</h4>
-                    <p className="text-sm text-gray-400">Materiales para uso diario en planta</p>
-                  </div>
-                </GlassCard>
-              </div>
-            </div>
-
+            </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* 12. Nuestros Servicios */}
-      <section id="servicios" className="py-24 container mx-auto px-6 lg:px-12">
-        <SectionTitle className="text-center mx-auto flex flex-col items-center">Nuestros Servicios Principales</SectionTitle>
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-16">
-          {[
-            { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo." },
-            { icon: <Wind />, title: "HVAC", desc: "Instalación y mantenimiento de climatización industrial." },
-            { icon: <Hammer />, title: "Herrería Industrial", desc: "Fabricación y reparación de estructuras metálicas." },
-            { icon: <HardHat />, title: "Obra Civil", desc: "Construcción, remodelación y mantenimiento de naves." },
-            { icon: <Thermometer />, title: "Scrubbers", desc: "Mantenimiento y optimización de sistemas ambientales." },
-            { icon: <Power />, title: "Instalaciones", desc: "Sistemas eléctricos, mecánicos y servicios generales." }
-          ].map((s, i) => (
-            <FadeIn key={i} delay={i * 0.1}>
-              <GlassCard className="h-full relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                  {React.cloneElement(s.icon as React.ReactElement, { className: "w-24 h-24 text-red-500" })}
+      {/* ── MISIÓN / VISIÓN ── */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeIn direction="left">
+              <Card className="p-8 h-full border-t-4 border-t-red-600">
+                <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="w-6 h-6 text-red-600" />
                 </div>
-                <div className="relative z-10">
-                  <div className="bg-red-500 w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-white shadow-lg shadow-red-500/30">
-                    {s.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-white uppercase mb-3">{s.title}</h3>
-                  <p className="text-gray-400">{s.desc}</p>
-                </div>
-              </GlassCard>
+                <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Misión</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Proveer servicios integrales de ingeniería y mantenimiento con los más altos estándares de calidad, seguridad y eficiencia, garantizando la continuidad operativa y el crecimiento de nuestros clientes en el sector industrial.
+                </p>
+              </Card>
             </FadeIn>
-          ))}
+            <FadeIn delay={0.15} direction="right">
+              <Card className="p-8 h-full border-t-4 border-t-red-600">
+                <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Lightbulb className="w-6 h-6 text-red-600" />
+                </div>
+                <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Visión</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Consolidarnos como el referente principal en soluciones industriales en la región, reconocidos por nuestra innovación tecnológica, capacidad de respuesta y confiabilidad técnica inquebrantable en cada proyecto ejecutado.
+                </p>
+              </Card>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
-      {/* 13. Nuestro Proceso */}
-      <section className="py-24 bg-gray-800/60 border-y border-gray-700">
+      {/* ── STATS COUNTERS ── */}
+      <section className="py-20 bg-red-600">
         <div className="container mx-auto px-6 lg:px-12">
-          <SectionTitle className="text-center mx-auto flex flex-col items-center">Nuestro Proceso Operativo</SectionTitle>
-          <div className="grid md:grid-cols-4 gap-8 mt-16 relative">
-            <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-gray-700" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
+            <div ref={expRef}>
+              <div className="text-5xl md:text-6xl font-black mb-2">{expCount}+</div>
+              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Años Experiencia</div>
+            </div>
+            <div ref={proyRef}>
+              <div className="text-5xl md:text-6xl font-black mb-2">{proyCount}+</div>
+              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Proyectos</div>
+            </div>
+            <div ref={satRef}>
+              <div className="text-5xl md:text-6xl font-black mb-2">{satCount}%</div>
+              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Satisfacción</div>
+            </div>
+            <div ref={respRef}>
+              <div className="text-5xl md:text-6xl font-black mb-2">{respCount}h</div>
+              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Tiempo de Respuesta</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── NUESTROS SERVICIOS ── */}
+      <section id="servicios" className="py-24 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-4">
+            <SectionLabel>Lo que hacemos</SectionLabel>
+          </div>
+          <SectionTitle center>Nuestros Servicios Principales</SectionTitle>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-12">
             {[
-              { num: "1", title: "Diagnóstico", desc: "Evaluación técnica y análisis." },
-              { num: "2", title: "Planeación", desc: "Estrategia y cronograma." },
-              { num: "3", title: "Implementación", desc: "Ejecución bajo estándares." },
-              { num: "4", title: "Validación", desc: "Pruebas y liberación final." }
-            ].map((p, i) => (
-              <FadeIn key={i} delay={i * 0.1} className="relative z-10 text-center">
-                <div className="w-16 h-16 rounded-full bg-gray-800 border-4 border-red-500 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
-                  {p.num}
-                </div>
-                <h4 className="text-white font-bold uppercase mb-2">{p.title}</h4>
-                <p className="text-gray-400 text-sm">{p.desc}</p>
+              { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo. Reducimos paros no programados y optimizamos el desempeño de equipos." },
+              { icon: <Wind />, title: "HVAC", desc: "Diseño, instalación y mantenimiento de sistemas de climatización industrial de alta capacidad." },
+              { icon: <Hammer />, title: "Herrería Industrial", desc: "Fabricación y reparación de estructuras metálicas, soportes, plataformas y más." },
+              { icon: <HardHat />, title: "Obra Civil", desc: "Construcción, remodelación y mantenimiento de naves industriales y oficinas." },
+              { icon: <Thermometer />, title: "Scrubbers", desc: "Mantenimiento y optimización de sistemas ambientales y de tratamiento de gases." },
+              { icon: <Power />, title: "Instalaciones", desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta." },
+            ].map((s, i) => (
+              <FadeIn key={i} delay={i * 0.08}>
+                <Card className="p-8 h-full group">
+                  <div className="bg-red-50 group-hover:bg-red-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors">
+                    {React.cloneElement(s.icon as React.ReactElement, { className: "w-6 h-6 text-red-600" })}
+                  </div>
+                  <h3 className="text-lg font-black text-gray-900 uppercase mb-3">{s.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                </Card>
               </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 14. Seguridad */}
-      <section className="py-20 container mx-auto px-6 lg:px-12">
-        <div className="bg-red-900/10 border border-red-900/30 rounded-3xl p-8 md:p-12 relative overflow-hidden">
-          <AlertTriangle className="absolute -bottom-10 -right-10 w-64 h-64 text-red-500/5" />
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-black text-white uppercase mb-10 text-center">Comprometidos con la Seguridad</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {['Seguridad Industrial', 'Cumplimiento NOM', 'Control de Riesgos', 'Calidad Operativa'].map((s, i) => (
-                <div key={i} className="bg-gray-800/80 border border-gray-600/50 rounded-xl p-4 text-center font-bold text-white">
-                  <Shield className="w-6 h-6 text-red-500 mx-auto mb-2" />
-                  {s}
+      {/* ── ESPECIALISTAS EN MOLDEO ── */}
+      <section id="moldeo" className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeIn direction="left">
+              <div className="relative">
+                <div className="absolute inset-0 bg-red-600/10 translate-x-3 translate-y-3 rounded-2xl" />
+                <img
+                  src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80"
+                  alt="Moldeo por Inyección"
+                  className="relative z-10 rounded-2xl border border-gray-200 w-full object-cover aspect-[4/3] shadow-lg"
+                />
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.2} direction="right">
+              <SectionLabel>Especialidad</SectionLabel>
+              <SectionTitle>Especialistas en Moldeo por Inyección</SectionTitle>
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                Dominamos la tecnología detrás de las inyectoras más robustas de la industria. Reducimos el downtime y maximizamos la vida útil de su maquinaria.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { title: "Mantenimiento Preventivo", desc: "Programas de inspección y conservación para reducir paros no programados." },
+                  { title: "Mantenimiento Correctivo", desc: "Diagnóstico y reparación especializada para restaurar la operación inmediata." },
+                  { title: "Optimización de Procesos", desc: "Mejora de desempeño, eficiencia y confiabilidad del equipo." },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 bg-white border border-gray-100 rounded-xl p-4 shadow-sm">
+                    <CheckCircle2 className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-0.5">{item.title}</h4>
+                      <p className="text-sm text-gray-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MARCAS DE EQUIPOS ── */}
+      <section className="py-20 bg-white border-y border-gray-100">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <SectionLabel>Equipos que manejamos</SectionLabel>
+            <h3 className="text-2xl font-black text-gray-900 uppercase">Marcas y Tecnologías</h3>
+          </div>
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+            {[
+              { name: "ENGEL",     color: "#ff6600", bg: "#fff4ee" },
+              { name: "ARBURG",    color: "#c8a000", bg: "#fffbee" },
+              { name: "HUSKY",     color: "#005bac", bg: "#eef4ff" },
+              { name: "KEYENCE",   color: "#c00000", bg: "#fff0f0" },
+              { name: "EATON",     color: "#006db7", bg: "#eef5ff" },
+              { name: "3M",        color: "#e31837", bg: "#fff0f2" },
+              { name: "HILTI",     color: "#e20020", bg: "#fff0f2" },
+              { name: "MAKITA",    color: "#007dbf", bg: "#eef6ff" },
+              { name: "MILWAUKEE", color: "#c00000", bg: "#fff0f0" },
+              { name: "BALLUFF",   color: "#00468b", bg: "#eef3ff" },
+            ].map((brand, i) => (
+              <FadeIn key={i} delay={i * 0.04}>
+                <div
+                  className="border border-gray-200 rounded-xl p-5 flex flex-col items-center justify-center gap-2 hover:border-red-200 transition-all cursor-default group min-h-[90px]"
+                  style={{ backgroundColor: "#fff" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = brand.bg; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = "#fff"; }}
+                >
+                  <span
+                    className="font-black text-lg tracking-tight transition-colors"
+                    style={{ color: "#9ca3af" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLSpanElement).style.color = brand.color; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLSpanElement).style.color = "#9ca3af"; }}
+                  >
+                    {brand.name}
+                  </span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-widest">Equipo</span>
                 </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CLIENTES / EMPRESAS ── */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <SectionLabel>Empresas que confían en nosotros</SectionLabel>
+            <h3 className="text-2xl font-black text-gray-900 uppercase">Clientes y Sectores</h3>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { name: "Maquiladoras",      icon: <Factory className="w-8 h-8" />,    desc: "Plantas de manufactura" },
+              { name: "Automotriz",        icon: <Settings className="w-8 h-8" />,   desc: "Tier 1 y Tier 2" },
+              { name: "Electrónica",       icon: <Zap className="w-8 h-8" />,        desc: "Ensamble y producción" },
+              { name: "Plásticos",         icon: <Beaker className="w-8 h-8" />,     desc: "Moldeo e inyección" },
+              { name: "Construcción",      icon: <HardHat className="w-8 h-8" />,    desc: "Obra civil y remodelación" },
+              { name: "Alimentos",         icon: <CheckCircle2 className="w-8 h-8" />, desc: "Procesamiento y empaque" },
+              { name: "Logística",         icon: <ArrowRight className="w-8 h-8" />, desc: "Almacenes y distribución" },
+              { name: "Hospitalario",      icon: <Shield className="w-8 h-8" />,     desc: "Equipos médicos" },
+            ].map((c, i) => (
+              <FadeIn key={i} delay={i * 0.05}>
+                <Card className="p-6 text-center" hover={false}>
+                  <div className="text-red-600 flex justify-center mb-3">{c.icon}</div>
+                  <h4 className="font-black text-gray-900 uppercase text-sm mb-1">{c.name}</h4>
+                  <p className="text-gray-500 text-xs">{c.desc}</p>
+                </Card>
+              </FadeIn>
+            ))}
+          </div>
+          {/* Partner logos row */}
+          <div className="mt-12 pt-10 border-t border-gray-200">
+            <p className="text-center text-xs text-gray-400 uppercase tracking-widest mb-8">Proveedores y socios estratégicos</p>
+            <div className="flex flex-wrap justify-center items-center gap-6">
+              {[
+                { name: "GRAINGER",  color: "#cc0000" },
+                { name: "FASTENAL",  color: "#0052a5" },
+                { name: "ABB",       color: "#ff000f" },
+                { name: "SONEPAR",   color: "#003da5" },
+                { name: "MCMASTER",  color: "#cc5500" },
+              ].map((p, i) => (
+                <span key={i} className="text-gray-300 hover:text-gray-500 font-black text-lg tracking-tight transition-colors cursor-default" style={{ letterSpacing: "-0.02em" }}>
+                  {p.name}
+                </span>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 16 & 17. Proyectos y Galeria */}
-      <section id="proyectos" className="py-24 bg-gray-900/40">
+      {/* ── EXPERIENCIA TÉCNICA ── */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
+          <SectionLabel>Capacidades</SectionLabel>
+          <SectionTitle>Experiencia Técnica</SectionTitle>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+            {[
+              { title: "Moldeo por Inyección",   desc: "Mantenimiento, instalación y soporte a maquinaria de inyección." },
+              { title: "Scrubbers",              desc: "Operación, mantenimiento y optimización de sistemas ambientales." },
+              { title: "Manejo de Químicos",     desc: "Procedimientos industriales bajo prácticas seguras." },
+              { title: "Espacios Confinados",    desc: "Intervenciones seguras bajo estrictos protocolos industriales." },
+              { title: "Equipos Auxiliares",     desc: "Diagnóstico y mantenimiento especializado." },
+              { title: "Automatización",         desc: "Sensores, control industrial y sistemas de producción." },
+            ].map((item, i) => (
+              <FadeIn key={i} delay={i * 0.08}>
+                <Card className="p-6 h-full border-l-4 border-l-red-600 rounded-l-none">
+                  <h4 className="font-black text-gray-900 mb-2 uppercase">{item.title}</h4>
+                  <p className="text-gray-500 text-sm">{item.desc}</p>
+                </Card>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── INGENIERÍA / SUMINISTROS ── */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <div>
+              <SectionLabel>Desarrollo</SectionLabel>
+              <SectionTitle>Ingeniería y Desarrollo</SectionTitle>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: <PenTool className="w-7 h-7 text-red-600" />,      label: "Diseño" },
+                  { icon: <FileText className="w-7 h-7 text-red-600" />,     label: "Propuesta" },
+                  { icon: <Beaker className="w-7 h-7 text-red-600" />,       label: "Prototipos" },
+                  { icon: <CheckCircle2 className="w-7 h-7 text-red-600" />, label: "Pruebas" },
+                ].map((s, i) => (
+                  <Card key={i} className="p-6 text-center" hover={false}>
+                    <div className="flex justify-center mb-3">{s.icon}</div>
+                    <h4 className="font-bold text-gray-900 uppercase text-sm">{s.label}</h4>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            <div>
+              <SectionLabel>Abastecimiento</SectionLabel>
+              <SectionTitle>Suministros Industriales</SectionTitle>
+              <div className="space-y-4">
+                {[
+                  { icon: <Wrench className="w-6 h-6 text-red-600" />,  title: "Herramientas",  desc: "Equipo especializado para operación" },
+                  { icon: <Settings className="w-6 h-6 text-red-600" />, title: "Refacciones",  desc: "Componentes originales para maquinaria" },
+                  { icon: <Factory className="w-6 h-6 text-red-600" />,  title: "Consumibles",  desc: "Materiales para uso diario en planta" },
+                ].map((s, i) => (
+                  <Card key={i} className="flex items-center gap-5 p-5" hover={false}>
+                    <div className="bg-red-50 p-3 rounded-xl shrink-0">{s.icon}</div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 uppercase mb-0.5">{s.title}</h4>
+                      <p className="text-sm text-gray-500">{s.desc}</p>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROCESO OPERATIVO ── */}
+      <section className="py-24 bg-gray-900">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-4">
+            <SectionLabel>Metodología</SectionLabel>
+          </div>
+          <SectionTitle center light>Nuestro Proceso Operativo</SectionTitle>
+          <div className="grid md:grid-cols-4 gap-8 mt-14 relative">
+            <div className="hidden md:block absolute top-7 left-[12%] right-[12%] h-0.5 bg-gray-700" />
+            {[
+              { num: "1", title: "Diagnóstico",     desc: "Evaluación técnica y análisis de la situación." },
+              { num: "2", title: "Planeación",       desc: "Estrategia, cronograma y asignación de recursos." },
+              { num: "3", title: "Implementación",   desc: "Ejecución bajo estándares de seguridad y calidad." },
+              { num: "4", title: "Validación",       desc: "Pruebas, entrega formal y liberación del sistema." },
+            ].map((p, i) => (
+              <FadeIn key={i} delay={i * 0.12} className="relative z-10 text-center">
+                <div className="w-14 h-14 rounded-full bg-red-600 text-white font-black text-xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-red-600/30">
+                  {p.num}
+                </div>
+                <h4 className="text-white font-bold uppercase mb-2">{p.title}</h4>
+                <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SEGURIDAD ── */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="bg-red-600 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            <AlertTriangle className="absolute -bottom-8 -right-8 w-48 h-48 text-white/5" />
+            <div className="relative z-10">
+              <div className="text-center mb-8">
+                <span className="text-red-100 text-xs font-bold uppercase tracking-widest">Nuestra prioridad</span>
+                <h2 className="text-3xl font-black text-white uppercase mt-2">Comprometidos con la Seguridad</h2>
+              </div>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {["Seguridad Industrial", "Cumplimiento NOM", "Control de Riesgos", "Calidad Operativa"].map((s, i) => (
+                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-5 text-center">
+                    <Shield className="w-6 h-6 text-white mx-auto mb-2" />
+                    <span className="font-bold text-white text-sm">{s}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROYECTOS ── */}
+      <section id="proyectos" className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <SectionLabel>Portafolio</SectionLabel>
           <SectionTitle>Proyectos Destacados</SectionTitle>
-          <div className="grid lg:grid-cols-3 gap-8 mb-24">
+          <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {[
               { title: "Mantenimiento Industrial", desc: "Optimización y recuperación de equipos.", img: "https://images.unsplash.com/photo-1581092918484-8313b6db8e8c?auto=format&fit=crop&w=1000&q=80" },
-              { title: "Obra Civil", desc: "Infraestructura y mejoras operativas.", img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" },
-              { title: "Moldeo por Inyección", desc: "Servicio especializado para maquinaria.", img: "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1000&q=80" }
+              { title: "Obra Civil",               desc: "Infraestructura y mejoras operativas.",  img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80" },
+              { title: "Moldeo por Inyección",     desc: "Servicio especializado para maquinaria.", img: "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1000&q=80" },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group rounded-2xl overflow-hidden relative cursor-pointer">
+                <div className="group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white uppercase mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform">{p.title}</h3>
-                    <p className="text-red-300 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity delay-100 transform translate-y-4 group-hover:translate-y-0">{p.desc}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent flex flex-col justify-end p-6">
+                    <h3 className="text-lg font-black text-white uppercase mb-1">{p.title}</h3>
+                    <p className="text-red-200 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{p.desc}</p>
                   </div>
                 </div>
               </FadeIn>
             ))}
           </div>
-
-          <h3 className="text-2xl font-black text-white uppercase mb-8">Galería de Trabajos</h3>
+          <h3 className="text-xl font-black text-gray-900 uppercase mt-20 mb-8">Galería de Trabajos</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=900&q=80",
               "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80",
               "https://images.unsplash.com/photo-1581092918484-8313b6db8e8c?auto=format&fit=crop&w=900&q=80",
-              "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=900&q=80"
+              "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=900&q=80",
             ].map((img, i) => (
-              <img key={i} src={img} alt="Galeria" className="w-full aspect-square object-cover rounded-3xl border border-transparent hover:border-red-500 hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer" />
+              <img key={i} src={img} alt="Galeria" className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* 18. Opiniones */}
-      <section className="py-24 container mx-auto px-6 lg:px-12">
-        <SectionTitle className="text-center mx-auto flex flex-col items-center">Opiniones de Clientes</SectionTitle>
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-          {[
-            { text: "Excelente capacidad técnica y rápida respuesta operativa.", author: "Supervisor de Producción" },
-            { text: "Gran apoyo en mantenimiento especializado y mejora de procesos.", author: "Gerencia Industrial" },
-            { text: "Profesionalismo, calidad y cumplimiento de objetivos.", author: "Jefe de Planta" }
-          ].map((o, i) => (
-             <FadeIn key={i} delay={i * 0.1}>
-               <GlassCard className="h-full">
-                 <div className="text-yellow-500 tracking-widest text-lg mb-4">★★★★★</div>
-                 <p className="text-white font-medium text-lg italic mb-6">"{o.text}"</p>
-                 <p className="text-red-400 font-bold text-sm uppercase">— {o.author}</p>
-               </GlassCard>
-             </FadeIn>
-          ))}
+      {/* ── TESTIMONIALES ── */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-4">
+            <SectionLabel>Lo que dicen nuestros clientes</SectionLabel>
+          </div>
+          <SectionTitle center>Opiniones de Clientes</SectionTitle>
+          <div className="grid md:grid-cols-3 gap-6 mt-10">
+            {[
+              { text: "Excelente capacidad técnica y rápida respuesta operativa. En menos de 2 horas tenían un técnico en planta.", author: "Supervisor de Producción", company: "Planta Maquiladora" },
+              { text: "Gran apoyo en mantenimiento especializado y mejora de procesos. Redujeron nuestro downtime en un 40%.", author: "Gerencia Industrial", company: "Empresa Automotriz" },
+              { text: "Profesionalismo, calidad y cumplimiento de objetivos. Los recomendamos ampliamente en el sector.", author: "Jefe de Planta", company: "Planta de Electrónica" },
+            ].map((o, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <Card className="p-8 h-full">
+                  <div className="flex gap-1 mb-5">
+                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+                  </div>
+                  <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
+                  <div className="border-t border-gray-100 pt-4">
+                    <p className="font-bold text-gray-900 text-sm">{o.author}</p>
+                    <p className="text-red-600 text-xs font-semibold">{o.company}</p>
+                  </div>
+                </Card>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 19. CTA Banner */}
-      <section className="bg-black border-y border-red-500 py-16">
+      {/* ── CTA BANNER ── */}
+      <section className="py-20 bg-gray-900">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-white uppercase mb-4">¿Necesitas apoyo para tu operación industrial?</h2>
-          <p className="text-red-400 font-bold tracking-widest uppercase mb-8">Soluciones inmediatas 24/7</p>
-          <button onClick={() => scrollTo('contacto')} className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full font-black text-lg uppercase tracking-widest transition-transform hover:scale-105 shadow-[0_0_30px_rgba(220,38,38,0.4)]">
+          <SectionLabel>¿Listo para trabajar juntos?</SectionLabel>
+          <h2 className="text-3xl md:text-5xl font-black text-white uppercase mb-4 mt-2">
+            ¿Necesitas apoyo para tu<br />operación industrial?
+          </h2>
+          <p className="text-gray-400 mb-8 text-lg">Soluciones inmediatas — disponibles 24/7</p>
+          <button
+            onClick={() => scrollTo("contacto")}
+            className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg font-black text-base uppercase tracking-widest transition-all hover:shadow-lg hover:shadow-red-600/30 hover:-translate-y-0.5"
+          >
             Solicitar Cotización
           </button>
         </div>
       </section>
 
-      {/* 20. Contacto */}
-      <section id="contacto" className="py-24 container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16">
-          
-          <FadeIn>
-            <SectionTitle>Contacto SGI</SectionTitle>
-            <GlassCard className="mb-8">
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-red-500 shrink-0 mt-1" />
-                  <div>
-                    <h5 className="text-white font-bold uppercase mb-1">Ubicación</h5>
-                    <p className="text-gray-400">Lago Azul #45, Jardín de la Montaña<br/>Nogales, Sonora, México</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <Phone className="w-6 h-6 text-red-500 shrink-0 mt-1" />
-                  <div>
-                    <h5 className="text-white font-bold uppercase mb-1">Teléfono (24/7)</h5>
-                    <p className="text-gray-400">631 318 5564</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <Mail className="w-6 h-6 text-red-500 shrink-0 mt-1" />
-                  <div>
-                    <h5 className="text-white font-bold uppercase mb-1">Correo Electrónico</h5>
-                    <p className="text-gray-400">sginogales@gmail.com</p>
-                  </div>
-                </li>
-              </ul>
-            </GlassCard>
-            <div className="h-64 rounded-2xl overflow-hidden border border-gray-700">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111287.0506316104!2d-111.00287135!3d31.30861615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86d6ade33f86eb83%3A0xc6ba221141ba59ec!2sNogales%2C%20Son.!5e0!3m2!1sen!2smx!4v1700000000000!5m2!1sen!2smx" 
-                width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </FadeIn>
+      {/* ── CONTACTO ── */}
+      <section id="contacto" className="py-24 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <FadeIn direction="left">
+              <SectionLabel>Comunícate con nosotros</SectionLabel>
+              <SectionTitle>Contacto SGI</SectionTitle>
+              <Card className="mb-6 p-8" hover={false}>
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-4">
+                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
+                      <MapPin className="w-5 h-5 text-red-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Ubicación</h5>
+                      <p className="text-gray-500 text-sm">Lago Azul #45, Jardín de la Montaña<br />Nogales, Sonora, México</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
+                      <Phone className="w-5 h-5 text-red-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Teléfono (24/7)</h5>
+                      <p className="text-gray-500 text-sm">631 318 5564</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
+                      <Mail className="w-5 h-5 text-red-600" />
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Correo Electrónico</h5>
+                      <p className="text-gray-500 text-sm">sginogales@gmail.com</p>
+                    </div>
+                  </li>
+                </ul>
+              </Card>
+              <div className="h-60 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111287.0506316104!2d-111.00287135!3d31.30861615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86d6ade33f86eb83%3A0xc6ba221141ba59ec!2sNogales%2C%20Son.!5e0!3m2!1sen!2smx!4v1700000000000!5m2!1sen!2smx"
+                  width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </FadeIn>
 
-          <FadeIn delay={0.2}>
-            <GlassCard className="mt-8 lg:mt-24 border-t-4 border-t-red-500">
-              <h3 className="text-2xl font-black text-white uppercase mb-6">Solicita tu Cotización</h3>
-              
-              {formSuccess && (
-                <div className="bg-green-500/20 border border-green-500/50 text-green-400 p-4 rounded-lg mb-6 font-medium flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5" /> Solicitud preparada. Abriendo WhatsApp...
-                </div>
-              )}
-
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField control={form.control} name="name" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Nombre o Empresa</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Ej. Maquiladora SA" className="bg-gray-800 border-gray-700 text-white" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <div className="grid grid-cols-2 gap-4">
-                    <FormField control={form.control} name="email" render={({ field }) => (
+            <FadeIn delay={0.2} direction="right">
+              <Card className="mt-8 lg:mt-16 p-8 border-t-4 border-t-red-600" hover={false}>
+                <h3 className="text-2xl font-black text-gray-900 uppercase mb-6">Solicita tu Cotización</h3>
+                {formSuccess && (
+                  <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-xl mb-6 text-sm flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 shrink-0" /> Solicitud preparada. Abriendo WhatsApp...
+                  </div>
+                )}
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField control={form.control} name="name" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-300">Correo Electrónico</FormLabel>
+                        <FormLabel className="text-gray-700 font-semibold">Nombre o Empresa</FormLabel>
                         <FormControl>
-                          <Input placeholder="correo@empresa.com" className="bg-gray-800 border-gray-700 text-white" {...field} />
+                          <Input placeholder="Ej. Maquiladora SA" className="border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500/20" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )} />
-                    <FormField control={form.control} name="phone" render={({ field }) => (
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField control={form.control} name="email" render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-semibold">Correo Electrónico</FormLabel>
+                          <FormControl>
+                            <Input placeholder="correo@empresa.com" className="border-gray-300 bg-gray-50" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )} />
+                      <FormField control={form.control} name="phone" render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-semibold">Teléfono (opcional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="631..." className="border-gray-300 bg-gray-50" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )} />
+                    </div>
+                    <FormField control={form.control} name="service" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-300">Teléfono (opcional)</FormLabel>
+                        <FormLabel className="text-gray-700 font-semibold">Tipo de Servicio</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="border-gray-300 bg-gray-50">
+                              <SelectValue placeholder="Seleccione un servicio" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-white border-gray-200">
+                            {["Mantenimiento Industrial", "Moldeo por Inyección", "HVAC", "Herrería Industrial", "Obra Civil", "Scrubbers", "Instalaciones Industriales"].map(s => (
+                              <SelectItem key={s} value={s}>{s}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="message" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-700 font-semibold">Mensaje</FormLabel>
                         <FormControl>
-                          <Input placeholder="631..." className="bg-gray-800 border-gray-700 text-white" {...field} />
+                          <Textarea placeholder="Describa el requerimiento o problema..." className="border-gray-300 bg-gray-50 min-h-[110px]" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )} />
-                  </div>
-                  <FormField control={form.control} name="service" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Tipo de Servicio</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
-                            <SelectValue placeholder="Seleccione un servicio" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="bg-gray-800 border-gray-700 text-white">
-                          <SelectItem value="Mantenimiento Industrial">Mantenimiento Industrial</SelectItem>
-                          <SelectItem value="Moldeo por Inyección">Moldeo por Inyección</SelectItem>
-                          <SelectItem value="HVAC">HVAC</SelectItem>
-                          <SelectItem value="Herrería Industrial">Herrería Industrial</SelectItem>
-                          <SelectItem value="Obra Civil">Obra Civil</SelectItem>
-                          <SelectItem value="Scrubbers">Scrubbers</SelectItem>
-                          <SelectItem value="Instalaciones Industriales">Instalaciones Industriales</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="message" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Mensaje</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Describa el requerimiento o problema..." className="bg-gray-800 border-gray-700 text-white min-h-[120px]" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold h-12 uppercase tracking-widest mt-4">
-                    Enviar vía WhatsApp
-                  </Button>
-                </form>
-              </Form>
-            </GlassCard>
-          </FadeIn>
-          
+                    <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold h-12 uppercase tracking-widest mt-2 rounded-lg">
+                      Enviar vía WhatsApp
+                    </Button>
+                  </form>
+                </Form>
+              </Card>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
-      {/* 21. Footer */}
-      <footer className="bg-gray-950 border-t-2 border-t-red-600 pt-16 pb-8">
+      {/* ── FOOTER ── */}
+      <footer className="bg-gray-900 border-t-4 border-t-red-600 pt-16 pb-8">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <img src={logoSrc} alt="SGI Logo" className="h-16 w-auto mb-6" />
+              <div className="bg-white rounded-xl px-4 py-2 inline-block mb-6">
+                <img src={logoSrc} alt="SGI Logo" className="h-14 w-auto" />
+              </div>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                Servicios Generales de Ingeniería. Especialistas en proveer soluciones técnicas robustas para la industria manufacturera en Nogales, Sonora.
+                Servicios Generales de Ingeniería. Especialistas en soluciones técnicas para la industria manufacturera en Nogales, Sonora.
               </p>
             </div>
             <div>
-              <h4 className="text-white font-bold uppercase tracking-widest mb-6">Navegación</h4>
+              <h4 className="text-white font-bold uppercase tracking-widest mb-6 text-sm">Navegación</h4>
               <ul className="space-y-3">
-                {['Inicio', 'Nosotros', 'Servicios', 'Proyectos', 'Contacto'].map(item => (
+                {["Inicio", "Nosotros", "Servicios", "Proyectos", "Contacto"].map(item => (
                   <li key={item}>
                     <button onClick={() => scrollTo(item.toLowerCase())} className="text-gray-400 hover:text-red-400 text-sm transition-colors">
                       {item}
@@ -757,49 +883,44 @@ function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-bold uppercase tracking-widest mb-6">Información</h4>
+              <h4 className="text-white font-bold uppercase tracking-widest mb-6 text-sm">Información</h4>
               <ul className="space-y-3 text-gray-400 text-sm">
                 <li>Nogales, Sonora, México</li>
                 <li>Tel: 631 318 5564</li>
-                <li>Email: sginogales@gmail.com</li>
+                <li>sginogales@gmail.com</li>
                 <li>Atención 24/7</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-8 text-center md:text-left md:flex justify-between items-center">
+          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-xs">
               © {new Date().getFullYear()} Servicios Generales de Ingeniería (SGI). Todos los derechos reservados.
             </p>
+            <p className="text-gray-600 text-xs">Nogales, Sonora · México</p>
           </div>
         </div>
       </footer>
 
-      {/* Floating Buttons */}
-      <a 
-        href="https://wa.me/526313185564" 
-        target="_blank" 
+      {/* ── FLOATING BUTTONS ── */}
+      <a
+        href="https://wa.me/526313185564"
+        target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 z-50 transition-transform hover:scale-110"
       >
         <Phone className="w-7 h-7" />
       </a>
-      
+
       {showScrollTop && (
-        <button 
-          onClick={() => scrollTo('inicio')}
-          className="fixed bottom-24 right-6 w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg shadow-red-500/30 z-50 transition-all hover:-translate-y-1"
+        <button
+          onClick={() => scrollTo("inicio")}
+          className="fixed bottom-24 right-6 w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg z-50 transition-all hover:-translate-y-1"
         >
           <ChevronUp className="w-6 h-6" />
         </button>
       )}
-
     </div>
   );
-}
-
-// Ensure count string is printed fully
-function countTo(val: number) {
-  return val.toString();
 }
 
 function App() {
