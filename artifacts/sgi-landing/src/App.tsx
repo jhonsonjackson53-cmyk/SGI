@@ -264,13 +264,15 @@ function Home() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
             {[
-              { name: "Manufactura", icon: <Factory className="w-7 h-7 text-red-600" /> },
-              { name: "Mantenimiento", icon: <Wrench className="w-7 h-7 text-red-600" /> },
-              { name: "Instalaciones", icon: <Zap className="w-7 h-7 text-red-600" /> },
-              { name: "Seguridad", icon: <Shield className="w-7 h-7 text-red-600" /> },
+              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-orange-500", bg: "bg-orange-50 group-hover:bg-orange-100" },
+              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-blue-600",   bg: "bg-blue-50   group-hover:bg-blue-100"   },
+              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-amber-500", bg: "bg-amber-50  group-hover:bg-amber-100"  },
+              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-emerald-600",bg: "bg-emerald-50 group-hover:bg-emerald-100"},
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 py-6 px-8 group cursor-default">
-                <div className="bg-red-50 p-3 rounded-xl group-hover:bg-red-100 transition-colors">{item.icon}</div>
+                <div className={`${item.bg} p-3 rounded-xl transition-colors`}>
+                  {React.cloneElement(item.icon as React.ReactElement, { className: `w-7 h-7 ${item.color}` })}
+                </div>
                 <span className="font-bold text-gray-800 uppercase text-sm tracking-wide">{item.name}</span>
               </div>
             ))}
@@ -322,9 +324,9 @@ function Home() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-2 gap-6">
             <FadeIn direction="left">
-              <Card className="p-8 h-full border-t-4 border-t-red-600">
-                <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                  <Target className="w-6 h-6 text-red-600" />
+              <Card className="p-8 h-full border-t-4 border-t-blue-600">
+                <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Misión</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -333,9 +335,9 @@ function Home() {
               </Card>
             </FadeIn>
             <FadeIn delay={0.15} direction="right">
-              <Card className="p-8 h-full border-t-4 border-t-red-600">
-                <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                  <Lightbulb className="w-6 h-6 text-red-600" />
+              <Card className="p-8 h-full border-t-4 border-t-amber-500">
+                <div className="bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Lightbulb className="w-6 h-6 text-amber-500" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Visión</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -348,25 +350,60 @@ function Home() {
       </section>
 
       {/* ── STATS COUNTERS ── */}
-      <section className="py-20 bg-red-600">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
-            <div ref={expRef}>
-              <div className="text-5xl md:text-6xl font-black mb-2">{expCount}+</div>
-              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Años Experiencia</div>
-            </div>
-            <div ref={proyRef}>
-              <div className="text-5xl md:text-6xl font-black mb-2">{proyCount}+</div>
-              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Proyectos</div>
-            </div>
-            <div ref={satRef}>
-              <div className="text-5xl md:text-6xl font-black mb-2">{satCount}%</div>
-              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Satisfacción</div>
-            </div>
-            <div ref={respRef}>
-              <div className="text-5xl md:text-6xl font-black mb-2">{respCount}h</div>
-              <div className="text-red-100 font-semibold uppercase tracking-wide text-sm">Tiempo de Respuesta</div>
-            </div>
+      <section className="py-20 bg-gray-900 overflow-hidden relative">
+        {/* Decorative blobs */}
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="text-center mb-12">
+            <SectionLabel>Números que nos respaldan</SectionLabel>
+            <h2 className="text-3xl font-black text-white uppercase">Experiencia Comprobada</h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Años */}
+            <FadeIn delay={0}>
+              <div ref={expRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-blue-600/10 hover:border-blue-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-blue-500/25 transition-colors">
+                  <Target className="w-7 h-7 text-blue-400" />
+                </div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{expCount}<span className="text-blue-400">+</span></div>
+                <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Años Experiencia</div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </FadeIn>
+            {/* Proyectos */}
+            <FadeIn delay={0.1}>
+              <div ref={proyRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-orange-500/10 hover:border-orange-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-orange-500/25 transition-colors">
+                  <HardHat className="w-7 h-7 text-orange-400" />
+                </div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{proyCount}<span className="text-orange-400">+</span></div>
+                <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Proyectos</div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-orange-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </FadeIn>
+            {/* Satisfacción */}
+            <FadeIn delay={0.2}>
+              <div ref={satRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-500/25 transition-colors">
+                  <CheckCircle2 className="w-7 h-7 text-emerald-400" />
+                </div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{satCount}<span className="text-emerald-400">%</span></div>
+                <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Satisfacción</div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </FadeIn>
+            {/* Respuesta */}
+            <FadeIn delay={0.3}>
+              <div ref={respRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-purple-500/10 hover:border-purple-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-purple-500/15 border border-purple-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-purple-500/25 transition-colors">
+                  <Zap className="w-7 h-7 text-purple-400" />
+                </div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{respCount}<span className="text-purple-400">h</span></div>
+                <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Tiempo de Respuesta</div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -380,17 +417,17 @@ function Home() {
           <SectionTitle center>Nuestros Servicios Principales</SectionTitle>
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-12">
             {[
-              { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo. Reducimos paros no programados y optimizamos el desempeño de equipos." },
-              { icon: <Wind />, title: "HVAC", desc: "Diseño, instalación y mantenimiento de sistemas de climatización industrial de alta capacidad." },
-              { icon: <Hammer />, title: "Herrería Industrial", desc: "Fabricación y reparación de estructuras metálicas, soportes, plataformas y más." },
-              { icon: <HardHat />, title: "Obra Civil", desc: "Construcción, remodelación y mantenimiento de naves industriales y oficinas." },
-              { icon: <Thermometer />, title: "Scrubbers", desc: "Mantenimiento y optimización de sistemas ambientales y de tratamiento de gases." },
-              { icon: <Power />, title: "Instalaciones", desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta." },
+              { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo. Reducimos paros no programados y optimizamos el desempeño de equipos.",   color: "text-blue-600",    bg: "bg-blue-50    group-hover:bg-blue-100",    border: "group-hover:border-blue-200"    },
+              { icon: <Wind />,     title: "HVAC",                   desc: "Diseño, instalación y mantenimiento de sistemas de climatización industrial de alta capacidad.",                   color: "text-cyan-600",    bg: "bg-cyan-50    group-hover:bg-cyan-100",    border: "group-hover:border-cyan-200"    },
+              { icon: <Hammer />,   title: "Herrería Industrial",    desc: "Fabricación y reparación de estructuras metálicas, soportes, plataformas y más.",                                 color: "text-orange-600",  bg: "bg-orange-50  group-hover:bg-orange-100",  border: "group-hover:border-orange-200"  },
+              { icon: <HardHat />,  title: "Obra Civil",             desc: "Construcción, remodelación y mantenimiento de naves industriales y oficinas.",                                    color: "text-amber-600",   bg: "bg-amber-50   group-hover:bg-amber-100",   border: "group-hover:border-amber-200"   },
+              { icon: <Thermometer />, title: "Scrubbers",           desc: "Mantenimiento y optimización de sistemas ambientales y de tratamiento de gases.",                                color: "text-emerald-600", bg: "bg-emerald-50 group-hover:bg-emerald-100", border: "group-hover:border-emerald-200" },
+              { icon: <Power />,    title: "Instalaciones",          desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta.",                                   color: "text-purple-600",  bg: "bg-purple-50  group-hover:bg-purple-100",  border: "group-hover:border-purple-200"  },
             ].map((s, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <Card className="p-8 h-full group">
-                  <div className="bg-red-50 group-hover:bg-red-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors">
-                    {React.cloneElement(s.icon as React.ReactElement, { className: "w-6 h-6 text-red-600" })}
+                <Card className={`p-8 h-full group transition-all ${s.border}`}>
+                  <div className={`${s.bg} w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors`}>
+                    {React.cloneElement(s.icon as React.ReactElement, { className: `w-6 h-6 ${s.color}` })}
                   </div>
                   <h3 className="text-lg font-black text-gray-900 uppercase mb-3">{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
@@ -493,18 +530,20 @@ function Home() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { name: "Maquiladoras",      icon: <Factory className="w-8 h-8" />,    desc: "Plantas de manufactura" },
-              { name: "Automotriz",        icon: <Settings className="w-8 h-8" />,   desc: "Tier 1 y Tier 2" },
-              { name: "Electrónica",       icon: <Zap className="w-8 h-8" />,        desc: "Ensamble y producción" },
-              { name: "Plásticos",         icon: <Beaker className="w-8 h-8" />,     desc: "Moldeo e inyección" },
-              { name: "Construcción",      icon: <HardHat className="w-8 h-8" />,    desc: "Obra civil y remodelación" },
-              { name: "Alimentos",         icon: <CheckCircle2 className="w-8 h-8" />, desc: "Procesamiento y empaque" },
-              { name: "Logística",         icon: <ArrowRight className="w-8 h-8" />, desc: "Almacenes y distribución" },
-              { name: "Hospitalario",      icon: <Shield className="w-8 h-8" />,     desc: "Equipos médicos" },
+              { name: "Maquiladoras", icon: <Factory     className="w-8 h-8" />, desc: "Plantas de manufactura",    color: "text-blue-600",    bg: "bg-blue-50"    },
+              { name: "Automotriz",   icon: <Settings    className="w-8 h-8" />, desc: "Tier 1 y Tier 2",           color: "text-orange-500",  bg: "bg-orange-50"  },
+              { name: "Electrónica",  icon: <Zap         className="w-8 h-8" />, desc: "Ensamble y producción",     color: "text-amber-500",   bg: "bg-amber-50"   },
+              { name: "Plásticos",    icon: <Beaker      className="w-8 h-8" />, desc: "Moldeo e inyección",        color: "text-purple-600",  bg: "bg-purple-50"  },
+              { name: "Construcción", icon: <HardHat     className="w-8 h-8" />, desc: "Obra civil y remodelación", color: "text-amber-700",   bg: "bg-amber-50"   },
+              { name: "Alimentos",    icon: <CheckCircle2 className="w-8 h-8" />,desc: "Procesamiento y empaque",   color: "text-emerald-600", bg: "bg-emerald-50" },
+              { name: "Logística",    icon: <ArrowRight  className="w-8 h-8" />, desc: "Almacenes y distribución",  color: "text-cyan-600",    bg: "bg-cyan-50"    },
+              { name: "Hospitalario", icon: <Shield      className="w-8 h-8" />, desc: "Equipos médicos",           color: "text-red-600",     bg: "bg-red-50"     },
             ].map((c, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <Card className="p-6 text-center" hover={false}>
-                  <div className="text-red-600 flex justify-center mb-3">{c.icon}</div>
+                <Card className="p-6 text-center group hover:shadow-md transition-all" hover={false}>
+                  <div className={`${c.bg} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    {React.cloneElement(c.icon as React.ReactElement, { className: `w-8 h-8 ${c.color}` })}
+                  </div>
                   <h4 className="font-black text-gray-900 uppercase text-sm mb-1">{c.name}</h4>
                   <p className="text-gray-500 text-xs">{c.desc}</p>
                 </Card>
@@ -745,8 +784,8 @@ function Home() {
               <Card className="mb-6 p-8" hover={false}>
                 <ul className="space-y-6">
                   <li className="flex items-start gap-4">
-                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
-                      <MapPin className="w-5 h-5 text-red-600" />
+                    <div className="bg-blue-50 p-2.5 rounded-lg shrink-0">
+                      <MapPin className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Ubicación</h5>
@@ -754,8 +793,8 @@ function Home() {
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
-                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
-                      <Phone className="w-5 h-5 text-red-600" />
+                    <div className="bg-emerald-50 p-2.5 rounded-lg shrink-0">
+                      <Phone className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Teléfono (24/7)</h5>
@@ -763,8 +802,8 @@ function Home() {
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
-                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
-                      <Mail className="w-5 h-5 text-red-600" />
+                    <div className="bg-purple-50 p-2.5 rounded-lg shrink-0">
+                      <Mail className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Correo Electrónico</h5>
