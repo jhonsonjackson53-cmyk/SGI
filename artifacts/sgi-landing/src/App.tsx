@@ -245,24 +245,24 @@ function Home() {
               <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
               NOGALES, SONORA · MÉXICO
             </span>
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] mb-6 uppercase">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white leading-[1.05] mb-5 uppercase">
               Soluciones <br />
               <span className="text-red-500">Industriales</span><br />
               de Alto Nivel
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-xl font-light leading-relaxed">
+            <p className="text-base md:text-xl text-gray-300 mb-8 max-w-xl font-light leading-relaxed">
               Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. Disponibles 24/7.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => scrollTo("contacto")}
-                className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest flex items-center gap-2 transition-all hover:shadow-lg hover:shadow-red-600/30"
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-red-600/30 w-full sm:w-auto"
               >
                 Solicitar Cotización <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => scrollTo("servicios")}
-                className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-colors"
+                className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest transition-colors w-full sm:w-auto text-center"
               >
                 Nuestros Servicios
               </button>
