@@ -1,78 +1,19 @@
 {
-  "nodes": [
-    {
-      "id": "codex",
-      "type": "text",
-      "text": "Codex\\nEjecuta cambios, lee contexto y actualiza bitacora.",
-      "x": -500,
-      "y": -120,
-      "width": 300,
-      "height": 140
-    },
-    {
-      "id": "github",
-      "type": "text",
-      "text": "GitHub\\nVersiona codigo, memoria y despliegues.",
-      "x": 220,
-      "y": -120,
-      "width": 300,
-      "height": 140
-    },
-    {
-      "id": "obsidian",
-      "type": "text",
-      "text": "Obsidian\\nMemoria del proyecto, decisiones y pendientes.",
-      "x": -140,
-      "y": 180,
-      "width": 300,
-      "height": 140
-    },
-    {
-      "id": "site",
-      "type": "text",
-      "text": "Web SGI\\nLanding publicada en GitHub Pages.",
-      "x": -140,
-      "y": -360,
-      "width": 300,
-      "height": 120
-    }
-  ],
-  "edges": [
-    {
-      "id": "e1",
-      "fromNode": "obsidian",
-      "fromSide": "top",
-      "toNode": "codex",
-      "toSide": "bottom"
-    },
-    {
-      "id": "e2",
-      "fromNode": "codex",
-      "fromSide": "right",
-      "toNode": "github",
-      "toSide": "left"
-    },
-    {
-      "id": "e3",
-      "fromNode": "github",
-      "fromSide": "bottom",
-      "toNode": "obsidian",
-      "toSide": "right"
-    },
-    {
-      "id": "e4",
-      "fromNode": "codex",
-      "fromSide": "top",
-      "toNode": "site",
-      "toSide": "left"
-    },
-    {
-      "id": "e5",
-      "fromNode": "github",
-      "fromSide": "top",
-      "toNode": "site",
-      "toSide": "right"
-    }
-  ]
+	"nodes":[
+		{"id":"codex","type":"text","text":"Codex\\nEjecuta cambios, lee contexto y actualiza bitacora.","x":-500,"y":-120,"width":300,"height":140},
+		{"id":"github","type":"text","text":"GitHub\\nVersiona codigo, memoria y despliegues.","x":220,"y":-120,"width":300,"height":140},
+		{"id":"obsidian","type":"text","text":"Obsidian\\nMemoria del proyecto, decisiones y pendientes.","x":-140,"y":180,"width":300,"height":140},
+		{"id":"site","type":"text","text":"Web SGI\\nLanding publicada en GitHub Pages.","x":-140,"y":-360,"width":300,"height":120}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"obsidian","fromSide":"top","toNode":"codex","toSide":"bottom"},
+		{"id":"e2","fromNode":"codex","fromSide":"right","toNode":"github","toSide":"left"},
+		{"id":"e3","fromNode":"github","fromSide":"bottom","toNode":"obsidian","toSide":"right"},
+		{"id":"e4","fromNode":"codex","fromSide":"top","toNode":"site","toSide":"left"},
+		{"id":"e5","fromNode":"github","fromSide":"top","toNode":"site","toSide":"right"}
+	],
+	"metadata":{
+		"version":"1.0-1.0",
+		"frontmatter":{}
+	}
 }
-

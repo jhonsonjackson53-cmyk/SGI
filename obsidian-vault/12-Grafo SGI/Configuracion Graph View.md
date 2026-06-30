@@ -42,18 +42,18 @@ path:17-Marcas y Tecnologias OR path:18-Proveedores OR path:19-Sectores
 
 En Graph View, abre `Groups` y agrega:
 
-| Grupo | Filtro | Color sugerido |
-| --- | --- | --- |
-| Herramientas | `path:12-Grafo SGI` | Azul |
-| Servicios | `path:13-Servicios` | Rojo |
-| Web | `path:14-Secciones Web` | Verde |
-| Capacidades | `path:15-Capacidades Tecnicas` | Amarillo |
-| Ingenieria | `path:16-Ingenieria y Suministros` | Cian |
-| Marcas | `path:17-Marcas y Tecnologias` | Morado |
-| Proveedores | `path:18-Proveedores` | Naranja |
-| Sectores | `path:19-Sectores` | Rosa |
-| Assets | `path:20-Assets Publicos` | Gris |
-| Estrategia | `path:21-Estrategia` | Blanco |
+| Grupo        | Filtro                             | Color sugerido |
+| ------------ | ---------------------------------- | -------------- |
+| Herramientas | `path:12-Grafo SGI`                | Azul           |
+| Servicios    | `path:13-Servicios`                | Rojo           |
+| Web          | `path:14-Secciones Web`            | Verde          |
+| Capacidades  | `path:15-Capacidades Tecnicas`     | Amarillo       |
+| Ingenieria   | `path:16-Ingenieria y Suministros` | Cian           |
+| Marcas       | `path:17-Marcas y Tecnologias`     | Morado         |
+| Proveedores  | `path:18-Proveedores`              | Naranja        |
+| Sectores     | `path:19-Sectores`                 | Rosa           |
+| Assets       | `path:20-Assets Publicos`          | Gris           |
+| Estrategia   | `path:21-Estrategia`               | Blanco         |
 
 ## Ajustes visuales recomendados
 

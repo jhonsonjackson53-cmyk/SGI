@@ -58,7 +58,6 @@ vite-preview*.log
 # Obsidian personal UI state and downloaded plugin code
 obsidian-vault/.obsidian/workspace*.json
 obsidian-vault/.obsidian/appearance.json
-obsidian-vault/.obsidian/graph.json
 obsidian-vault/.obsidian/types.json
 obsidian-vault/.obsidian/themes/
 obsidian-vault/.obsidian/plugins/*/main.js

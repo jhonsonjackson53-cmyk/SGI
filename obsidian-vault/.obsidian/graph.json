@@ -1,0 +1,93 @@
+{
+  "collapse-filter": false,
+  "search": "path:obsidian-vault",
+  "showTags": true,
+  "showAttachments": true,
+  "hideUnresolved": true,
+  "showOrphans": true,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "path:12-Grafo SGI",
+      "color": {
+        "a": 1,
+        "rgb": 5410784
+      }
+    },
+    {
+      "query": "path:13-Servicios",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "path:14-Secciones Web",
+      "color": {
+        "a": 1,
+        "rgb": 10547200
+      }
+    },
+    {
+      "query": "path:15-Capacidades Tecnicas",
+      "color": {
+        "a": 1,
+        "rgb": 15662848
+      }
+    },
+    {
+      "query": "path:16-Ingenieria y Suministros",
+      "color": {
+        "a": 1,
+        "rgb": 9764827
+      }
+    },
+    {
+      "query": "path:17-Marcas y Tecnologias",
+      "color": {
+        "a": 1,
+        "rgb": 6429842
+      }
+    },
+    {
+      "query": "path:18-Proveedores",
+      "color": {
+        "a": 1,
+        "rgb": 13728256
+      }
+    },
+    {
+      "query": "path:20-Assets Publicos",
+      "color": {
+        "a": 1,
+        "rgb": 11579568
+      }
+    },
+    {
+      "query": "path:21-Estrategia",
+      "color": {
+        "a": 1,
+        "rgb": 16777215
+      }
+    },
+    {
+      "query": "path:19-Sectores",
+      "color": {
+        "a": 1,
+        "rgb": 16711888
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": true,
+  "textFadeMultiplier": -0.7,
+  "nodeSizeMultiplier": 1.4015625,
+  "lineSizeMultiplier": 1.19739583333333,
+  "collapse-forces": true,
+  "centerStrength": 0.703125,
+  "repelStrength": 12.0833333333333,
+  "linkStrength": 0.802083333333333,
+  "linkDistance": 263,
+  "scale": 0.5087618855792532,
+  "close": true
+}
