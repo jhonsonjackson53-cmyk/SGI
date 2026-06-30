@@ -2,6 +2,17 @@
 
 ## 2026-06-30
 
+### Se amplia la memoria para Graph View
+
+Cambios:
+- Se agrego el nodo central `Indice Cerebro SGI`.
+- Se crearon notas conectadas para servicios, secciones web, capacidades, ingenieria, suministros, marcas, proveedores, sectores, assets publicos y estrategia.
+- Se agrego una guia de configuracion para Graph View.
+- Se conecto el Dashboard SGI con el indice del grafo.
+
+Motivo:
+Crear una vista grafica mas rica en Obsidian, con nodos y enlaces reales entre las partes del proyecto.
+
 ### Se crea memoria Obsidian del proyecto
 
 Cambios:
@@ -20,4 +31,3 @@ Cambios:
 
 Resultado:
 - Preview publico actualizado en GitHub Pages.
-

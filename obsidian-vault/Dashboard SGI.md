@@ -2,6 +2,8 @@
 
 ## Accesos rapidos
 
+- [[12-Grafo SGI/Indice Cerebro SGI]]
+- [[12-Grafo SGI/Configuracion Graph View]]
 - [[01-Proyecto SGI/Estado actual del proyecto SGI]]
 - [[01-Proyecto SGI/Mapa de secciones de la web]]
 - [[04-Pendientes/Pendientes]]
@@ -35,4 +37,3 @@ LIMIT 12
 3. Registrar tareas en [[04-Pendientes/Pendientes]].
 4. Registrar nuevos archivos en [[06-Assets e Imagenes/Assets pendientes]].
 5. Pedir a Codex que actualice [[07-Bitacora Codex/Bitacora de cambios]] despues de cada cambio importante.
-
