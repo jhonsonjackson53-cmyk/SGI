@@ -47,3 +47,21 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Local preview/tunnel logs
+localtunnel*.log
+vite-preview*.log
+
+# Obsidian local state outside the project vault
+/.obsidian/
+
+# Obsidian personal UI state and downloaded plugin code
+obsidian-vault/.obsidian/workspace*.json
+obsidian-vault/.obsidian/appearance.json
+obsidian-vault/.obsidian/graph.json
+obsidian-vault/.obsidian/types.json
+obsidian-vault/.obsidian/themes/
+obsidian-vault/.obsidian/plugins/*/main.js
+obsidian-vault/.obsidian/plugins/*/manifest.json
+obsidian-vault/.obsidian/plugins/*/styles.css
+obsidian-vault/.obsidian/plugins/*/versions.json
