@@ -1,0 +1,19 @@
+{
+  "renderNullAs": "-",
+  "taskCompletionTracking": true,
+  "taskCompletionUseEmojiShorthand": true,
+  "taskCompletionText": "completion",
+  "recursiveSubTaskCompletion": true,
+  "warnOnEmptyResult": true,
+  "refreshInterval": 2500,
+  "defaultDateFormat": "yyyy-MM-dd",
+  "defaultDateTimeFormat": "yyyy-MM-dd HH:mm",
+  "maxRecursiveRenderDepth": 4,
+  "tableIdColumnName": "File",
+  "tableGroupColumnName": "Group",
+  "enableDataviewJs": false,
+  "enableInlineDataview": true,
+  "enableInlineDataviewJs": false,
+  "prettyRenderInlineFields": true
+}
+
