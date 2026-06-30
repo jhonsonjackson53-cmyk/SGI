@@ -23,7 +23,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-const logoSrc = "/logo-sgi.png";
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+const logoSrc = asset("/logo-sgi.png");
 const queryClient = new QueryClient();
 
 function IndustrialPlantScene() {
@@ -831,7 +832,7 @@ function Home() {
               <div className="relative">
                 <div className="absolute inset-0 bg-red-600/10 translate-x-3 translate-y-3 rounded-2xl" />
                 <img
-                  src="/proyectos/sgi-taller-moldeo.jpg"
+                  src={asset("/proyectos/sgi-taller-moldeo.jpg")}
                   alt="Moldeo por Inyección"
                   className="relative z-10 rounded-2xl border border-gray-200 w-full object-cover aspect-[4/3] shadow-lg"
                 />
@@ -880,14 +881,14 @@ function Home() {
                     activeBrand === i ? "border-red-300 shadow-md ring-4 ring-red-50" : "border-gray-200"
                   }`}
                 >
-                  <img src={brand.image} alt={brand.name} className="max-h-12 max-w-full object-contain" />
+                  <img src={asset(brand.image)} alt={brand.name} className="max-h-12 max-w-full object-contain" />
                 </button>
               </FadeIn>
             ))}
           </div>
           <div className="mt-8 bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.9fr_1.1fr] shadow-sm">
             <div className={`${activeBrandItem.bg} p-8 flex items-center justify-center min-h-56`}>
-              <img src={activeBrandItem.image} alt={activeBrandItem.name} className="max-h-28 max-w-[70%] object-contain drop-shadow-sm" />
+              <img src={asset(activeBrandItem.image)} alt={activeBrandItem.name} className="max-h-28 max-w-[70%] object-contain drop-shadow-sm" />
             </div>
             <div className="p-6 md:p-8">
               <span className={`text-xs font-black uppercase tracking-widest ${activeBrandItem.color}`}>Tecnologia aplicada</span>
@@ -934,7 +935,7 @@ function Home() {
           </div>
           <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[1fr_1.1fr] shadow-sm">
             <div className="relative min-h-64">
-              <img src={activeSectorItem.image} alt={activeSectorItem.name} className="absolute inset-0 w-full h-full object-cover" />
+              <img src={asset(activeSectorItem.image)} alt={activeSectorItem.name} className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-gray-950/10 to-transparent" />
               <div className="absolute left-5 bottom-5 flex items-center gap-3">
                 <div className={`${activeSectorItem.bg} ${activeSectorItem.color} w-12 h-12 rounded-xl flex items-center justify-center`}>
@@ -972,13 +973,13 @@ function Home() {
                     activeSupplier === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
                   }`}
                 >
-                  <img src={p.image} alt={p.name} className="h-9 max-w-28 object-contain mx-auto" />
+                  <img src={asset(p.image)} alt={p.name} className="h-9 max-w-28 object-contain mx-auto" />
                 </button>
               ))}
             </div>
             <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.8fr_1.2fr] shadow-sm">
               <div className={`${activeSupplierItem.bg} p-8 flex items-center justify-center min-h-48`}>
-                <img src={activeSupplierItem.image} alt={activeSupplierItem.name} className="max-h-24 max-w-[70%] object-contain" />
+                <img src={asset(activeSupplierItem.image)} alt={activeSupplierItem.name} className="max-h-24 max-w-[70%] object-contain" />
               </div>
               <div className="p-6 md:p-8 bg-gray-50">
                 <span className={`text-xs font-black uppercase tracking-widest ${activeSupplierItem.color}`}>Socio estrategico</span>
@@ -1026,7 +1027,7 @@ function Home() {
             </div>
             <div className="bg-gray-950 rounded-2xl overflow-hidden grid md:grid-cols-[0.9fr_1fr] min-h-[420px] shadow-xl">
               <div className="relative min-h-72">
-                <img src={activeExperienceItem.image} alt={activeExperienceItem.title} className="absolute inset-0 w-full h-full object-cover" />
+                <img src={asset(activeExperienceItem.image)} alt={activeExperienceItem.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-950/25 to-transparent" />
                 <div className="absolute left-5 bottom-5">
                   <div className={`${activeExperienceItem.bg} ${activeExperienceItem.color} w-12 h-12 rounded-xl flex items-center justify-center mb-3`}>
@@ -1078,7 +1079,7 @@ function Home() {
               </div>
               <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className="relative min-h-56">
-                  <img src={activeEngineeringItem.image} alt={activeEngineeringItem.label} className="absolute inset-0 w-full h-full object-cover" />
+                  <img src={asset(activeEngineeringItem.image)} alt={activeEngineeringItem.label} className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/10 to-transparent" />
                   <h4 className="absolute left-5 bottom-5 text-white font-black uppercase text-xl">{activeEngineeringItem.label}</h4>
                 </div>
@@ -1118,7 +1119,7 @@ function Home() {
               </div>
               <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className={`${activeSupplyItem.bg} min-h-56 flex items-center justify-center p-6`}>
-                  <img src={activeSupplyItem.image} alt={activeSupplyItem.title} className="max-h-48 max-w-full object-contain drop-shadow-md" />
+                  <img src={asset(activeSupplyItem.image)} alt={activeSupplyItem.title} className="max-h-48 max-w-full object-contain drop-shadow-md" />
                 </div>
                 <div className="p-6">
                   <span className={`text-xs font-black uppercase tracking-widest ${activeSupplyItem.color}`}>Suministro tecnico</span>
@@ -1200,7 +1201,7 @@ function Home() {
               <div className="mt-6 bg-white rounded-2xl overflow-hidden shadow-lg grid lg:grid-cols-[1fr_1.15fr] border border-red-100">
                 <div className="relative min-h-56">
                   <img
-                    src={activeSafetyItem.image}
+                    src={asset(activeSafetyItem.image)}
                     alt={activeSafetyItem.label}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -1243,7 +1244,7 @@ function Home() {
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={asset(p.img)} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent flex flex-col justify-end p-6">
                     <h3 className="text-lg font-black text-white uppercase mb-1">{p.title}</h3>
@@ -1265,7 +1266,7 @@ function Home() {
               "/proyectos/sgi-herreria-marcos.jpg",
               "/proyectos/sgi-certificado-arburg.jpg",
             ].map((img, i) => (
-              <img key={i} src={img} alt="Galeria" className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
+              <img key={i} src={asset(img)} alt="Galeria" className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
           </div>
         </div>
