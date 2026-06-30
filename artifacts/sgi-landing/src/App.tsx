@@ -647,19 +647,19 @@ function Home() {
 
       {/* ── QUICK ICONS STRIP ── */}
       <section className="relative z-10 bg-white border-b border-gray-200 shadow-sm">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {[
               { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-orange-500", bg: "bg-orange-50 group-hover:bg-orange-100" },
               { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-blue-600",   bg: "bg-blue-50   group-hover:bg-blue-100"   },
               { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-amber-500", bg: "bg-amber-50  group-hover:bg-amber-100"  },
               { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-emerald-600",bg: "bg-emerald-50 group-hover:bg-emerald-100"},
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-4 py-6 px-8 group cursor-default">
-                <div className={`${item.bg} p-3 rounded-xl transition-colors`}>
-                  {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: `w-7 h-7 ${item.color}` })}
+              <div key={i} className="bg-white flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 py-5 sm:py-6 px-3 sm:px-5 lg:px-8 group cursor-default min-w-0 text-center sm:text-left">
+                <div className={`${item.bg} p-3 rounded-xl transition-colors shrink-0`}>
+                  {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: `w-6 h-6 sm:w-7 sm:h-7 ${item.color}` })}
                 </div>
-                <span className="font-bold text-gray-800 uppercase text-sm tracking-wide">{item.name}</span>
+                <span className="font-bold text-gray-800 uppercase text-[11px] sm:text-sm tracking-wide leading-tight max-w-full break-words">{item.name}</span>
               </div>
             ))}
           </div>
