@@ -33,6 +33,8 @@ El perfil esta orientado a:
 - El modelo `Codex SGI` quedo activo en la tabla local de modelos de Open WebUI.
 - El modelo `Codex SGI` tiene permisos locales de lectura/escritura para el usuario admin.
 - Se desactivo el cache local de modelos base para forzar recarga del selector.
+- Se valido visualmente que `Codex SGI` aparece en Open WebUI.
+- Se corrigio el texto del indicador del sistema para evitar caracteres dañados por codificacion.
 
 ## Seguridad
 
@@ -49,3 +51,7 @@ Crear un paquete de conocimiento importable en Open WebUI con documentos del pro
 1. Refrescar Open WebUI con `Ctrl + F5`.
 2. Buscar `Codex SGI` en el selector de modelos.
 3. Si sigue sin aparecer, cerrar y volver a iniciar sesion en Open WebUI para renovar la lista de modelos del usuario.
+
+## Accion en la interfaz
+
+Despues de confirmar el modelo en pantalla, guardar con `Guardar y Actualizar` si Open WebUI muestra cambios pendientes.

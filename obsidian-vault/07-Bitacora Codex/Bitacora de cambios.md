@@ -11,6 +11,8 @@ Cambios:
 - Se creo el modelo personalizado `Codex SGI` en Open WebUI con base `gpt-4.1`.
 - Se agregaron permisos locales de lectura/escritura para que el usuario admin pueda ver `Codex SGI` en el selector.
 - Se desactivo el cache local de modelos base para forzar recarga de Open WebUI.
+- Se valido en pantalla que `Codex SGI` ya aparece dentro de Open WebUI.
+- Se corrigio el texto del indicador del sistema para evitar caracteres dañados por codificacion.
 - Se documento la integracion en [[11-Codex/Integracion Open WebUI SGI]] y se enlazo desde el dashboard.
 
 Archivos modificados:
@@ -25,6 +27,7 @@ Validacion:
 - Open WebUI quedo escuchando en `0.0.0.0:8080`.
 - El modelo `codex-sgi` quedo activo en la base local de Open WebUI.
 - `codex-sgi` quedo con permisos de lectura/escritura para el usuario admin.
+- Captura del usuario confirma que `Codex SGI` es visible en la pantalla de modelos de Open WebUI.
 
 Pendientes nuevos:
 - Importar o vincular documentos del proyecto SGI como Knowledge dentro de Open WebUI.
