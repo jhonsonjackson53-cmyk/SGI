@@ -194,9 +194,9 @@ function Home() {
     {
       label: "Cumplimiento NOM",
       icon: <FileText className="w-6 h-6" />,
-      color: "text-blue-600",
-      bg: "bg-blue-50",
-      ring: "ring-blue-200",
+      color: "text-gray-600",
+      bg: "bg-gray-50",
+      ring: "ring-gray-200",
       image: "/proyectos/sgi-certificado-rjg.jpg",
       summary: "Documentación, evidencias y estándares aplicables para entregar trabajos verificables.",
       points: ["Bitácoras y reportes", "Evidencia fotográfica", "Revisión de lineamientos"],
@@ -204,9 +204,9 @@ function Home() {
     {
       label: "Control de Riesgos",
       icon: <AlertTriangle className="w-6 h-6" />,
-      color: "text-amber-600",
-      bg: "bg-amber-50",
-      ring: "ring-amber-200",
+      color: "text-red-600",
+      bg: "bg-red-50",
+      ring: "ring-red-200",
       image: "/proyectos/sgi-scrubber-antes-despues.jpg",
       summary: "Identificación de condiciones críticas antes de intervenir maquinaria o infraestructura.",
       points: ["Inspección previa", "Aislamiento de riesgos", "Respuesta ordenada"],
@@ -214,9 +214,9 @@ function Home() {
     {
       label: "Calidad Operativa",
       icon: <CheckCircle2 className="w-6 h-6" />,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
-      ring: "ring-emerald-200",
+      color: "text-gray-600",
+      bg: "bg-gray-50",
+      ring: "ring-gray-200",
       image: "/proyectos/sgi-mantenimiento-rodamiento.jpg",
       summary: "Validación final para entregar trabajos funcionales, limpios y listos para operación.",
       points: ["Pruebas finales", "Liberación técnica", "Seguimiento post-servicio"],
@@ -224,58 +224,58 @@ function Home() {
   ];
   const activeSafetyItem = safetyItems[activeSafety];
   const brandItems = [
-    { name: "ENGEL", image: "/marcas-tecnologias/Engel.png", color: "text-orange-600", bg: "bg-orange-50", summary: "Soporte y mantenimiento para equipos de moldeo de alto desempeño.", points: ["Inyección", "Procesos", "Diagnóstico"] },
-    { name: "ARBURG", image: "/marcas-tecnologias/Arburg.png", color: "text-yellow-700", bg: "bg-yellow-50", summary: "Experiencia en maquinaria de inyección, ajustes y continuidad operativa.", points: ["Moldeo", "Ajustes", "Servicio"] },
-    { name: "HUSKY", image: "/marcas-tecnologias/Husky.png", color: "text-blue-600", bg: "bg-blue-50", summary: "Atención técnica para sistemas robustos de producción plástica.", points: ["Producción", "Moldes", "Mejora"] },
+    { name: "ENGEL", image: "/marcas-tecnologias/Engel.png", color: "text-red-600", bg: "bg-red-50", summary: "Soporte y mantenimiento para equipos de moldeo de alto desempeño.", points: ["Inyección", "Procesos", "Diagnóstico"] },
+    { name: "ARBURG", image: "/marcas-tecnologias/Arburg.png", color: "text-red-700", bg: "bg-red-50", summary: "Experiencia en maquinaria de inyección, ajustes y continuidad operativa.", points: ["Moldeo", "Ajustes", "Servicio"] },
+    { name: "HUSKY", image: "/marcas-tecnologias/Husky.png", color: "text-gray-600", bg: "bg-gray-50", summary: "Atención técnica para sistemas robustos de producción plástica.", points: ["Producción", "Moldes", "Mejora"] },
     { name: "KEYENCE", image: "/marcas-tecnologias/Keyence.png", color: "text-red-600", bg: "bg-red-50", summary: "Integración de sensores, medición y control para líneas industriales.", points: ["Sensores", "Medición", "Control"] },
-    { name: "EATON", image: "/marcas-tecnologias/Eaton.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Componentes eléctricos y soluciones para operación segura en planta.", points: ["Eléctrico", "Protección", "Tableros"] },
+    { name: "EATON", image: "/marcas-tecnologias/Eaton.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Componentes eléctricos y soluciones para operación segura en planta.", points: ["Eléctrico", "Protección", "Tableros"] },
     { name: "3M", image: "/marcas-tecnologias/3M.png", color: "text-red-600", bg: "bg-red-50", summary: "Consumibles y materiales técnicos para mantenimiento y seguridad.", points: ["Materiales", "EPP", "Consumibles"] },
     { name: "HILTI", image: "/marcas-tecnologias/Hilti.png", color: "text-red-600", bg: "bg-red-50", summary: "Herramientas y soluciones de fijación para obra civil e instalación.", points: ["Fijación", "Obra civil", "Herramientas"] },
-    { name: "MAKITA", image: "/marcas-tecnologias/Maquita.png", color: "text-cyan-700", bg: "bg-cyan-50", summary: "Herramienta eléctrica para trabajos de instalación y mantenimiento.", points: ["Instalación", "Taller", "Campo"] },
+    { name: "MAKITA", image: "/marcas-tecnologias/Maquita.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Herramienta eléctrica para trabajos de instalación y mantenimiento.", points: ["Instalación", "Taller", "Campo"] },
     { name: "MILWAUKEE", image: "/marcas-tecnologias/Milwaukee.png", color: "text-red-700", bg: "bg-red-50", summary: "Herramientas para trabajos exigentes en planta y servicio industrial.", points: ["Potencia", "Servicio", "Mantenimiento"] },
-    { name: "BALLUFF", image: "/marcas-tecnologias/Balluff.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Sensórica y automatización para monitoreo de equipos y procesos.", points: ["Automatización", "Sensores", "Control"] },
+    { name: "BALLUFF", image: "/marcas-tecnologias/Balluff.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Sensórica y automatización para monitoreo de equipos y procesos.", points: ["Automatización", "Sensores", "Control"] },
   ];
   const sectorItems = [
-    { name: "Maquiladoras", icon: <Factory className="w-7 h-7" />, image: "/clientes-sectores/Maquiladora.png", desc: "Plantas de manufactura", color: "text-blue-600", bg: "bg-blue-50", summary: "Soporte integral para líneas de producción, mantenimiento y servicios generales.", points: ["Continuidad operativa", "Mantenimiento", "Respuesta rápida"] },
-    { name: "Automotriz", icon: <Settings className="w-7 h-7" />, image: "/clientes-sectores/Automotriz.png", desc: "Tier 1 y Tier 2", color: "text-orange-500", bg: "bg-orange-50", summary: "Atención a procesos críticos, herramentales, instalaciones y maquinaria de producción.", points: ["Procesos críticos", "Precisión", "Soporte técnico"] },
-    { name: "Electrónica", icon: <Zap className="w-7 h-7" />, image: "/clientes-sectores/Electronica.png", desc: "Ensamble y producción", color: "text-amber-500", bg: "bg-amber-50", summary: "Servicios para áreas de ensamble, infraestructura eléctrica y operación limpia.", points: ["Ensamble", "Instalación", "Control"] },
-    { name: "Plásticos", icon: <Beaker className="w-7 h-7" />, image: "/clientes-sectores/Plasticos.png", desc: "Moldeo e inyección", color: "text-purple-600", bg: "bg-purple-50", summary: "Mantenimiento especializado en moldeo, moldes y maquinaria de inyección.", points: ["Moldeo", "Moldes", "Optimización"] },
-    { name: "Construcción", icon: <HardHat className="w-7 h-7" />, image: "/clientes-sectores/Construccion.png", desc: "Obra civil y remodelación", color: "text-amber-700", bg: "bg-amber-50", summary: "Obra civil, adecuaciones, estructuras y mejoras operativas en planta.", points: ["Obra civil", "Remodelación", "Estructuras"] },
-    { name: "Alimentos", icon: <CheckCircle2 className="w-7 h-7" />, image: "/clientes-sectores/Alimentos.png", desc: "Procesamiento y empaque", color: "text-emerald-600", bg: "bg-emerald-50", summary: "Servicios enfocados en continuidad, limpieza operativa y mantenimiento preventivo.", points: ["Procesamiento", "Empaque", "Preventivo"] },
-    { name: "Logística", icon: <ArrowRight className="w-7 h-7" />, image: "/clientes-sectores/Logistica.png", desc: "Almacenes y distribución", color: "text-cyan-600", bg: "bg-cyan-50", summary: "Adecuaciones para almacenes, flujo de materiales e instalaciones de soporte.", points: ["Almacenes", "Flujo", "Instalaciones"] },
+    { name: "Maquiladoras", icon: <Factory className="w-7 h-7" />, image: "/clientes-sectores/Maquiladora.png", desc: "Plantas de manufactura", color: "text-gray-600", bg: "bg-gray-50", summary: "Soporte integral para líneas de producción, mantenimiento y servicios generales.", points: ["Continuidad operativa", "Mantenimiento", "Respuesta rápida"] },
+    { name: "Automotriz", icon: <Settings className="w-7 h-7" />, image: "/clientes-sectores/Automotriz.png", desc: "Tier 1 y Tier 2", color: "text-red-500", bg: "bg-red-50", summary: "Atención a procesos críticos, herramentales, instalaciones y maquinaria de producción.", points: ["Procesos críticos", "Precisión", "Soporte técnico"] },
+    { name: "Electrónica", icon: <Zap className="w-7 h-7" />, image: "/clientes-sectores/Electronica.png", desc: "Ensamble y producción", color: "text-red-500", bg: "bg-red-50", summary: "Servicios para áreas de ensamble, infraestructura eléctrica y operación limpia.", points: ["Ensamble", "Instalación", "Control"] },
+    { name: "Plásticos", icon: <Beaker className="w-7 h-7" />, image: "/clientes-sectores/Plasticos.png", desc: "Moldeo e inyección", color: "text-red-600", bg: "bg-red-50", summary: "Mantenimiento especializado en moldeo, moldes y maquinaria de inyección.", points: ["Moldeo", "Moldes", "Optimización"] },
+    { name: "Construcción", icon: <HardHat className="w-7 h-7" />, image: "/clientes-sectores/Construccion.png", desc: "Obra civil y remodelación", color: "text-red-700", bg: "bg-red-50", summary: "Obra civil, adecuaciones, estructuras y mejoras operativas en planta.", points: ["Obra civil", "Remodelación", "Estructuras"] },
+    { name: "Alimentos", icon: <CheckCircle2 className="w-7 h-7" />, image: "/clientes-sectores/Alimentos.png", desc: "Procesamiento y empaque", color: "text-gray-600", bg: "bg-gray-50", summary: "Servicios enfocados en continuidad, limpieza operativa y mantenimiento preventivo.", points: ["Procesamiento", "Empaque", "Preventivo"] },
+    { name: "Logística", icon: <ArrowRight className="w-7 h-7" />, image: "/clientes-sectores/Logistica.png", desc: "Almacenes y distribución", color: "text-gray-600", bg: "bg-gray-50", summary: "Adecuaciones para almacenes, flujo de materiales e instalaciones de soporte.", points: ["Almacenes", "Flujo", "Instalaciones"] },
     { name: "Hospitalario", icon: <Shield className="w-7 h-7" />, image: "/clientes-sectores/Hospitalario.png", desc: "Equipos médicos", color: "text-red-600", bg: "bg-red-50", summary: "Servicios técnicos con enfoque en seguridad, calidad y operación confiable.", points: ["Seguridad", "Calidad", "Confiabilidad"] },
   ];
   const supplierItems = [
     { name: "GRAINGER", image: "/proveedores-socios/Grainger.png", color: "text-red-600", bg: "bg-red-50", summary: "Abastecimiento de MRO, herramienta y consumibles industriales para planta.", points: ["MRO", "Herramienta", "Consumibles"] },
-    { name: "FASTENAL", image: "/proveedores-socios/Fastenal.png", color: "text-blue-600", bg: "bg-blue-50", summary: "Fijación, tornillería, seguridad y materiales de uso diario en operación.", points: ["Fijación", "Seguridad", "Inventario"] },
+    { name: "FASTENAL", image: "/proveedores-socios/Fastenal.png", color: "text-gray-600", bg: "bg-gray-50", summary: "Fijación, tornillería, seguridad y materiales de uso diario en operación.", points: ["Fijación", "Seguridad", "Inventario"] },
     { name: "ABB", image: "/proveedores-socios/ABB.png", color: "text-red-600", bg: "bg-red-50", summary: "Componentes eléctricos, automatización y soluciones para control industrial.", points: ["Eléctrico", "Control", "Automatización"] },
-    { name: "SONEPAR", image: "/proveedores-socios/Sonepar.png", color: "text-blue-700", bg: "bg-blue-50", summary: "Distribución eléctrica para instalaciones, tableros y mantenimiento.", points: ["Distribución", "Instalación", "Tableros"] },
-    { name: "MCMASTER", image: "/proveedores-socios/McMaster.png", color: "text-orange-600", bg: "bg-orange-50", summary: "Componentes técnicos, refacciones y elementos mecánicos especializados.", points: ["Refacciones", "Mecánica", "Componentes"] },
+    { name: "SONEPAR", image: "/proveedores-socios/Sonepar.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Distribución eléctrica para instalaciones, tableros y mantenimiento.", points: ["Distribución", "Instalación", "Tableros"] },
+    { name: "MCMASTER", image: "/proveedores-socios/McMaster.png", color: "text-red-600", bg: "bg-red-50", summary: "Componentes técnicos, refacciones y elementos mecánicos especializados.", points: ["Refacciones", "Mecánica", "Componentes"] },
   ];
   const experienceItems = [
-    { title: "Moldeo por Inyeccion", icon: <Beaker className="w-6 h-6" />, image: "/proyectos/sgi-moldeo-detalle.jpg", color: "text-violet-600", bg: "bg-violet-50", desc: "Mantenimiento, instalacion y soporte a maquinaria de inyeccion.", points: ["Setups de proceso", "Moldes y perifericos", "Reduccion de paros"] },
-    { title: "Scrubbers", icon: <Wind className="w-6 h-6" />, image: "/proyectos/sgi-scrubber-antes-despues.jpg", color: "text-cyan-600", bg: "bg-cyan-50", desc: "Operacion, mantenimiento y optimizacion de sistemas ambientales.", points: ["Inspeccion visual", "Flujo y extraccion", "Mantenimiento seguro"] },
-    { title: "Manejo de Quimicos", icon: <Thermometer className="w-6 h-6" />, image: "/proyectos/sgi-certificado-rjg.jpg", color: "text-amber-600", bg: "bg-amber-50", desc: "Procedimientos industriales bajo practicas seguras.", points: ["Procedimientos", "EPP", "Control documental"] },
+    { title: "Moldeo por Inyeccion", icon: <Beaker className="w-6 h-6" />, image: "/proyectos/sgi-moldeo-detalle.jpg", color: "text-red-600", bg: "bg-red-50", desc: "Mantenimiento, instalacion y soporte a maquinaria de inyeccion.", points: ["Setups de proceso", "Moldes y perifericos", "Reduccion de paros"] },
+    { title: "Scrubbers", icon: <Wind className="w-6 h-6" />, image: "/proyectos/sgi-scrubber-antes-despues.jpg", color: "text-gray-600", bg: "bg-gray-50", desc: "Operacion, mantenimiento y optimizacion de sistemas ambientales.", points: ["Inspeccion visual", "Flujo y extraccion", "Mantenimiento seguro"] },
+    { title: "Manejo de Quimicos", icon: <Thermometer className="w-6 h-6" />, image: "/proyectos/sgi-certificado-rjg.jpg", color: "text-red-600", bg: "bg-red-50", desc: "Procedimientos industriales bajo practicas seguras.", points: ["Procedimientos", "EPP", "Control documental"] },
     { title: "Espacios Confinados", icon: <Shield className="w-6 h-6" />, image: "/clientes-sectores/Construccion.png", color: "text-red-600", bg: "bg-red-50", desc: "Intervenciones seguras bajo estrictos protocolos industriales.", points: ["Permisos", "Monitoreo", "Rescate preventivo"] },
-    { title: "Equipos Auxiliares", icon: <Wrench className="w-6 h-6" />, image: "/proyectos/sgi-mantenimiento-rodamiento.jpg", color: "text-blue-600", bg: "bg-blue-50", desc: "Diagnostico y mantenimiento especializado.", points: ["Diagnostico", "Refacciones", "Ajuste tecnico"] },
-    { title: "Automatizacion", icon: <Zap className="w-6 h-6" />, image: "/marcas-tecnologias/Balluff.png", color: "text-emerald-600", bg: "bg-emerald-50", desc: "Sensores, control industrial y sistemas de produccion.", points: ["Sensores", "Tableros", "Control"] },
+    { title: "Equipos Auxiliares", icon: <Wrench className="w-6 h-6" />, image: "/proyectos/sgi-mantenimiento-rodamiento.jpg", color: "text-gray-600", bg: "bg-gray-50", desc: "Diagnostico y mantenimiento especializado.", points: ["Diagnostico", "Refacciones", "Ajuste tecnico"] },
+    { title: "Automatizacion", icon: <Zap className="w-6 h-6" />, image: "/marcas-tecnologias/Balluff.png", color: "text-gray-600", bg: "bg-gray-50", desc: "Sensores, control industrial y sistemas de produccion.", points: ["Sensores", "Tableros", "Control"] },
   ];
   const engineeringItems = [
-    { label: "Diseno", icon: <PenTool className="w-6 h-6" />, image: "/ingenieria-suministros/diseno.png", color: "text-cyan-600", bg: "bg-cyan-50", summary: "Levantamiento tecnico, propuesta visual y solucion ajustada al piso de produccion.", points: ["Layout", "Concepto", "Viabilidad"] },
-    { label: "Propuesta", icon: <FileText className="w-6 h-6" />, image: "/ingenieria-suministros/propuesta.png", color: "text-amber-600", bg: "bg-amber-50", summary: "Documentacion clara para alcance, materiales, tiempos y criterios de entrega.", points: ["Alcance", "Materiales", "Cronograma"] },
-    { label: "Prototipos", icon: <Beaker className="w-6 h-6" />, image: "/ingenieria-suministros/prototipos.png", color: "text-violet-600", bg: "bg-violet-50", summary: "Validacion de ideas y componentes antes de ejecutar en produccion.", points: ["Prueba fisica", "Ajustes", "Validacion"] },
-    { label: "Pruebas", icon: <CheckCircle2 className="w-6 h-6" />, image: "/ingenieria-suministros/pruebas.png", color: "text-emerald-600", bg: "bg-emerald-50", summary: "Revision funcional y liberacion tecnica para operar con confianza.", points: ["Checklist", "Funcionamiento", "Liberacion"] },
+    { label: "Diseno", icon: <PenTool className="w-6 h-6" />, image: "/ingenieria-suministros/diseno.png", color: "text-gray-600", bg: "bg-gray-50", summary: "Levantamiento tecnico, propuesta visual y solucion ajustada al piso de produccion.", points: ["Layout", "Concepto", "Viabilidad"] },
+    { label: "Propuesta", icon: <FileText className="w-6 h-6" />, image: "/ingenieria-suministros/propuesta.png", color: "text-red-600", bg: "bg-red-50", summary: "Documentacion clara para alcance, materiales, tiempos y criterios de entrega.", points: ["Alcance", "Materiales", "Cronograma"] },
+    { label: "Prototipos", icon: <Beaker className="w-6 h-6" />, image: "/ingenieria-suministros/prototipos.png", color: "text-red-600", bg: "bg-red-50", summary: "Validacion de ideas y componentes antes de ejecutar en produccion.", points: ["Prueba fisica", "Ajustes", "Validacion"] },
+    { label: "Pruebas", icon: <CheckCircle2 className="w-6 h-6" />, image: "/ingenieria-suministros/pruebas.png", color: "text-gray-600", bg: "bg-gray-50", summary: "Revision funcional y liberacion tecnica para operar con confianza.", points: ["Checklist", "Funcionamiento", "Liberacion"] },
   ];
   const supplyItems = [
-    { title: "Herramientas", icon: <Wrench className="w-6 h-6" />, image: "/ingenieria-suministros/herramientas.png", color: "text-blue-600", bg: "bg-blue-50", desc: "Equipo especializado para operacion, mantenimiento e instalacion.", points: ["Herramienta manual", "Equipo electrico", "Trabajo en campo"] },
-    { title: "Refacciones", icon: <Settings className="w-6 h-6" />, image: "/ingenieria-suministros/refacciones.png", color: "text-orange-600", bg: "bg-orange-50", desc: "Componentes originales o equivalentes para maquinaria y servicios auxiliares.", points: ["Mecanicas", "Electricas", "Criticas"] },
-    { title: "Consumibles", icon: <Factory className="w-6 h-6" />, image: "/ingenieria-suministros/consumible1.png", color: "text-emerald-600", bg: "bg-emerald-50", desc: "Materiales de uso diario para mantener la operacion en movimiento.", points: ["MRO", "Seguridad", "Inventario"] },
+    { title: "Herramientas", icon: <Wrench className="w-6 h-6" />, image: "/ingenieria-suministros/herramientas.png", color: "text-gray-600", bg: "bg-gray-50", desc: "Equipo especializado para operacion, mantenimiento e instalacion.", points: ["Herramienta manual", "Equipo electrico", "Trabajo en campo"] },
+    { title: "Refacciones", icon: <Settings className="w-6 h-6" />, image: "/ingenieria-suministros/refacciones.png", color: "text-red-600", bg: "bg-red-50", desc: "Componentes originales o equivalentes para maquinaria y servicios auxiliares.", points: ["Mecanicas", "Electricas", "Criticas"] },
+    { title: "Consumibles", icon: <Factory className="w-6 h-6" />, image: "/ingenieria-suministros/consumible1.png", color: "text-gray-600", bg: "bg-gray-50", desc: "Materiales de uso diario para mantener la operacion en movimiento.", points: ["MRO", "Seguridad", "Inventario"] },
   ];
   const advantageItems = [
-    { icon: <Zap className="w-6 h-6" />, title: "Respuesta critica", metric: "< 2h", desc: "Atencion rapida para paros, fallas y necesidades urgentes en planta.", color: "text-amber-400", bg: "bg-amber-500/15", line: "from-amber-400 to-orange-500" },
-    { icon: <Wrench className="w-6 h-6" />, title: "Diagnostico tecnico", metric: "360", desc: "Revision de causa raiz, condiciones de operacion, refacciones y seguridad.", color: "text-blue-400", bg: "bg-blue-500/15", line: "from-blue-400 to-cyan-400" },
-    { icon: <Shield className="w-6 h-6" />, title: "Control seguro", metric: "NOM", desc: "Ejecucion con protocolos, permisos, EPP y evidencia para liberacion.", color: "text-emerald-400", bg: "bg-emerald-500/15", line: "from-emerald-400 to-teal-400" },
-    { icon: <Factory className="w-6 h-6" />, title: "Operacion continua", metric: "24/7", desc: "Soporte para mantenimiento, HVAC, obra civil, instalaciones y moldeo.", color: "text-red-400", bg: "bg-red-500/15", line: "from-red-500 to-rose-400" },
+    { icon: <Zap className="w-6 h-6" />, title: "Respuesta critica", metric: "< 2h", desc: "Atencion rapida para paros, fallas y necesidades urgentes en planta.", color: "text-red-400", bg: "bg-red-500/15", line: "from-red-400 to-red-500" },
+    { icon: <Wrench className="w-6 h-6" />, title: "Diagnostico tecnico", metric: "360", desc: "Revision de causa raiz, condiciones de operacion, refacciones y seguridad.", color: "text-gray-400", bg: "bg-gray-500/15", line: "from-gray-400 to-gray-400" },
+    { icon: <Shield className="w-6 h-6" />, title: "Control seguro", metric: "NOM", desc: "Ejecucion con protocolos, permisos, EPP y evidencia para liberacion.", color: "text-gray-400", bg: "bg-gray-500/15", line: "from-gray-400 to-gray-400" },
+    { icon: <Factory className="w-6 h-6" />, title: "Operacion continua", metric: "24/7", desc: "Soporte para mantenimiento, HVAC, obra civil, instalaciones y moldeo.", color: "text-red-400", bg: "bg-red-500/15", line: "from-red-500 to-red-400" },
   ];
   const comparisonRows = [
     { area: "Diagnostico", sgi: "Causa raiz, evidencia y plan de accion", regular: "Revision general sin trazabilidad" },
@@ -361,13 +361,15 @@ function Home() {
       <main>
       <section id="inicio" className="relative min-h-[100dvh] flex items-center">
         <div className="absolute inset-0 bg-gray-950 overflow-hidden">
-          <React.Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.18),transparent_34%),radial-gradient(circle_at_70%_45%,rgba(59,130,246,0.12),transparent_30%),#111827]" aria-hidden="true" />}>
+          <React.Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.18),transparent_34%),radial-gradient(circle_at_70%_45%,rgba(148,163,184,0.12),transparent_30%),#111827]" aria-hidden="true" />}>
             <IndustrialPlantScene />
           </React.Suspense>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
+        <div className="absolute inset-0 bg-grid-pattern pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="container relative mx-auto px-6 lg:px-12 z-10 pt-24">
           <FadeIn className="max-w-3xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-4 border border-red-400/40 bg-red-600/10 rounded-full text-red-300 font-bold tracking-widest text-xs mb-8 backdrop-blur-sm">
@@ -382,7 +384,7 @@ function Home() {
             <p className="text-base md:text-xl text-gray-300 mb-8 max-w-xl font-light leading-relaxed">
               Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. Disponibles 24/7.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
               <button
                 onClick={() => scrollTo("contacto")}
                 className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-red-600/30 w-full sm:w-auto"
@@ -396,6 +398,20 @@ function Home() {
                 Nuestros Servicios
               </button>
             </div>
+            <FadeIn delay={0.3}>
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 border-t border-white/10">
+                {[
+                  { val: "10+", label: "Años en operación" },
+                  { val: "300+", label: "Proyectos entregados" },
+                  { val: "24/7", label: "Respuesta de emergencia" },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <span className="text-2xl font-black text-white tabular-nums">{s.val}</span>
+                    <span className="text-gray-400 text-xs font-semibold uppercase tracking-wide leading-tight max-w-[7rem]">{s.label}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
           </FadeIn>
         </div>
         {/* Hero bottom fade */}
@@ -407,10 +423,10 @@ function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {[
-              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-orange-500", bg: "bg-orange-50 group-hover:bg-orange-100" },
-              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-blue-600",   bg: "bg-blue-50   group-hover:bg-blue-100"   },
-              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-amber-500", bg: "bg-amber-50  group-hover:bg-amber-100"  },
-              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-emerald-600",bg: "bg-emerald-50 group-hover:bg-emerald-100"},
+              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-red-500", bg: "bg-red-50 group-hover:bg-red-100" },
+              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-gray-600",   bg: "bg-gray-50   group-hover:bg-gray-100"   },
+              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-red-500", bg: "bg-red-50  group-hover:bg-red-100"  },
+              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-gray-600",bg: "bg-gray-50 group-hover:bg-gray-100"},
             ].map((item, i) => (
               <div key={i} className="bg-white flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 py-5 sm:py-6 px-3 sm:px-5 lg:px-8 group cursor-default min-w-0 text-center sm:text-left">
                 <div className={`${item.bg} p-3 rounded-xl transition-colors shrink-0`}>
@@ -467,9 +483,9 @@ function Home() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-2 gap-6">
             <FadeIn direction="left">
-              <Card className="p-8 h-full border-t-4 border-t-blue-600">
-                <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                  <Target className="w-6 h-6 text-blue-600" />
+              <Card className="p-8 h-full border-t-4 border-t-gray-600">
+                <div className="bg-gray-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="w-6 h-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Misión</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -478,9 +494,9 @@ function Home() {
               </Card>
             </FadeIn>
             <FadeIn delay={0.15} direction="right">
-              <Card className="p-8 h-full border-t-4 border-t-amber-500">
-                <div className="bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
-                  <Lightbulb className="w-6 h-6 text-amber-500" />
+              <Card className="p-8 h-full border-t-4 border-t-red-500">
+                <div className="bg-red-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+                  <Lightbulb className="w-6 h-6 text-red-500" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-4 uppercase">Visión</h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -495,8 +511,8 @@ function Home() {
       {/* ── STATS COUNTERS ── */}
       <section className="py-20 bg-gray-900 overflow-hidden relative">
         {/* Decorative blobs */}
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-gray-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="text-center mb-12">
             <SectionLabel>Números que nos respaldan</SectionLabel>
@@ -505,46 +521,46 @@ function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Años */}
             <FadeIn delay={0}>
-              <div ref={expRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-blue-600/10 hover:border-blue-500/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-blue-500/25 transition-colors">
-                  <Target className="w-7 h-7 text-blue-400" />
+              <div ref={expRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-gray-600/10 hover:border-gray-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gray-500/15 border border-gray-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-500/25 transition-colors">
+                  <Target className="w-7 h-7 text-gray-400" />
                 </div>
-                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{expCount}<span className="text-blue-400">+</span></div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{expCount}<span className="text-gray-400">+</span></div>
                 <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Años Experiencia</div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </FadeIn>
             {/* Proyectos */}
             <FadeIn delay={0.1}>
-              <div ref={proyRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-orange-500/10 hover:border-orange-500/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-orange-500/15 border border-orange-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-orange-500/25 transition-colors">
-                  <HardHat className="w-7 h-7 text-orange-400" />
+              <div ref={proyRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-red-500/15 border border-red-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-red-500/25 transition-colors">
+                  <HardHat className="w-7 h-7 text-red-400" />
                 </div>
-                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{proyCount}<span className="text-orange-400">+</span></div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{proyCount}<span className="text-red-400">+</span></div>
                 <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Proyectos</div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-orange-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-red-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </FadeIn>
             {/* Satisfacción */}
             <FadeIn delay={0.2}>
-              <div ref={satRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-500/25 transition-colors">
-                  <CheckCircle2 className="w-7 h-7 text-emerald-400" />
+              <div ref={satRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-gray-500/10 hover:border-gray-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gray-500/15 border border-gray-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-500/25 transition-colors">
+                  <CheckCircle2 className="w-7 h-7 text-gray-400" />
                 </div>
-                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{satCount}<span className="text-emerald-400">%</span></div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{satCount}<span className="text-gray-400">%</span></div>
                 <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Satisfacción</div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </FadeIn>
             {/* Respuesta */}
             <FadeIn delay={0.3}>
-              <div ref={respRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-purple-500/10 hover:border-purple-500/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-purple-500/15 border border-purple-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-purple-500/25 transition-colors">
-                  <Zap className="w-7 h-7 text-purple-400" />
+              <div ref={respRef} className="relative bg-white/5 border border-white/10 rounded-2xl p-8 text-center group hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-red-500/15 border border-red-500/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-red-500/25 transition-colors">
+                  <Zap className="w-7 h-7 text-red-400" />
                 </div>
-                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{respCount}<span className="text-purple-400">h</span></div>
+                <div className="text-5xl md:text-6xl font-black text-white mb-2 tabular-nums">{respCount}<span className="text-red-400">h</span></div>
                 <div className="text-gray-400 font-semibold uppercase tracking-widest text-xs">Tiempo de Respuesta</div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-red-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </FadeIn>
           </div>
@@ -560,12 +576,12 @@ function Home() {
           <SectionTitle center>Nuestros Servicios Principales</SectionTitle>
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-12">
             {[
-              { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo. Reducimos paros no programados y optimizamos el desempeño de equipos.",   color: "text-blue-600",    bg: "bg-blue-50    group-hover:bg-blue-100",    border: "group-hover:border-blue-200"    },
-              { icon: <Wind />,     title: "HVAC",                   desc: "Diseño, instalación y mantenimiento de sistemas de climatización industrial de alta capacidad.",                   color: "text-cyan-600",    bg: "bg-cyan-50    group-hover:bg-cyan-100",    border: "group-hover:border-cyan-200"    },
-              { icon: <Hammer />,   title: "Herrería Industrial",    desc: "Fabricación y reparación de estructuras metálicas, soportes, plataformas y más.",                                 color: "text-orange-600",  bg: "bg-orange-50  group-hover:bg-orange-100",  border: "group-hover:border-orange-200"  },
-              { icon: <HardHat />,  title: "Obra Civil",             desc: "Construcción, remodelación y mantenimiento de naves industriales y oficinas.",                                    color: "text-amber-600",   bg: "bg-amber-50   group-hover:bg-amber-100",   border: "group-hover:border-amber-200"   },
-              { icon: <Thermometer />, title: "Scrubbers",           desc: "Mantenimiento y optimización de sistemas ambientales y de tratamiento de gases.",                                color: "text-emerald-600", bg: "bg-emerald-50 group-hover:bg-emerald-100", border: "group-hover:border-emerald-200" },
-              { icon: <Power />,    title: "Instalaciones",          desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta.",                                   color: "text-purple-600",  bg: "bg-purple-50  group-hover:bg-purple-100",  border: "group-hover:border-purple-200"  },
+              { icon: <Settings />, title: "Mantenimiento Industrial", desc: "Preventivo, correctivo y predictivo. Reducimos paros no programados y optimizamos el desempeño de equipos.",   color: "text-gray-600",    bg: "bg-gray-50    group-hover:bg-gray-100",    border: "group-hover:border-gray-200"    },
+              { icon: <Wind />,     title: "HVAC",                   desc: "Diseño, instalación y mantenimiento de sistemas de climatización industrial de alta capacidad.",                   color: "text-gray-600",    bg: "bg-gray-50    group-hover:bg-gray-100",    border: "group-hover:border-gray-200"    },
+              { icon: <Hammer />,   title: "Herrería Industrial",    desc: "Fabricación y reparación de estructuras metálicas, soportes, plataformas y más.",                                 color: "text-red-600",  bg: "bg-red-50  group-hover:bg-red-100",  border: "group-hover:border-red-200"  },
+              { icon: <HardHat />,  title: "Obra Civil",             desc: "Construcción, remodelación y mantenimiento de naves industriales y oficinas.",                                    color: "text-red-600",   bg: "bg-red-50   group-hover:bg-red-100",   border: "group-hover:border-red-200"   },
+              { icon: <Thermometer />, title: "Scrubbers",           desc: "Mantenimiento y optimización de sistemas ambientales y de tratamiento de gases.",                                color: "text-gray-600", bg: "bg-gray-50 group-hover:bg-gray-100", border: "group-hover:border-gray-200" },
+              { icon: <Power />,    title: "Instalaciones",          desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta.",                                   color: "text-red-600",  bg: "bg-red-50  group-hover:bg-red-100",  border: "group-hover:border-red-200"  },
             ].map((s, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <Card className={`p-8 h-full group transition-all ${s.border}`}>
@@ -584,7 +600,7 @@ function Home() {
       {/* ── ESPECIALISTAS EN MOLDEO ── */}
       {/* POR QUE ELEGIR SGI */}
       <section className="py-24 bg-gray-950 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(239,68,68,0.18),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.14),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.04)_0,transparent_42%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(239,68,68,0.18),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(148,163,184,0.14),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.04)_0,transparent_42%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="grid xl:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
@@ -602,8 +618,8 @@ function Home() {
                     <p className="text-xs font-black uppercase tracking-widest text-gray-500">Estado de respuesta</p>
                     <h3 className="text-white font-black uppercase text-xl mt-1">Operacion lista</h3>
                   </div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/20 px-3 py-1 text-xs font-black uppercase tracking-widest text-emerald-300">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="inline-flex items-center gap-2 rounded-full bg-gray-500/10 border border-gray-400/20 px-3 py-1 text-xs font-black uppercase tracking-widest text-gray-300">
+                    <span className="h-2 w-2 rounded-full bg-gray-400 animate-pulse" />
                     Activo 24/7
                   </span>
                 </div>
@@ -613,7 +629,7 @@ function Home() {
                       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500/15 text-xs font-black text-red-300">{i + 1}</span>
                       <span className="text-sm font-bold uppercase text-white">{step}</span>
                       <span className="h-2 w-16 rounded-full bg-gray-800 overflow-hidden">
-                        <span className={`block h-full rounded-full bg-gradient-to-r ${i % 2 === 0 ? "from-red-500 to-orange-400 w-10/12" : "from-blue-400 to-cyan-400 w-8/12"}`} />
+                        <span className={`block h-full rounded-full bg-gradient-to-r ${i % 2 === 0 ? "from-red-500 to-red-400 w-10/12" : "from-gray-400 to-gray-400 w-8/12"}`} />
                       </span>
                     </div>
                   ))}
@@ -646,7 +662,7 @@ function Home() {
                   <span className="text-xs font-black uppercase tracking-widest text-gray-500">Comparativa</span>
                   <h3 className="text-white font-black uppercase text-xl mt-1">SGI vs proveedor tradicional</h3>
                 </div>
-                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-emerald-300">SGI</div>
+                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-gray-300">SGI</div>
                 <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-gray-400">Proveedor comun</div>
               </div>
               {comparisonRows.map((row) => (
@@ -656,7 +672,7 @@ function Home() {
                   </div>
                   <div className="p-5 border-white/10 md:border-l">
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
                       <p className="text-sm text-gray-200 leading-relaxed">{row.sgi}</p>
                     </div>
                   </div>
@@ -998,10 +1014,10 @@ function Home() {
           <div className="grid md:grid-cols-4 gap-8 mt-14 relative">
             <div className="hidden md:block absolute top-7 left-[12%] right-[12%] h-0.5 bg-gray-700" />
             {[
-              { num: "1", icon: <Target className="w-6 h-6" />, color: "text-blue-400", bg: "bg-blue-500/15", border: "border-blue-500/30", title: "Diagnóstico",     desc: "Evaluación técnica y análisis de la situación." },
-              { num: "2", icon: <FileText className="w-6 h-6" />, color: "text-amber-400", bg: "bg-amber-500/15", border: "border-amber-500/30", title: "Planeación",       desc: "Estrategia, cronograma y asignación de recursos." },
+              { num: "1", icon: <Target className="w-6 h-6" />, color: "text-gray-400", bg: "bg-gray-500/15", border: "border-gray-500/30", title: "Diagnóstico",     desc: "Evaluación técnica y análisis de la situación." },
+              { num: "2", icon: <FileText className="w-6 h-6" />, color: "text-red-400", bg: "bg-red-500/15", border: "border-red-500/30", title: "Planeación",       desc: "Estrategia, cronograma y asignación de recursos." },
               { num: "3", icon: <Wrench className="w-6 h-6" />, color: "text-red-400", bg: "bg-red-500/15", border: "border-red-500/30", title: "Implementación",   desc: "Ejecución bajo estándares de seguridad y calidad." },
-              { num: "4", icon: <CheckCircle2 className="w-6 h-6" />, color: "text-emerald-400", bg: "bg-emerald-500/15", border: "border-emerald-500/30", title: "Validación",       desc: "Pruebas, entrega formal y liberación del sistema." },
+              { num: "4", icon: <CheckCircle2 className="w-6 h-6" />, color: "text-gray-400", bg: "bg-gray-500/15", border: "border-gray-500/30", title: "Validación",       desc: "Pruebas, entrega formal y liberación del sistema." },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.12} className="relative z-10">
                 <div className={`bg-white/5 border ${p.border} rounded-2xl p-6 h-full text-center hover:-translate-y-1 hover:bg-white/10 transition-all`}>
@@ -1136,7 +1152,7 @@ function Home() {
               <FadeIn key={i} delay={i * 0.1}>
                 <Card className="p-8 h-full">
                   <div className="flex gap-1 mb-5">
-                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-red-400 text-red-400" />)}
                   </div>
                   <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
                   <div className="border-t border-gray-100 pt-4">
@@ -1284,8 +1300,8 @@ function Home() {
               <Card className="mb-6 p-8" hover={false}>
                 <ul className="space-y-6">
                   <li className="flex items-start gap-4">
-                    <div className="bg-blue-50 p-2.5 rounded-lg shrink-0">
-                      <MapPin className="w-5 h-5 text-blue-600" />
+                    <div className="bg-gray-50 p-2.5 rounded-lg shrink-0">
+                      <MapPin className="w-5 h-5 text-gray-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Ubicación</h5>
@@ -1293,8 +1309,8 @@ function Home() {
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
-                    <div className="bg-emerald-50 p-2.5 rounded-lg shrink-0">
-                      <Phone className="w-5 h-5 text-emerald-600" />
+                    <div className="bg-gray-50 p-2.5 rounded-lg shrink-0">
+                      <Phone className="w-5 h-5 text-gray-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Teléfono (24/7)</h5>
@@ -1302,8 +1318,8 @@ function Home() {
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
-                    <div className="bg-purple-50 p-2.5 rounded-lg shrink-0">
-                      <Mail className="w-5 h-5 text-purple-600" />
+                    <div className="bg-red-50 p-2.5 rounded-lg shrink-0">
+                      <Mail className="w-5 h-5 text-red-600" />
                     </div>
                     <div>
                       <h5 className="font-bold text-gray-900 uppercase mb-1 text-sm">Correo Electrónico</h5>
@@ -1341,8 +1357,8 @@ function Home() {
                 <div className="bg-white p-4 border-t border-gray-100">
                   {/* Dirección con botón copiar */}
                   <div className="flex items-start gap-3 mb-4">
-                    <div className="bg-blue-50 p-1.5 rounded-lg shrink-0 mt-0.5">
-                      <MapPin className="w-4 h-4 text-blue-600" />
+                    <div className="bg-gray-50 p-1.5 rounded-lg shrink-0 mt-0.5">
+                      <MapPin className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-gray-800 text-sm font-medium leading-snug">{SGI_ADDRESS}</p>
@@ -1352,7 +1368,7 @@ function Home() {
                       onClick={copyAddress}
                       aria-label={addressCopied ? "Direccion copiada" : "Copiar direccion"}
                       title="Copiar dirección"
-                      className={`shrink-0 p-1.5 rounded-lg transition-all ${addressCopied ? "bg-emerald-50 text-emerald-600" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
+                      className={`shrink-0 p-1.5 rounded-lg transition-all ${addressCopied ? "bg-gray-50 text-gray-600" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
                     >
                       {addressCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -1364,7 +1380,7 @@ function Home() {
                       href={GOOGLE_MAPS_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-colors text-center group"
+                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-gray-600 hover:bg-gray-700 text-white transition-colors text-center group"
                     >
                       <Navigation className="w-4 h-4 group-hover:scale-110 transition-transform" />
                       <span className="text-[10px] font-bold uppercase tracking-wide">Google</span>
@@ -1373,7 +1389,7 @@ function Home() {
                       href={WAZE_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white transition-colors text-center group"
+                      className="flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl bg-gray-500 hover:bg-gray-600 text-white transition-colors text-center group"
                     >
                       <Navigation className="w-4 h-4 group-hover:scale-110 transition-transform" />
                       <span className="text-[10px] font-bold uppercase tracking-wide">Waze</span>
@@ -1396,7 +1412,7 @@ function Home() {
               <Card className="mt-8 lg:mt-16 p-8 border-t-4 border-t-red-600" hover={false}>
                 <h3 className="text-2xl font-black text-gray-900 uppercase mb-6">Solicita tu Cotización</h3>
                 {formSuccess && (
-                  <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-xl mb-6 text-sm flex items-center gap-3">
+                  <div className="bg-gray-50 border border-gray-200 text-gray-700 p-4 rounded-xl mb-6 text-sm flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 shrink-0" /> Solicitud preparada. Abriendo WhatsApp...
                   </div>
                 )}
@@ -1520,7 +1536,7 @@ function Home() {
         target="_blank"
         rel="noreferrer"
         aria-label="Contactar a SGI por WhatsApp"
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 z-50 transition-transform hover:scale-110"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-lg shadow-gray-500/30 z-50 transition-transform hover:scale-110"
       >
         <Phone className="w-7 h-7" />
       </a>

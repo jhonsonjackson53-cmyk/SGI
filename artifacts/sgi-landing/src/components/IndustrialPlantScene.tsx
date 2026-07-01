@@ -30,7 +30,7 @@ function IndustrialPlantScene() {
     const redLight = new THREE.PointLight(0xef4444, 2.5, 18);
     redLight.position.set(-3.5, 2.5, 3);
     scene.add(redLight);
-    const blueLight = new THREE.PointLight(0x38bdf8, 1.4, 15);
+    const blueLight = new THREE.PointLight(0x94a3b8, 1.4, 15);
     blueLight.position.set(4, 2, -2);
     scene.add(blueLight);
 
@@ -40,12 +40,12 @@ function IndustrialPlantScene() {
     const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.38, metalness: 0.45 });
     const amberMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.38, metalness: 0.25 });
     const greenMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.38, metalness: 0.25 });
-    const cyanMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.38, metalness: 0.25 });
+    const cyanMat = new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.38, metalness: 0.25 });
     const concreteMat = new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.85, metalness: 0.08 });
     const yellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.45, metalness: 0.25 });
     const cableMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.5, metalness: 0.45 });
     const panelMat = new THREE.MeshStandardMaterial({ color: 0xe5e7eb, roughness: 0.5, metalness: 0.4 });
-    const glassMat = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, roughness: 0.18, metalness: 0.1, transparent: true, opacity: 0.48 });
+    const glassMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.18, metalness: 0.1, transparent: true, opacity: 0.48 });
     const emissiveRedMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xef4444, emissiveIntensity: 0.55 });
     const emissiveGreenMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 0.45 });
     const spinningFans: THREE.Group[] = [];

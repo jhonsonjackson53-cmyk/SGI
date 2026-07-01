@@ -285,6 +285,20 @@
 .animate-spin-slow { animation: spin-slow 12s linear infinite; }
 .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
 
+/* Grid/dot backdrop pattern — subtle industrial-blueprint feel in gray/red */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(239,68,68,0.35) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 .shimmer-text {
   background: linear-gradient(90deg, #ffffff 0%, #ef4444 40%, #ffffff 60%, #ef4444 100%);
   background-size: 200% auto;
