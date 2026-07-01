@@ -9,7 +9,8 @@
 - [ ] Revisar que todas las imagenes carguen en GitHub Pages.
 - [ ] Optimizar imagenes grandes para mejorar velocidad.
 - [x] Revisar SEO basico: titulo, descripcion y previews sociales. (Alineado a GitHub Pages el 2026-07-01; falta validar preview externo despues del deploy.)
-- [ ] Validar canonical, Open Graph y JSON-LD en la URL publica despues del deploy.
+- [x] Validar canonical, Open Graph y JSON-LD en la URL publica despues del deploy. (HTTP 200 verificado el 2026-07-01.)
+- [ ] Validar previews sociales en herramientas externas despues de actualizar cache.
 
 ## Assets
 

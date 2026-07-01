@@ -26,10 +26,11 @@ Validacion:
 - `tsc -p artifacts/sgi-landing/tsconfig.json --noEmit` ejecutado con binario local.
 - `vite build --config vite.config.ts` ejecutado en `artifacts/sgi-landing` con `BASE_PATH=/SGI/`.
 - `pnpm install` y `pnpm run typecheck` no pudieron completarse por falta de `sh` en Windows; se valido con binarios locales instalados.
-- Pendiente publicar push a `main` para activar GitHub Pages.
+- Commit `fdcd17d` publicado en `main` para activar GitHub Pages.
+- Verificacion HTTP de `https://jhonsonjackson53-cmyk.github.io/SGI/?v=fdcd17d-2`: respuesta 200, canonical/OG apuntan a GitHub Pages, favicon usa `/SGI/logo-sgi.png` y el correo publicado es `sginogales@gmail.com`.
 
 Pendientes nuevos:
-- Validar canonical/Open Graph/JSON-LD ya publicados.
+- Validar previews sociales en herramientas externas despues de que cache de plataformas se actualice.
 - Confirmar datos comerciales definitivos y permisos de logos de terceros.
 
 ## 2026-06-30

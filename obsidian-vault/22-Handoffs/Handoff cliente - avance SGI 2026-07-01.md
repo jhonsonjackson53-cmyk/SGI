@@ -39,6 +39,8 @@ URL publica: https://jhonsonjackson53-cmyk.github.io/SGI/
 - PR #1 reporto preview local en `http://127.0.0.1:5173/`.
 - PR #1 reporto imagenes publicas con respuesta HTTP 200.
 - El repo contiene workflow `.github/workflows/pages.yml` para publicar GitHub Pages desde `main`.
+- El 2026-07-01 se valido build local con `tsc --build`, typecheck de landing y `vite build` con `BASE_PATH=/SGI/`.
+- Despues del push a `main`, GitHub Pages respondio 200 y el HTML publicado mostro canonical/OG de GitHub Pages, favicon bajo `/SGI/` y correo `sginogales@gmail.com`.
 
 ## Gaps antes de enviar al cliente
 
@@ -47,7 +49,7 @@ URL publica: https://jhonsonjackson53-cmyk.github.io/SGI/
 - Confirmar permisos de uso comercial para logos de marcas y proveedores.
 - Optimizar peso de imagenes grandes antes de una campana o envio masivo.
 - Confirmar textos definitivos por servicio, especialmente si SGI quiere enfatizar mantenimiento, moldeo, HVAC u obra civil.
-- Verificar despues del deploy que GitHub Pages muestre favicon, previews sociales, canonical y JSON-LD correctos.
+- Verificar previews sociales en herramientas externas una vez que las plataformas actualicen cache.
 - Definir si se usara dominio propio y correo corporativo; por ahora la URL publica es GitHub Pages.
 
 ## Siguiente bloque recomendado
