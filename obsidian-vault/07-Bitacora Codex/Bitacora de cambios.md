@@ -2,6 +2,37 @@
 
 ## 2026-07-01
 
+### Creacion del equipo IA SGI en Open WebUI
+
+Cambios:
+- Se crearon siete perfiles especializados en Open WebUI:
+  - `SGI Director Tecnico`
+  - `SGI Programador Senior`
+  - `SGI Disenador Industrial`
+  - `SGI Mente Creativa`
+  - `SGI Redactor Comercial`
+  - `SGI QA Mobile`
+  - `SGI Gestor de Memoria`
+- Se asignaron modelos base segun funcion: `gpt-5.5-pro`, `gpt-4.1` y `gpt-4o`.
+- Se configuraron prompts de sistema, parametros, metadatos, tags y permisos de lectura/escritura para el usuario admin.
+- Se documento la arquitectura en [[11-Codex/Equipo IA SGI]].
+- Se enlazo la nota desde [[Dashboard SGI]].
+
+Archivos modificados:
+- `obsidian-vault/11-Codex/Equipo IA SGI.md`
+- `obsidian-vault/Dashboard SGI.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- Los perfiles `sgi-*` quedaron activos en la base local de Open WebUI.
+- Cada perfil tiene permisos locales para el usuario admin.
+- Se desactivo cache de modelos base para facilitar recarga en la interfaz.
+
+Pendientes nuevos:
+- Rotar la API key de Gemini vista en captura antes de conectarla.
+- Conectar Gemini con una clave nueva y reasignar roles visuales/creativos si conviene.
+- Crear y asociar la base de conocimiento `SGI - Memoria del Proyecto`.
+
 ### Integracion inicial de Open WebUI con SGI
 
 Cambios:

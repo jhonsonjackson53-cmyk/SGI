@@ -12,6 +12,7 @@
 - [[10-GitHub y Deploy/Guia GitHub Pages]]
 - [[11-Codex/Protocolo de trabajo con Codex]]
 - [[11-Codex/Integracion Open WebUI SGI]]
+- [[11-Codex/Equipo IA SGI]]
 - [[22-Handoffs/Handoff cliente - avance SGI 2026-07-01]]
 
 ## Pendientes abiertos
