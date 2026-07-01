@@ -471,6 +471,26 @@ function Home() {
         </div>
       </section>
 
+      <section className="industrial-marquee-section bg-gray-950 py-5 overflow-hidden">
+        <div className="industrial-marquee">
+          {[...Array(2)].flatMap(() => [
+            "Mantenimiento 24/7",
+            "HVAC industrial",
+            "Obra civil",
+            "Moldeo por inyeccion",
+            "Instalaciones",
+            "Seguridad NOM",
+            "Suministros",
+            "Respuesta critica",
+          ]).map((item, i) => (
+            <span key={`${item}-${i}`} className="industrial-marquee-item">
+              <span className="h-2 w-2 rounded-full bg-red-500 shadow-lg shadow-red-500/40" />
+              {item}
+            </span>
+          ))}
+        </div>
+      </section>
+
       {/* ── QUIÉNES SOMOS ── */}
       <section id="nosotros" className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
@@ -499,7 +519,7 @@ function Home() {
                   { val: "100%", label: "Compromiso" },
                   { val: "SGI", label: "Ingeniería Integral" },
                 ].map((s, i) => (
-                  <Card key={i} className="p-8 text-center" hover={false}>
+                  <Card key={i} className="metric-card p-8 text-center" hover={false}>
                     <div className="text-4xl font-black text-gray-900 mb-2">{s.val}</div>
                     <div className="text-xs text-red-600 font-bold uppercase tracking-wide">{s.label}</div>
                   </Card>
@@ -616,12 +636,18 @@ function Home() {
               { icon: <Power />,    title: "Instalaciones",          desc: "Sistemas eléctricos, mecánicos, hidráulicos y servicios generales de planta.",                                   color: "text-red-600",  bg: "bg-red-50  group-hover:bg-red-100",  border: "group-hover:border-red-200"  },
             ].map((s, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <Card className={`p-8 h-full group transition-all ${s.border}`}>
-                  <div className={`${s.bg} w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors`}>
+                <Card className={`service-card p-8 h-full group transition-all ${s.border}`}>
+                  <div className={`${s.bg} w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
                     {React.cloneElement(s.icon as React.ReactElement<{ className?: string }>, { className: `w-6 h-6 ${s.color}` })}
                   </div>
                   <h3 className="text-lg font-black text-gray-900 uppercase mb-3">{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                  <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase tracking-[0.24em] text-gray-400">Modulo {String(i + 1).padStart(2, "0")}</span>
+                    <span className="h-9 w-9 rounded-full bg-gray-950 text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
                 </Card>
               </FadeIn>
             ))}
@@ -1138,11 +1164,14 @@ function Home() {
               { title: "Moldeo por Inyección",     desc: "Servicio especializado para maquinaria.", img: "/proyectos/sgi-moldeo-detalle.jpg" },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
+                <div className="project-card group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
                   <div className="aspect-[4/3] overflow-hidden">
                     <img loading="lazy" decoding="async" src={asset(p.img)} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent flex flex-col justify-end p-6">
+                    <span className="mb-3 inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-white/80 backdrop-blur-md">
+                      Caso SGI
+                    </span>
                     <h3 className="text-lg font-black text-white uppercase mb-1">{p.title}</h3>
                     <p className="text-red-200 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{p.desc}</p>
                   </div>
@@ -1162,7 +1191,7 @@ function Home() {
               "/proyectos/sgi-herreria-marcos.jpg",
               "/proyectos/sgi-certificado-arburg.jpg",
             ].map((img, i) => (
-              <img loading="lazy" decoding="async" key={i} src={asset(img)} alt={`Trabajo SGI ${i + 1}`} className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
+              <img loading="lazy" decoding="async" key={i} src={asset(img)} alt={`Trabajo SGI ${i + 1}`} className="gallery-tile w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
           </div>
         </div>
@@ -1182,9 +1211,14 @@ function Home() {
               { text: "Profesionalismo, calidad y cumplimiento de objetivos. Los recomendamos ampliamente en el sector.", author: "Jefe de Planta", company: "Planta de Electrónica" },
             ].map((o, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <Card className="p-8 h-full">
-                  <div className="flex gap-1 mb-5">
+                <Card className="testimonial-card p-8 h-full">
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 to-gray-100 border border-gray-200 flex items-center justify-center text-gray-900 font-black">
+                      {o.author.split(" ").map((part) => part[0]).slice(0, 2).join("")}
+                    </div>
+                    <div className="flex gap-1">
                     {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-red-400 text-red-400" />)}
+                    </div>
                   </div>
                   <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
                   <div className="border-t border-gray-100 pt-4">
@@ -1240,7 +1274,7 @@ function Home() {
               return (
                 <FadeIn key={i} delay={i * 0.05}>
                   <div
-                    className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-red-200 shadow-md shadow-red-50" : "border-gray-200 shadow-sm hover:border-gray-300"}`}
+                    className={`faq-card bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-red-200 shadow-md shadow-red-50" : "border-gray-200 shadow-sm hover:border-gray-300"}`}
                   >
                     <button
                       type="button"

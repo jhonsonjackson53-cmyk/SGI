@@ -2,6 +2,32 @@
 
 ## 2026-07-01
 
+### Segunda capa de rediseño Framer en toda la landing
+
+Cambios:
+- Se continuo el rediseño inspirado en Framer LanX aplicado a toda la landing.
+- Se agrego una banda animada tipo marquee con servicios industriales SGI.
+- Se mejoraron las tarjetas de servicios con tratamiento de producto premium, modulo numerado, flecha de accion y brillo inferior.
+- Se mejoraron las metricas de `Nosotros` con tarjetas visuales mas profundas.
+- Se reforzaron proyectos con etiqueta `Caso SGI`, brillo diagonal y mejor hover visual.
+- Se agrego tratamiento premium a galeria, testimonios y FAQ.
+- Se mantuvo intacta la informacion de negocio y el contexto industrial original.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Build exitoso. Se conserva la advertencia conocida de `vendor-three` mayor a 500 KB, ya aislado.
+
+Pendientes nuevos:
+- Revisión visual manual en escritorio y Android para ajustar intensidad, espaciados o velocidad de marquee.
+
 ### Rediseño visual global inspirado en Framer LanX
 
 Cambios:

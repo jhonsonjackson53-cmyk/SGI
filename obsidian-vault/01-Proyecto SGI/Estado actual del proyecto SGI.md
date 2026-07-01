@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se agrego una segunda capa de rediseño Framer: marquee industrial, tarjetas de servicios premium, proyectos con etiqueta `Caso SGI`, testimonios/FAQ/galeria con mayor profundidad visual.
 - Se aplico un rediseño visual global inspirado en Framer LanX: fondos animados, paneles flotantes, tarjetas glass, texto degradado y microinteracciones en toda la landing.
 - Se agrego una seccion premium de ventaja operativa inspirada en referencia Framer, adaptada a SGI con panel tecnico y comparativa contra proveedor tradicional.
 - Se aplico una optimizacion tecnica por auditoria: escena 3D separada con carga diferida, chunks de Vite, lazy loading de imagenes, sitemap y mejoras de accesibilidad.
@@ -42,6 +43,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Proximos focos sugeridos
 
+- Validar velocidad del marquee y legibilidad de tarjetas en Android.
 - Revisar visualmente toda la landing despues del rediseño global en desktop y Android.
 - Revisar en Android real la nueva seccion de ventaja operativa.
 - Convertir y comprimir imagenes grandes a WebP/AVIF.
