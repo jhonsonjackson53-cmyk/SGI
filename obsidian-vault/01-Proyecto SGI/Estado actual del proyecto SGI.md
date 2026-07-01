@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se agrego una seccion premium de ventaja operativa inspirada en referencia Framer, adaptada a SGI con panel tecnico y comparativa contra proveedor tradicional.
 - Se aplico una optimizacion tecnica por auditoria: escena 3D separada con carga diferida, chunks de Vite, lazy loading de imagenes, sitemap y mejoras de accesibilidad.
 - Se corrigieron metadatos SEO/Open Graph/JSON-LD para apuntar a GitHub Pages y al contacto real mostrado en la app.
 - Se corrigieron rutas de imagenes para GitHub Pages.
@@ -40,6 +41,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Proximos focos sugeridos
 
+- Revisar en Android real la nueva seccion de ventaja operativa.
 - Convertir y comprimir imagenes grandes a WebP/AVIF.
 - Validar Lighthouse/PageSpeed despues del deploy.
 - Definir textos finales de cada servicio.

@@ -2,6 +2,29 @@
 
 ## 2026-07-01
 
+### Seccion premium de ventaja operativa inspirada en Framer
+
+Cambios:
+- Se analizo el preview publico de Framer `LanX` como referencia visual.
+- Se agrego una nueva seccion despues de servicios: `Ventaja operativa`.
+- La seccion incluye panel tecnico oscuro, estado de respuesta 24/7, pasos de ejecucion y tarjetas tipo dashboard.
+- Se agrego comparativa `SGI vs proveedor tradicional` con enfoque en diagnostico, ejecucion, alcance y seguimiento.
+- Se adapto la referencia SaaS al contexto SGI: mantenimiento, HVAC, obra civil, instalaciones, moldeo, suministros, seguridad y continuidad operativa.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Build exitoso; se mantiene la advertencia conocida de `vendor-three` mayor a 500 KB, ya aislado en chunk separado.
+
+Pendientes nuevos:
+- Revisar la nueva seccion en Android real despues del deploy.
+- Ajustar textos comerciales si SGI quiere un tono mas tecnico o mas comercial.
+
 ### Optimizacion tecnica por auditoria SGI Landing
 
 Cambios:

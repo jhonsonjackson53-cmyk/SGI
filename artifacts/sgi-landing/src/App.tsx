@@ -271,6 +271,18 @@ function Home() {
     { title: "Refacciones", icon: <Settings className="w-6 h-6" />, image: "/ingenieria-suministros/refacciones.png", color: "text-orange-600", bg: "bg-orange-50", desc: "Componentes originales o equivalentes para maquinaria y servicios auxiliares.", points: ["Mecanicas", "Electricas", "Criticas"] },
     { title: "Consumibles", icon: <Factory className="w-6 h-6" />, image: "/ingenieria-suministros/consumible1.png", color: "text-emerald-600", bg: "bg-emerald-50", desc: "Materiales de uso diario para mantener la operacion en movimiento.", points: ["MRO", "Seguridad", "Inventario"] },
   ];
+  const advantageItems = [
+    { icon: <Zap className="w-6 h-6" />, title: "Respuesta critica", metric: "< 2h", desc: "Atencion rapida para paros, fallas y necesidades urgentes en planta.", color: "text-amber-400", bg: "bg-amber-500/15", line: "from-amber-400 to-orange-500" },
+    { icon: <Wrench className="w-6 h-6" />, title: "Diagnostico tecnico", metric: "360", desc: "Revision de causa raiz, condiciones de operacion, refacciones y seguridad.", color: "text-blue-400", bg: "bg-blue-500/15", line: "from-blue-400 to-cyan-400" },
+    { icon: <Shield className="w-6 h-6" />, title: "Control seguro", metric: "NOM", desc: "Ejecucion con protocolos, permisos, EPP y evidencia para liberacion.", color: "text-emerald-400", bg: "bg-emerald-500/15", line: "from-emerald-400 to-teal-400" },
+    { icon: <Factory className="w-6 h-6" />, title: "Operacion continua", metric: "24/7", desc: "Soporte para mantenimiento, HVAC, obra civil, instalaciones y moldeo.", color: "text-red-400", bg: "bg-red-500/15", line: "from-red-500 to-rose-400" },
+  ];
+  const comparisonRows = [
+    { area: "Diagnostico", sgi: "Causa raiz, evidencia y plan de accion", regular: "Revision general sin trazabilidad" },
+    { area: "Ejecucion", sgi: "Equipo tecnico, seguridad y control de avance", regular: "Trabajo reactivo sin metodologia clara" },
+    { area: "Alcance", sgi: "Mantenimiento, HVAC, obra civil, instalacion y suministros", regular: "Proveedor limitado a un solo servicio" },
+    { area: "Seguimiento", sgi: "Liberacion, recomendaciones y soporte post-servicio", regular: "Entrega sin continuidad tecnica" },
+  ];
   const activeBrandItem = brandItems[activeBrand];
   const activeSectorItem = sectorItems[activeSector];
   const activeSupplierItem = supplierItems[activeSupplier];
@@ -570,6 +582,97 @@ function Home() {
       </section>
 
       {/* ── ESPECIALISTAS EN MOLDEO ── */}
+      {/* POR QUE ELEGIR SGI */}
+      <section className="py-24 bg-gray-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(239,68,68,0.18),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.14),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.04)_0,transparent_42%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="grid xl:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
+            <FadeIn direction="left">
+              <SectionLabel>Ventaja operativa</SectionLabel>
+              <h2 className="text-3xl md:text-5xl font-black uppercase text-white leading-tight mb-5">
+                Mas que servicio: control tecnico para tu planta
+              </h2>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                SGI combina mantenimiento, HVAC, obra civil, instalaciones, moldeo y suministros en un solo frente operativo para reducir paros y resolver problemas complejos con seguimiento real.
+              </p>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20">
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Estado de respuesta</p>
+                    <h3 className="text-white font-black uppercase text-xl mt-1">Operacion lista</h3>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/20 px-3 py-1 text-xs font-black uppercase tracking-widest text-emerald-300">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Activo 24/7
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  {["Diagnostico en campo", "Plan de accion", "Ejecucion segura", "Liberacion tecnica"].map((step, i) => (
+                    <div key={step} className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 rounded-xl border border-white/10 bg-gray-900/70 px-4 py-3">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500/15 text-xs font-black text-red-300">{i + 1}</span>
+                      <span className="text-sm font-bold uppercase text-white">{step}</span>
+                      <span className="h-2 w-16 rounded-full bg-gray-800 overflow-hidden">
+                        <span className={`block h-full rounded-full bg-gradient-to-r ${i % 2 === 0 ? "from-red-500 to-orange-400 w-10/12" : "from-blue-400 to-cyan-400 w-8/12"}`} />
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              {advantageItems.map((item, i) => (
+                <FadeIn key={item.title} delay={i * 0.08} direction={i % 2 === 0 ? "up" : "down"}>
+                  <div className="group relative min-h-64 rounded-2xl border border-white/10 bg-white/[0.05] p-6 overflow-hidden shadow-xl shadow-black/10 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.08]">
+                    <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.line}`} />
+                    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/5 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+                    <div className={`${item.bg} ${item.color} w-14 h-14 rounded-2xl flex items-center justify-center mb-6`}>
+                      {item.icon}
+                    </div>
+                    <p className={`text-5xl font-black ${item.color} mb-3`}>{item.metric}</p>
+                    <h3 className="text-white font-black uppercase text-lg mb-3">{item.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+
+          <FadeIn delay={0.2}>
+            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden shadow-2xl shadow-black/20">
+              <div className="grid md:grid-cols-[1fr_1fr_1fr] bg-gray-900/80 border-b border-white/10">
+                <div className="p-5">
+                  <span className="text-xs font-black uppercase tracking-widest text-gray-500">Comparativa</span>
+                  <h3 className="text-white font-black uppercase text-xl mt-1">SGI vs proveedor tradicional</h3>
+                </div>
+                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-emerald-300">SGI</div>
+                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-gray-400">Proveedor comun</div>
+              </div>
+              {comparisonRows.map((row) => (
+                <div key={row.area} className="grid md:grid-cols-[1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
+                  <div className="p-5 bg-gray-950/30">
+                    <span className="text-sm font-black uppercase text-white">{row.area}</span>
+                  </div>
+                  <div className="p-5 border-white/10 md:border-l">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <p className="text-sm text-gray-200 leading-relaxed">{row.sgi}</p>
+                    </div>
+                  </div>
+                  <div className="p-5 border-white/10 md:border-l">
+                    <div className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                      <p className="text-sm text-gray-500 leading-relaxed">{row.regular}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       <section id="moldeo" className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-center">

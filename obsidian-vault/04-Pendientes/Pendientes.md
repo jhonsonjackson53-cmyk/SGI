@@ -3,6 +3,7 @@
 ## Web
 
 - [ ] Revisar todo el sitio en Android real.
+- [ ] Revisar en Android la nueva seccion de ventaja operativa y comparativa SGI.
 - [ ] Confirmar textos definitivos de servicios.
 - [ ] Confirmar telefono de WhatsApp.
 - [ ] Confirmar correo de contacto.
