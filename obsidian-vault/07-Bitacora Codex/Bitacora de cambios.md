@@ -2,6 +2,31 @@
 
 ## 2026-07-01
 
+### Integracion inicial de Open WebUI con SGI
+
+Cambios:
+- Se guardo una key de OpenAI para el proyecto en `.env.local`, archivo ignorado por Git.
+- Se configuro Open WebUI local para usar `https://api.openai.com/v1`.
+- Se valido la API de OpenAI contra `/v1/models` sin exponer la clave.
+- Se creo el modelo personalizado `Codex SGI` en Open WebUI con base `gpt-4.1`.
+- Se documento la integracion en [[11-Codex/Integracion Open WebUI SGI]] y se enlazo desde el dashboard.
+
+Archivos modificados:
+- `obsidian-vault/11-Codex/Integracion Open WebUI SGI.md`
+- `obsidian-vault/Dashboard SGI.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- `.env.local` existe y esta ignorado por Git.
+- Open WebUI tiene OpenAI habilitado con una key local cargada.
+- La API de OpenAI respondio correctamente y mostro disponibilidad de modelos como `gpt-4.1`, `gpt-4.1-mini`, `gpt-4o`, `gpt-4o-mini` y `o4-mini`.
+- Open WebUI quedo escuchando en `0.0.0.0:8080`.
+- El modelo `codex-sgi` quedo activo en la base local de Open WebUI.
+
+Pendientes nuevos:
+- Importar o vincular documentos del proyecto SGI como Knowledge dentro de Open WebUI.
+- Probar desde la interfaz que `Codex SGI` aparezca en el selector de modelos y responda con el contexto esperado.
+
 ### Preparacion de handoff cliente y alineacion SEO
 
 Cambios:
