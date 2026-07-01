@@ -31,6 +31,8 @@ El perfil esta orientado a:
 - La API de OpenAI respondio correctamente a `/v1/models`.
 - Open WebUI escucha en `0.0.0.0:8080`.
 - El modelo `Codex SGI` quedo activo en la tabla local de modelos de Open WebUI.
+- El modelo `Codex SGI` tiene permisos locales de lectura/escritura para el usuario admin.
+- Se desactivo el cache local de modelos base para forzar recarga del selector.
 
 ## Seguridad
 
@@ -41,3 +43,9 @@ El perfil esta orientado a:
 ## Pendiente tecnico
 
 Crear un paquete de conocimiento importable en Open WebUI con documentos del proyecto SGI y, si se requiere, asociarlo al modelo `Codex SGI` desde la interfaz de Knowledge.
+
+## Si no aparece en la interfaz
+
+1. Refrescar Open WebUI con `Ctrl + F5`.
+2. Buscar `Codex SGI` en el selector de modelos.
+3. Si sigue sin aparecer, cerrar y volver a iniciar sesion en Open WebUI para renovar la lista de modelos del usuario.

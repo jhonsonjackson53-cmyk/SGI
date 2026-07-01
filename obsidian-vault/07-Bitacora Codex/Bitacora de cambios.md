@@ -9,6 +9,8 @@ Cambios:
 - Se configuro Open WebUI local para usar `https://api.openai.com/v1`.
 - Se valido la API de OpenAI contra `/v1/models` sin exponer la clave.
 - Se creo el modelo personalizado `Codex SGI` en Open WebUI con base `gpt-4.1`.
+- Se agregaron permisos locales de lectura/escritura para que el usuario admin pueda ver `Codex SGI` en el selector.
+- Se desactivo el cache local de modelos base para forzar recarga de Open WebUI.
 - Se documento la integracion en [[11-Codex/Integracion Open WebUI SGI]] y se enlazo desde el dashboard.
 
 Archivos modificados:
@@ -22,6 +24,7 @@ Validacion:
 - La API de OpenAI respondio correctamente y mostro disponibilidad de modelos como `gpt-4.1`, `gpt-4.1-mini`, `gpt-4o`, `gpt-4o-mini` y `o4-mini`.
 - Open WebUI quedo escuchando en `0.0.0.0:8080`.
 - El modelo `codex-sgi` quedo activo en la base local de Open WebUI.
+- `codex-sgi` quedo con permisos de lectura/escritura para el usuario admin.
 
 Pendientes nuevos:
 - Importar o vincular documentos del proyecto SGI como Knowledge dentro de Open WebUI.
