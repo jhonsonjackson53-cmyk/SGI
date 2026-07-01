@@ -11,6 +11,7 @@
 - [[07-Bitacora Codex/Bitacora de cambios]]
 - [[10-GitHub y Deploy/Guia GitHub Pages]]
 - [[11-Codex/Protocolo de trabajo con Codex]]
+- [[22-Handoffs/Handoff cliente - avance SGI 2026-07-01]]
 
 ## Pendientes abiertos
 
@@ -25,7 +26,7 @@ sort by description
 
 ```dataview
 TABLE file.folder AS "Carpeta", file.mtime AS "Ultima modificacion"
-FROM "01-Proyecto SGI" OR "02-Contenido Web" OR "03-Decisiones" OR "04-Pendientes" OR "06-Assets e Imagenes" OR "07-Bitacora Codex"
+FROM "01-Proyecto SGI" OR "02-Contenido Web" OR "03-Decisiones" OR "04-Pendientes" OR "06-Assets e Imagenes" OR "07-Bitacora Codex" OR "22-Handoffs"
 SORT file.mtime DESC
 LIMIT 12
 ```

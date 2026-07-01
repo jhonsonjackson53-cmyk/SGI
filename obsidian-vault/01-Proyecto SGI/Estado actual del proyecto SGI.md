@@ -1,10 +1,11 @@
 # Estado actual del proyecto SGI
 
 Fecha de inicio de esta memoria: 2026-06-30
+Ultima actualizacion: 2026-07-01
 
 ## Resumen
 
-SGI cuenta con una landing web publicada mediante GitHub Pages. El sitio presenta servicios industriales, experiencia tecnica, moldeo, ingenieria, suministros, seguridad, proyectos, contacto y una animacion 3D interactiva en el inicio.
+SGI cuenta con una landing web publicada mediante GitHub Pages. El sitio presenta servicios industriales, experiencia tecnica, moldeo, ingenieria, suministros, seguridad, proyectos, contacto y una animacion 3D interactiva en el inicio. El PR #1 (`[codex] Upgrade SGI landing experience`) ya fue fusionado a `main`.
 
 ## Preview publico
 
@@ -25,10 +26,16 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se corrigieron metadatos SEO/Open Graph/JSON-LD para apuntar a GitHub Pages y al contacto real mostrado en la app.
 - Se corrigieron rutas de imagenes para GitHub Pages.
 - Se ajusto la franja de servicios rapidos en movil.
 - Se agregaron imagenes reales y logos a carpetas publicas.
 - Se configuro workflow de GitHub Pages.
+
+## Handoff cliente
+
+- Documento preparado: [[Handoff cliente - avance SGI 2026-07-01]]
+- Fuentes usadas: PR #1 de GitHub, `SGI.html` y `ArchivosGit.txt` de Google Drive, estado actual de Obsidian.
 
 ## Proximos focos sugeridos
 

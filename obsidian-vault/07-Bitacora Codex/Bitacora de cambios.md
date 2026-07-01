@@ -1,5 +1,37 @@
 # Bitacora de cambios
 
+## 2026-07-01
+
+### Preparacion de handoff cliente y alineacion SEO
+
+Cambios:
+- Se preparo el documento [[Handoff cliente - avance SGI 2026-07-01]] con resumen cliente, cambios del PR #1, assets/contenido involucrado, validacion y brechas.
+- Se actualizo el estado del proyecto con referencia al PR #1 fusionado y a las fuentes recientes de Drive (`SGI.html` y `ArchivosGit.txt`).
+- Se completo la nota de contacto con telefono, WhatsApp, correo y direccion actualmente usados por la web.
+- Se registraron los grupos de assets publicos incorporados en la landing.
+- Se marco el siguiente bloque recomendado en pendientes: cierre pre-cliente.
+- Se corrigieron metadatos SEO, Open Graph, Twitter Card, favicon y JSON-LD para apuntar a GitHub Pages y a `sginogales@gmail.com`.
+
+Archivos modificados:
+- `artifacts/sgi-landing/index.html`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/02-Contenido Web/Datos de contacto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/06-Assets e Imagenes/Assets pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+- `obsidian-vault/22-Handoffs/Handoff cliente - avance SGI 2026-07-01.md`
+
+Validacion:
+- `tsc --build` ejecutado con binario local.
+- `tsc -p artifacts/sgi-landing/tsconfig.json --noEmit` ejecutado con binario local.
+- `vite build --config vite.config.ts` ejecutado en `artifacts/sgi-landing` con `BASE_PATH=/SGI/`.
+- `pnpm install` y `pnpm run typecheck` no pudieron completarse por falta de `sh` en Windows; se valido con binarios locales instalados.
+- Pendiente publicar push a `main` para activar GitHub Pages.
+
+Pendientes nuevos:
+- Validar canonical/Open Graph/JSON-LD ya publicados.
+- Confirmar datos comerciales definitivos y permisos de logos de terceros.
+
 ## 2026-06-30
 
 ### Se amplia la memoria para Graph View

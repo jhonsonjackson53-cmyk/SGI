@@ -32,5 +32,18 @@
 
 | Fecha | Archivo | Seccion | Estado | Notas |
 | --- | --- | --- | --- | --- |
-| 2026-06-30 |  |  | Pendiente |  |
+| 2026-06-30 | `public/proyectos/*.jpg` | Proyectos, seguridad, experiencia tecnica, moldeo | En uso | Assets incorporados en PR #1. Revisar peso y permisos antes de envio comercial. |
+| 2026-06-30 | `public/clientes-sectores/*.png` | Clientes y sectores | En uso | Iconografia/imagenes por sector incorporadas en PR #1. |
+| 2026-06-30 | `public/marcas-tecnologias/*.png` | Marcas y tecnologias | En uso | Confirmar permisos de uso de logos de terceros. |
+| 2026-06-30 | `public/proveedores-socios/*.png` | Proveedores y socios | En uso | Confirmar permisos de uso de logos de terceros. |
+| 2026-06-30 | `public/ingenieria-suministros/*.png` | Ingenieria y suministros | En uso | Imagenes de soporte para cards interactivas. |
+| 2026-06-30 | `public/logo-sgi.png` | Branding | En uso | Pendiente definir logo final de alta resolucion. |
+
+## Assets clave del handoff 2026-07-01
+
+- Proyectos: mantenimiento, obra civil, moldeo, herreria, racks, scrubber, cortina industrial, maquinado, instalacion de maquinaria y certificados.
+- Sectores: maquiladoras, automotriz, electronica, plasticos, construccion, alimentos, logistica y hospitalario.
+- Marcas: ENGEL, ARBURG, HUSKY, KEYENCE, EATON, 3M, HILTI, MAKITA, MILWAUKEE y BALLUFF.
+- Proveedores: GRAINGER, FASTENAL, ABB, SONEPAR y MCMASTER.
+- Ingenieria/suministros: diseno, propuesta, prototipos, pruebas, herramientas, refacciones y consumibles.
 
