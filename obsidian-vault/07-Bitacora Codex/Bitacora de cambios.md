@@ -35,6 +35,26 @@ Pendientes nuevos:
 
 ## 2026-06-30
 
+### Se finaliza configuracion de Obsidian como memoria del proyecto
+
+Cambios:
+- Se confirmo que la boveda correcta es `SGI/obsidian-vault`.
+- Se elimino la configuracion accidental `.obsidian` creada en la raiz `SGI`.
+- Se documento la ruta correcta en `ABRIR_OBSIDIAN.md`.
+- Se dejo el registro global de Obsidian apuntando solo a `obsidian-vault`.
+- Se abrio Obsidian usando la ruta correcta del vault.
+- Se versiono la configuracion de `Graph View` con filtros, colores y fuerzas visuales.
+- Se versiono la configuracion base de plugins: Obsidian Git, Dataview, Tasks y Templater.
+- Se dejo `Dashboard SGI` como entrada principal de trabajo.
+
+Motivo:
+Evitar que Obsidian use la raiz del repositorio como boveda y asegurar que la memoria del proyecto quede separada del codigo, dependencias y archivos temporales.
+
+Resultado:
+- Obsidian queda configurado como memoria del proyecto.
+- GitHub mantiene versionadas las notas y configuraciones utiles.
+- Codex puede consultar y actualizar la memoria sin mezclarla con el codigo fuente.
+
 ### Se amplia la memoria para Graph View
 
 Cambios:
