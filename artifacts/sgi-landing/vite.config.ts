@@ -57,6 +57,39 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, "/");
+          if (!normalizedId.includes("/node_modules/")) return;
+          if (normalizedId.includes("/node_modules/three/")) return "vendor-three";
+          if (
+            normalizedId.includes("/node_modules/react/") ||
+            normalizedId.includes("/node_modules/react-dom/") ||
+            normalizedId.includes("/node_modules/scheduler/") ||
+            normalizedId.includes("/node_modules/wouter/") ||
+            normalizedId.includes("/node_modules/@tanstack/react-query/")
+          ) return "vendor-react";
+          if (
+            normalizedId.includes("/node_modules/framer-motion/") ||
+            normalizedId.includes("/node_modules/motion-dom/") ||
+            normalizedId.includes("/node_modules/motion-utils/")
+          ) return "vendor-motion";
+          if (
+            normalizedId.includes("/node_modules/@radix-ui/") ||
+            normalizedId.includes("/node_modules/lucide-react/") ||
+            normalizedId.includes("/node_modules/class-variance-authority/") ||
+            normalizedId.includes("/node_modules/clsx/") ||
+            normalizedId.includes("/node_modules/tailwind-merge/")
+          ) return "vendor-ui";
+          if (
+            normalizedId.includes("/node_modules/react-hook-form/") ||
+            normalizedId.includes("/node_modules/@hookform/") ||
+            normalizedId.includes("/node_modules/zod/")
+          ) return "vendor-forms";
+        },
+      },
+    },
   },
   server: {
     port,

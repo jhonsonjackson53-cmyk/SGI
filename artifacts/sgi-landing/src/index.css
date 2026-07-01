@@ -377,3 +377,24 @@
     inset: -1px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-float,
+  .animate-float-delay,
+  .animate-float-slow,
+  .animate-pulse-ring,
+  .animate-spin-slow,
+  .animate-glow-pulse,
+  .animate-pulse {
+    animation: none !important;
+  }
+}

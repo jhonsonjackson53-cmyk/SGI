@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se aplico una optimizacion tecnica por auditoria: escena 3D separada con carga diferida, chunks de Vite, lazy loading de imagenes, sitemap y mejoras de accesibilidad.
 - Se corrigieron metadatos SEO/Open Graph/JSON-LD para apuntar a GitHub Pages y al contacto real mostrado en la app.
 - Se corrigieron rutas de imagenes para GitHub Pages.
 - Se ajusto la franja de servicios rapidos en movil.
@@ -39,9 +40,10 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Proximos focos sugeridos
 
+- Convertir y comprimir imagenes grandes a WebP/AVIF.
+- Validar Lighthouse/PageSpeed despues del deploy.
 - Definir textos finales de cada servicio.
 - Revisar todo el sitio en movil.
-- Optimizar peso de imagenes grandes.
 - Conectar dominio propio si SGI lo tiene.
 - Confirmar telefono, correo y WhatsApp definitivos.
 

@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, useInView } from "framer-motion";
-import * as THREE from "three";
 import {
   Menu, X, ChevronUp, MapPin, Phone, Mail,
   Settings, Zap, Shield, Factory, CheckCircle2,
@@ -27,268 +26,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+
 const logoSrc = asset("/logo-sgi.png");
 const queryClient = new QueryClient();
 
-function IndustrialPlantScene() {
-  const hostRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x111827, 7, 24);
-
-    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.set(6, 5, 9);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
-    renderer.setClearColor(0x000000, 0);
-    host.appendChild(renderer.domElement);
-
-    const group = new THREE.Group();
-    scene.add(group);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    keyLight.position.set(5, 8, 6);
-    scene.add(keyLight);
-    const redLight = new THREE.PointLight(0xef4444, 2.5, 18);
-    redLight.position.set(-3.5, 2.5, 3);
-    scene.add(redLight);
-    const blueLight = new THREE.PointLight(0x38bdf8, 1.4, 15);
-    blueLight.position.set(4, 2, -2);
-    scene.add(blueLight);
-
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0x202938, roughness: 0.72, metalness: 0.25 });
-    const metalMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.42, metalness: 0.65 });
-    const darkMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.58, metalness: 0.35 });
-    const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.38, metalness: 0.45 });
-    const amberMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.38, metalness: 0.25 });
-    const greenMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.38, metalness: 0.25 });
-    const cyanMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.38, metalness: 0.25 });
-    const concreteMat = new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.85, metalness: 0.08 });
-    const yellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.45, metalness: 0.25 });
-    const cableMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.5, metalness: 0.45 });
-    const panelMat = new THREE.MeshStandardMaterial({ color: 0xe5e7eb, roughness: 0.5, metalness: 0.4 });
-    const glassMat = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, roughness: 0.18, metalness: 0.1, transparent: true, opacity: 0.48 });
-    const emissiveRedMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xef4444, emissiveIntensity: 0.55 });
-    const emissiveGreenMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 0.45 });
-    const spinningFans: THREE.Group[] = [];
-    const beaconLights: THREE.Mesh[] = [];
-
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(12, 0.18, 8), floorMat);
-    floor.position.y = -0.12;
-    group.add(floor);
-
-    const grid = new THREE.GridHelper(12, 12, 0xef4444, 0x475569);
-    grid.position.y = 0.02;
-    group.add(grid);
-
-    const modulePositions = [
-      [-3.6, 0.45, -1.7, 1.3, 0.9, 1.2, redMat],
-      [-1.2, 0.55, 1.2, 1.6, 1.1, 1.1, metalMat],
-      [1.4, 0.65, -1.4, 1.4, 1.3, 1.4, darkMat],
-      [3.5, 0.45, 1.1, 1.2, 0.9, 1.5, metalMat],
-    ] as const;
-
-    modulePositions.forEach(([x, y, z, w, h, d, mat]) => {
-      const module = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-      module.position.set(x, y, z);
-      group.add(module);
-    });
-
-    const pipeMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.32, metalness: 0.75 });
-    for (let i = 0; i < 5; i += 1) {
-      const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 6.5, 24), pipeMat);
-      pipe.rotation.z = Math.PI / 2;
-      pipe.position.set(0, 1.15 + i * 0.22, -2.9 + i * 0.22);
-      group.add(pipe);
-    }
-
-    const duct = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.28, 0.38), darkMat);
-    duct.position.set(0.4, 2.15, -2.15);
-    group.add(duct);
-
-    const conveyor = new THREE.Mesh(new THREE.BoxGeometry(6.4, 0.16, 0.85), metalMat);
-    conveyor.position.set(0.2, 0.35, 0.1);
-    group.add(conveyor);
-
-    const conveyorBelt = new THREE.Mesh(new THREE.BoxGeometry(6.1, 0.04, 0.55), cableMat);
-    conveyorBelt.position.set(0.2, 0.47, 0.1);
-    group.add(conveyorBelt);
-
-    [-4.8, 4.8].forEach((x) => {
-      [-3.15, 2.95].forEach((z) => {
-        const column = new THREE.Mesh(new THREE.BoxGeometry(0.22, 2.35, 0.22), concreteMat);
-        column.position.set(x, 1.05, z);
-        group.add(column);
-      });
-    });
-    const frontBeam = new THREE.Mesh(new THREE.BoxGeometry(9.9, 0.18, 0.18), concreteMat);
-    frontBeam.position.set(0, 2.25, 2.95);
-    group.add(frontBeam);
-    const backBeam = frontBeam.clone();
-    backBeam.position.z = -3.15;
-    group.add(backBeam);
-    const sideBeamA = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 6.3), concreteMat);
-    sideBeamA.position.set(-4.8, 2.25, -0.1);
-    group.add(sideBeamA);
-    const sideBeamB = sideBeamA.clone();
-    sideBeamB.position.x = 4.8;
-    group.add(sideBeamB);
-
-    const addHvacUnit = (x: number, z: number, colorMat: THREE.Material) => {
-      const unit = new THREE.Group();
-      const base = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.38, 0.86), panelMat);
-      base.position.y = 0.22;
-      unit.add(base);
-      const grille = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.05, 0.12), darkMat);
-      grille.position.set(0, 0.46, 0.42);
-      unit.add(grille);
-      const fan = new THREE.Group();
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26, 0.025, 10, 32), colorMat);
-      ring.rotation.x = Math.PI / 2;
-      fan.add(ring);
-      for (let i = 0; i < 3; i += 1) {
-        const blade = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.025, 0.08), darkMat);
-        blade.rotation.y = (Math.PI * 2 * i) / 3;
-        fan.add(blade);
-      }
-      fan.position.y = 0.5;
-      unit.add(fan);
-      spinningFans.push(fan);
-      unit.position.set(x, 0.08, z);
-      group.add(unit);
-    };
-    addHvacUnit(-3.25, 2.15, cyanMat);
-    addHvacUnit(3.1, -2.55, redMat);
-
-    const tray = new THREE.Group();
-    const trayRailA = new THREE.Mesh(new THREE.BoxGeometry(5.8, 0.08, 0.08), yellowMat);
-    trayRailA.position.set(0, 1.72, 2.35);
-    tray.add(trayRailA);
-    const trayRailB = trayRailA.clone();
-    trayRailB.position.z = 2.68;
-    tray.add(trayRailB);
-    for (let i = 0; i < 13; i += 1) {
-      const rung = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.06, 0.42), yellowMat);
-      rung.position.set(-2.9 + i * 0.48, 1.72, 2.52);
-      tray.add(rung);
-    }
-    group.add(tray);
-
-    const cableCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-2.7, 1.84, 2.52),
-      new THREE.Vector3(-1.15, 2.02, 2.7),
-      new THREE.Vector3(0.9, 1.82, 2.48),
-      new THREE.Vector3(2.6, 1.96, 2.62),
-    ]);
-    group.add(new THREE.Mesh(new THREE.TubeGeometry(cableCurve, 40, 0.035, 8), cableMat));
-
-    const panel = new THREE.Group();
-    const cabinet = new THREE.Mesh(new THREE.BoxGeometry(0.78, 1.25, 0.28), panelMat);
-    cabinet.position.y = 0.72;
-    panel.add(cabinet);
-    const screen = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.26, 0.035), glassMat);
-    screen.position.set(0, 0.98, 0.16);
-    panel.add(screen);
-    for (let i = 0; i < 3; i += 1) {
-      const light = new THREE.Mesh(new THREE.SphereGeometry(0.055, 16, 16), i === 0 ? emissiveRedMat : emissiveGreenMat);
-      light.position.set(-0.22 + i * 0.22, 0.52, 0.17);
-      beaconLights.push(light);
-      panel.add(light);
-    }
-    panel.position.set(4.25, 0.02, -0.65);
-    group.add(panel);
-
-    const crane = new THREE.Group();
-    const mast = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.6, 0.16), yellowMat);
-    mast.position.y = 0.8;
-    crane.add(mast);
-    const boom = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.13, 0.13), yellowMat);
-    boom.position.set(0.6, 1.55, 0);
-    crane.add(boom);
-    const hookCable = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.55, 10), cableMat);
-    hookCable.position.set(1.22, 1.22, 0);
-    crane.add(hookCable);
-    const hook = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.018, 8, 18, Math.PI * 1.35), redMat);
-    hook.position.set(1.22, 0.92, 0);
-    hook.rotation.z = -Math.PI / 5;
-    crane.add(hook);
-    crane.position.set(-4.2, 0.02, 0.95);
-    group.add(crane);
-
-    const processLights: THREE.Mesh[] = [];
-    const lightMats = [redMat, amberMat, greenMat, cyanMat];
-    for (let i = 0; i < 18; i += 1) {
-      const chip = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.08, 0.16), lightMats[i % lightMats.length]);
-      chip.position.set(-3 + i * 0.35, 0.55, 0.1 + (i % 2) * 0.24);
-      processLights.push(chip);
-      group.add(chip);
-    }
-
-    const mouse = { x: 0, y: 0 };
-    const onPointerMove = (event: PointerEvent) => {
-      const rect = host.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-      mouse.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    };
-    host.addEventListener("pointermove", onPointerMove);
-
-    const resize = () => {
-      const width = host.clientWidth || 1;
-      const height = host.clientHeight || 1;
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    };
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(host);
-    resize();
-
-    let frame = 0;
-    let animationId = 0;
-    const animate = () => {
-      frame += 0.01;
-      group.rotation.y += ((mouse.x * 0.16) - group.rotation.y) * 0.035;
-      group.rotation.x += ((-mouse.y * 0.08) - group.rotation.x) * 0.035;
-      group.position.y = Math.sin(frame) * 0.07;
-      processLights.forEach((chip, index) => {
-        chip.scale.y = 1 + Math.sin(frame * 5 + index * 0.7) * 0.45;
-      });
-      spinningFans.forEach((fan, index) => {
-        fan.rotation.y += 0.08 + index * 0.015;
-      });
-      beaconLights.forEach((light, index) => {
-        const pulse = 0.8 + Math.sin(frame * 6 + index * 1.6) * 0.22;
-        light.scale.setScalar(pulse);
-      });
-      redLight.intensity = 2.1 + Math.sin(frame * 3) * 0.45;
-      renderer.render(scene, camera);
-      animationId = window.requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.cancelAnimationFrame(animationId);
-      resizeObserver.disconnect();
-      host.removeEventListener("pointermove", onPointerMove);
-      host.removeChild(renderer.domElement);
-      renderer.dispose();
-      scene.traverse((object) => {
-        if (object instanceof THREE.Mesh) {
-          object.geometry.dispose();
-          const material = object.material;
-          if (Array.isArray(material)) material.forEach((item) => item.dispose());
-          else material.dispose();
-        }
-      });
-    };
-  }, []);
-
-  return <div ref={hostRef} className="absolute inset-0" aria-hidden="true" />;
-}
+const IndustrialPlantScene = React.lazy(() => import("@/components/IndustrialPlantScene"));
 
 function useCounter(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
@@ -403,7 +141,8 @@ function Home() {
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   };
 
   const onSubmit = (data: z.infer<typeof contactSchema>) => {
@@ -549,9 +288,9 @@ function Home() {
           : "bg-transparent py-5"
       }`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <button onClick={() => scrollTo("inicio")} className="flex items-center">
+          <button onClick={() => scrollTo("inicio")} className="flex items-center" aria-label="Ir al inicio">
             <div className={`rounded-xl px-3 py-1.5 transition-colors ${isScrolled ? "bg-gray-100" : "bg-white/90"}`}>
-              <img src={logoSrc} alt="SGI Logo" className="h-12 w-auto" />
+              <img src={logoSrc} alt="SGI Logo" className="h-12 w-auto" decoding="async" />
             </div>
           </button>
           <div className="hidden lg:flex gap-8 items-center text-sm font-semibold">
@@ -576,6 +315,9 @@ function Home() {
           <button
             className={`lg:hidden ${isScrolled ? "text-gray-700" : "text-white"}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Cerrar menu" : "Abrir menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
@@ -584,7 +326,7 @@ function Home() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white pt-24 px-8 flex flex-col gap-6 lg:hidden shadow-xl">
+        <div id="mobile-menu" className="fixed inset-0 z-40 bg-white pt-24 px-8 flex flex-col gap-6 lg:hidden shadow-xl">
           {navLinks.map(item => (
             <button
               key={item}
@@ -604,9 +346,12 @@ function Home() {
       )}
 
       {/* ── HERO ── */}
+      <main>
       <section id="inicio" className="relative min-h-[100dvh] flex items-center">
         <div className="absolute inset-0 bg-gray-950 overflow-hidden">
-          <IndustrialPlantScene />
+          <React.Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.18),transparent_34%),radial-gradient(circle_at_70%_45%,rgba(59,130,246,0.12),transparent_30%),#111827]" aria-hidden="true" />}>
+            <IndustrialPlantScene />
+          </React.Suspense>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent" />
@@ -831,7 +576,7 @@ function Home() {
             <FadeIn direction="left">
               <div className="relative">
                 <div className="absolute inset-0 bg-red-600/10 translate-x-3 translate-y-3 rounded-2xl" />
-                <img
+                <img loading="lazy" decoding="async"
                   src={asset("/proyectos/sgi-taller-moldeo.jpg")}
                   alt="Moldeo por Inyección"
                   className="relative z-10 rounded-2xl border border-gray-200 w-full object-cover aspect-[4/3] shadow-lg"
@@ -881,14 +626,14 @@ function Home() {
                     activeBrand === i ? "border-red-300 shadow-md ring-4 ring-red-50" : "border-gray-200"
                   }`}
                 >
-                  <img src={asset(brand.image)} alt={brand.name} className="max-h-12 max-w-full object-contain" />
+                  <img loading="lazy" decoding="async" src={asset(brand.image)} alt={brand.name} className="max-h-12 max-w-full object-contain" />
                 </button>
               </FadeIn>
             ))}
           </div>
           <div className="mt-8 bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.9fr_1.1fr] shadow-sm">
             <div className={`${activeBrandItem.bg} p-8 flex items-center justify-center min-h-56`}>
-              <img src={asset(activeBrandItem.image)} alt={activeBrandItem.name} className="max-h-28 max-w-[70%] object-contain drop-shadow-sm" />
+              <img loading="lazy" decoding="async" src={asset(activeBrandItem.image)} alt={activeBrandItem.name} className="max-h-28 max-w-[70%] object-contain drop-shadow-sm" />
             </div>
             <div className="p-6 md:p-8">
               <span className={`text-xs font-black uppercase tracking-widest ${activeBrandItem.color}`}>Tecnologia aplicada</span>
@@ -935,7 +680,7 @@ function Home() {
           </div>
           <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[1fr_1.1fr] shadow-sm">
             <div className="relative min-h-64">
-              <img src={asset(activeSectorItem.image)} alt={activeSectorItem.name} className="absolute inset-0 w-full h-full object-cover" />
+              <img loading="lazy" decoding="async" src={asset(activeSectorItem.image)} alt={activeSectorItem.name} className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-gray-950/10 to-transparent" />
               <div className="absolute left-5 bottom-5 flex items-center gap-3">
                 <div className={`${activeSectorItem.bg} ${activeSectorItem.color} w-12 h-12 rounded-xl flex items-center justify-center`}>
@@ -973,13 +718,13 @@ function Home() {
                     activeSupplier === i ? "border-red-300 ring-4 ring-red-50 shadow-md" : "border-gray-200"
                   }`}
                 >
-                  <img src={asset(p.image)} alt={p.name} className="h-9 max-w-28 object-contain mx-auto" />
+                  <img loading="lazy" decoding="async" src={asset(p.image)} alt={p.name} className="h-9 max-w-28 object-contain mx-auto" />
                 </button>
               ))}
             </div>
             <div className="mt-8 bg-white border border-gray-200 rounded-2xl overflow-hidden grid lg:grid-cols-[0.8fr_1.2fr] shadow-sm">
               <div className={`${activeSupplierItem.bg} p-8 flex items-center justify-center min-h-48`}>
-                <img src={asset(activeSupplierItem.image)} alt={activeSupplierItem.name} className="max-h-24 max-w-[70%] object-contain" />
+                <img loading="lazy" decoding="async" src={asset(activeSupplierItem.image)} alt={activeSupplierItem.name} className="max-h-24 max-w-[70%] object-contain" />
               </div>
               <div className="p-6 md:p-8 bg-gray-50">
                 <span className={`text-xs font-black uppercase tracking-widest ${activeSupplierItem.color}`}>Socio estrategico</span>
@@ -1027,7 +772,7 @@ function Home() {
             </div>
             <div className="bg-gray-950 rounded-2xl overflow-hidden grid md:grid-cols-[0.9fr_1fr] min-h-[420px] shadow-xl">
               <div className="relative min-h-72">
-                <img src={asset(activeExperienceItem.image)} alt={activeExperienceItem.title} className="absolute inset-0 w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={asset(activeExperienceItem.image)} alt={activeExperienceItem.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-950/25 to-transparent" />
                 <div className="absolute left-5 bottom-5">
                   <div className={`${activeExperienceItem.bg} ${activeExperienceItem.color} w-12 h-12 rounded-xl flex items-center justify-center mb-3`}>
@@ -1079,7 +824,7 @@ function Home() {
               </div>
               <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className="relative min-h-56">
-                  <img src={asset(activeEngineeringItem.image)} alt={activeEngineeringItem.label} className="absolute inset-0 w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={asset(activeEngineeringItem.image)} alt={activeEngineeringItem.label} className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950/75 via-gray-950/10 to-transparent" />
                   <h4 className="absolute left-5 bottom-5 text-white font-black uppercase text-xl">{activeEngineeringItem.label}</h4>
                 </div>
@@ -1119,7 +864,7 @@ function Home() {
               </div>
               <div className="mt-5 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className={`${activeSupplyItem.bg} min-h-56 flex items-center justify-center p-6`}>
-                  <img src={asset(activeSupplyItem.image)} alt={activeSupplyItem.title} className="max-h-48 max-w-full object-contain drop-shadow-md" />
+                  <img loading="lazy" decoding="async" src={asset(activeSupplyItem.image)} alt={activeSupplyItem.title} className="max-h-48 max-w-full object-contain drop-shadow-md" />
                 </div>
                 <div className="p-6">
                   <span className={`text-xs font-black uppercase tracking-widest ${activeSupplyItem.color}`}>Suministro tecnico</span>
@@ -1200,7 +945,7 @@ function Home() {
               </div>
               <div className="mt-6 bg-white rounded-2xl overflow-hidden shadow-lg grid lg:grid-cols-[1fr_1.15fr] border border-red-100">
                 <div className="relative min-h-56">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={asset(activeSafetyItem.image)}
                     alt={activeSafetyItem.label}
                     className="absolute inset-0 w-full h-full object-cover"
@@ -1244,7 +989,7 @@ function Home() {
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={asset(p.img)} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img loading="lazy" decoding="async" src={asset(p.img)} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent flex flex-col justify-end p-6">
                     <h3 className="text-lg font-black text-white uppercase mb-1">{p.title}</h3>
@@ -1266,7 +1011,7 @@ function Home() {
               "/proyectos/sgi-herreria-marcos.jpg",
               "/proyectos/sgi-certificado-arburg.jpg",
             ].map((img, i) => (
-              <img key={i} src={asset(img)} alt="Galeria" className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
+              <img loading="lazy" decoding="async" key={i} src={asset(img)} alt={`Trabajo SGI ${i + 1}`} className="w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
           </div>
         </div>
@@ -1347,7 +1092,10 @@ function Home() {
                     className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? "border-red-200 shadow-md shadow-red-50" : "border-gray-200 shadow-sm hover:border-gray-300"}`}
                   >
                     <button
+                      type="button"
                       onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${i}`}
                       className="w-full flex items-center justify-between gap-4 p-6 text-left group"
                     >
                       <span className={`font-bold text-base leading-snug transition-colors ${isOpen ? "text-red-600" : "text-gray-900 group-hover:text-red-600"}`}>
@@ -1362,6 +1110,7 @@ function Home() {
                       </motion.div>
                     </button>
                     <motion.div
+                      id={`faq-answer-${i}`}
                       initial={false}
                       animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
                       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -1372,6 +1121,7 @@ function Home() {
                         <p className="text-gray-600 leading-relaxed text-sm">{faq.a}</p>
                         {i === 5 && (
                           <button
+                            type="button"
                             onClick={() => scrollTo("contacto")}
                             className="mt-4 inline-flex items-center gap-2 text-red-600 font-bold text-sm hover:text-red-700 transition-colors"
                           >
@@ -1495,7 +1245,9 @@ function Home() {
                       <p className="text-gray-800 text-sm font-medium leading-snug">{SGI_ADDRESS}</p>
                     </div>
                     <button
+                      type="button"
                       onClick={copyAddress}
+                      aria-label={addressCopied ? "Direccion copiada" : "Copiar direccion"}
                       title="Copiar dirección"
                       className={`shrink-0 p-1.5 rounded-lg transition-all ${addressCopied ? "bg-emerald-50 text-emerald-600" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
                     >
@@ -1614,13 +1366,15 @@ function Home() {
         </div>
       </section>
 
+      </main>
+
       {/* ── FOOTER ── */}
       <footer className="bg-gray-900 border-t-4 border-t-red-600 pt-16 pb-8">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <div className="bg-white rounded-xl px-4 py-2 inline-block mb-6">
-                <img src={logoSrc} alt="SGI Logo" className="h-14 w-auto" />
+                <img decoding="async" src={logoSrc} alt="SGI Logo" className="h-14 w-auto" />
               </div>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
                 Servicios Generales de Ingeniería. Especialistas en soluciones técnicas para la industria manufacturera en Nogales, Sonora.
@@ -1662,6 +1416,7 @@ function Home() {
         href="https://wa.me/526313185564"
         target="_blank"
         rel="noreferrer"
+        aria-label="Contactar a SGI por WhatsApp"
         className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 z-50 transition-transform hover:scale-110"
       >
         <Phone className="w-7 h-7" />
@@ -1669,7 +1424,9 @@ function Home() {
 
       {showScrollTop && (
         <button
+          type="button"
           onClick={() => scrollTo("inicio")}
+          aria-label="Volver al inicio"
           className="fixed bottom-24 right-6 w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-lg z-50 transition-all hover:-translate-y-1"
         >
           <ChevronUp className="w-6 h-6" />

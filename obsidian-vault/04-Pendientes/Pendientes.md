@@ -7,9 +7,11 @@
 - [ ] Confirmar telefono de WhatsApp.
 - [ ] Confirmar correo de contacto.
 - [ ] Revisar que todas las imagenes carguen en GitHub Pages.
-- [ ] Optimizar imagenes grandes para mejorar velocidad.
+- [ ] Convertir/comprimir imagenes grandes a WebP/AVIF para mejorar velocidad.
+- [ ] Validar Lighthouse/PageSpeed despues del deploy de optimizacion tecnica.
 - [x] Revisar SEO basico: titulo, descripcion y previews sociales. (Alineado a GitHub Pages el 2026-07-01; falta validar preview externo despues del deploy.)
 - [x] Validar canonical, Open Graph y JSON-LD en la URL publica despues del deploy. (HTTP 200 verificado el 2026-07-01.)
+- [x] Separar Three.js del bundle inicial y agregar sitemap/reduced motion. (Aplicado el 2026-07-01.)
 - [ ] Validar previews sociales en herramientas externas despues de actualizar cache.
 
 ## Assets
@@ -27,4 +29,4 @@
 
 ## Siguiente bloque recomendado
 
-Prioridad: cierre pre-cliente. Validar en la URL publica de GitHub Pages que carguen imagenes, favicon, Open Graph y formulario/WhatsApp; despues confirmar con SGI telefono, correo, direccion, permisos de logos y textos definitivos. Este bloque reduce el riesgo de enviar al cliente una version visualmente lista pero con datos comerciales o permisos pendientes.
+Prioridad: optimizacion visual y rendimiento pre-cliente. Convertir/comprimir imagenes grandes a WebP/AVIF, validar en Android real y correr Lighthouse/PageSpeed sobre GitHub Pages; despues confirmar con SGI telefono, correo, direccion, permisos de logos y textos definitivos.

@@ -2,6 +2,37 @@
 
 ## 2026-07-01
 
+### Optimizacion tecnica por auditoria SGI Landing
+
+Cambios:
+- Se aplicaron recomendaciones de la auditoria tecnica `Auditoria_SGI_Landing.md`.
+- Se separo la escena 3D `IndustrialPlantScene` de `App.tsx` a `src/components/IndustrialPlantScene.tsx`.
+- Se cargo la escena 3D con `React.lazy()` y `Suspense` para reducir el JavaScript inicial.
+- Se agregaron `manualChunks` en Vite para separar React, UI, forms, Framer Motion y Three.js.
+- Se agrego `loading="lazy"` y `decoding="async"` a imagenes fuera del logo.
+- Se agregaron mejoras de accesibilidad: `<main>`, `aria-label`, `aria-expanded`, `aria-controls`, soporte de zoom movil y respeto a `prefers-reduced-motion`.
+- Se agrego `sitemap.xml` y referencia en `robots.txt`.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/components/IndustrialPlantScene.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `artifacts/sgi-landing/index.html`
+- `artifacts/sgi-landing/vite.config.ts`
+- `artifacts/sgi-landing/public/robots.txt`
+- `artifacts/sgi-landing/public/sitemap.xml`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente en `artifacts/sgi-landing`.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Build exitoso con chunk inicial principal reducido a ~81 KB minificado.
+- Three.js queda aislado en `vendor-three` (~529 KB minificado, ~133 KB gzip), por lo que ya no bloquea el bundle inicial.
+
+Pendientes nuevos:
+- Convertir y comprimir imagenes grandes a WebP/AVIF, especialmente logo e imagenes de ingenieria/suministros.
+- Ejecutar validacion real en Android despues del deploy.
+- Revisar Lighthouse/PageSpeed publico despues de publicar.
+
 ### Retiro de Open WebUI del flujo activo
 
 Cambios:
