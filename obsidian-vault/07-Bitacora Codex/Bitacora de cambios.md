@@ -2,6 +2,26 @@
 
 ## 2026-07-01
 
+### Retiro de Open WebUI del flujo activo
+
+Cambios:
+- Se retiro Open WebUI del flujo activo de desarrollo de la web SGI.
+- Se eliminaron de Open WebUI los modelos personalizados `codex-sgi`, `sgi-*` y el override local de `gpt-4o`.
+- Se elimino de Open WebUI la herramienta local `SGI Workspace Access`.
+- Se quitaron del dashboard los accesos a notas de integracion Open WebUI y equipo IA.
+- Se eliminaron las notas activas de Open WebUI/equipo IA de la boveda.
+- Se removieron pendientes operativos relacionados con Open WebUI, Gemini y equipo IA.
+
+Resultado:
+- El flujo vigente vuelve a ser Codex + Obsidian + GitHub.
+- La web, assets y codigo fuente no fueron modificados.
+- Open WebUI queda fuera del desarrollo activo y se puede retomar despues como experimento separado.
+
+Validacion:
+- No quedan modelos personalizados `codex-sgi` ni `sgi-*` en la base local de Open WebUI.
+- No queda la herramienta `sgi_workspace_access` en Open WebUI.
+- `Pendientes.md` vuelve a concentrarse en web, assets y negocio.
+
 ### Orquestador SGI con acceso controlado a Git y Obsidian
 
 Cambios:
