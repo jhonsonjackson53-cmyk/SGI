@@ -2,6 +2,26 @@
 
 ## 2026-07-01
 
+### Orquestador SGI con acceso controlado a Git y Obsidian
+
+Cambios:
+- Se creo la herramienta local `SGI Workspace Access` en Open WebUI.
+- Se creo el modelo `SGI Orquestador General`.
+- Se asocio `SGI Workspace Access` al orquestador mediante `toolIds`.
+- La herramienta puede consultar estado Git, remotos, ultimo commit, pendientes, bitacora y busqueda en notas Obsidian.
+- El acceso es solo lectura; no hace commits, push, deploy ni escritura de archivos.
+- Se actualizo [[11-Codex/Equipo IA SGI]] con uso, funciones y restricciones.
+
+Validacion:
+- La herramienta carga correctamente como clase `Tools`.
+- `sgi_workspace_overview` devuelve branch, ultimo commit, status, remotos y pendientes.
+- `sgi_search_obsidian` encuentra coincidencias en notas Markdown.
+- El modelo `sgi-orquestador-general` quedo activo con base `gpt-5.5-pro`.
+
+Pendientes nuevos:
+- Probar desde la interfaz de Open WebUI que el orquestador invoque `SGI Workspace Access`.
+- Crear la base de conocimiento `SGI - Memoria del Proyecto` para busqueda semantica, complementaria a la herramienta local.
+
 ### Creacion del equipo IA SGI en Open WebUI
 
 Cambios:

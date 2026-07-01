@@ -14,6 +14,15 @@ Crear un equipo de trabajo IA para mejorar la web SGI de forma continua, manteni
 
 ## Perfiles creados en Open WebUI
 
+### SGI Orquestador General
+
+- ID: `sgi-orquestador-general`
+- Base: `gpt-5.5-pro`
+- Uso: entrada unica para clasificar solicitudes, consultar contexto y decidir el siguiente paso.
+- Herramienta conectada: `SGI Workspace Access`
+- Acceso: solo lectura a estado Git, notas seguras de Obsidian y busqueda en memoria del proyecto.
+- Limite: no modifica archivos, no hace commits y no publica.
+
 ### SGI Director Tecnico
 
 - ID: `sgi-director-tecnico`
@@ -67,18 +76,45 @@ Crear un equipo de trabajo IA para mejorar la web SGI de forma continua, manteni
 
 ## Flujo recomendado
 
-1. El usuario plantea objetivo o problema.
-2. `SGI Director Tecnico` define prioridad, responsable y criterios de aceptacion.
-3. El rol especializado propone solucion:
+1. El usuario plantea objetivo o problema a `SGI Orquestador General`.
+2. `SGI Orquestador General` consulta contexto con `SGI Workspace Access` si hace falta.
+3. `SGI Director Tecnico` define prioridad, responsable y criterios de aceptacion cuando la tarea requiere plan.
+4. El rol especializado propone solucion:
    - Codigo: `SGI Programador Senior`.
    - Visual: `SGI Disenador Industrial`.
    - Ideas: `SGI Mente Creativa`.
    - Texto: `SGI Redactor Comercial`.
    - Revision: `SGI QA Mobile`.
-4. Codex implementa cambios reales en el repositorio.
-5. Codex valida preview, build y estado de Git.
-6. `SGI Gestor de Memoria` registra resumen, archivos, validacion y pendientes.
-7. Codex publica en GitHub Pages cuando aplique.
+5. Codex implementa cambios reales en el repositorio.
+6. Codex valida preview, build y estado de Git.
+7. `SGI Gestor de Memoria` registra resumen, archivos, validacion y pendientes.
+8. Codex publica en GitHub Pages cuando aplique.
+
+## Herramienta SGI Workspace Access
+
+Funciones disponibles:
+
+- `sgi_workspace_overview`: resumen de repo, Git, remotos y pendientes.
+- `sgi_git_status`: estado Git de solo lectura.
+- `sgi_read_obsidian_note`: lectura de notas seguras por alias.
+- `sgi_search_obsidian`: busqueda en notas Markdown de Obsidian.
+
+Alias permitidos:
+
+- `pendientes`
+- `bitacora`
+- `dashboard`
+- `equipo_ia`
+- `openwebui`
+- `estado`
+- `assets`
+
+Restricciones:
+
+- No lee `.env.local`.
+- No lee archivos arbitrarios fuera de la boveda Obsidian.
+- No ejecuta comandos destructivos.
+- No hace commit, push, deploy ni escritura en archivos.
 
 ## Pendientes
 

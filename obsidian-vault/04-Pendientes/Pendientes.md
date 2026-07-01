@@ -32,8 +32,8 @@
 - [ ] Crear la base de conocimiento `SGI - Memoria del Proyecto`.
 - [ ] Asociar `SGI - Memoria del Proyecto` a los perfiles IA SGI.
 - [ ] Probar cada perfil IA con una tarea corta y registrar resultados.
+- [ ] Probar `SGI Orquestador General` invocando `SGI Workspace Access`.
 
 ## Siguiente bloque recomendado
 
 Prioridad: cierre pre-cliente. Validar en la URL publica de GitHub Pages que carguen imagenes, favicon, Open Graph y formulario/WhatsApp; despues confirmar con SGI telefono, correo, direccion, permisos de logos y textos definitivos. Este bloque reduce el riesgo de enviar al cliente una version visualmente lista pero con datos comerciales o permisos pendientes.
-
