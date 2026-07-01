@@ -278,12 +278,46 @@
   50% { box-shadow: 0 0 25px rgba(239,68,68,0.7), 0 0 60px rgba(239,68,68,0.3); }
 }
 
+@keyframes grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 48px 48px, 48px 48px; }
+}
+
+@keyframes aurora {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate3d(28px, -18px, 0) scale(1.14); opacity: 0.82; }
+}
+
+@keyframes orbit-ring {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@keyframes float-card {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -18px, 0) rotate(1deg); }
+}
+
+@keyframes shimmer-bar {
+  0% { transform: translateX(-18%); filter: saturate(0.9); }
+  50% { transform: translateX(8%); filter: saturate(1.35); }
+  100% { transform: translateX(-18%); filter: saturate(0.9); }
+}
+
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-float-delay { animation: float 6s ease-in-out 2s infinite; }
 .animate-float-slow { animation: float 9s ease-in-out 1s infinite; }
 .animate-pulse-ring { animation: pulse-ring 2.5s ease-in-out infinite; }
 .animate-spin-slow { animation: spin-slow 12s linear infinite; }
 .animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.animate-grid-drift { animation: grid-drift 18s linear infinite; }
+.animate-aurora { animation: aurora 9s ease-in-out infinite; }
+.animate-aurora-delay { animation: aurora 11s ease-in-out 1.5s infinite; }
+.animate-orbit-ring { animation: orbit-ring 28s linear infinite; transform-origin: center; }
+.animate-float-card { animation: float-card 7s ease-in-out infinite; }
+.animate-float-card-delay { animation: float-card 8s ease-in-out 1.2s infinite; }
+.animate-float-card-slow { animation: float-card 10s ease-in-out 0.6s infinite; }
+.animate-shimmer-bar { animation: shimmer-bar 5s ease-in-out infinite; }
 
 /* Grid/dot backdrop pattern — subtle industrial-blueprint feel in gray/red */
 .bg-grid-pattern {
@@ -310,6 +344,81 @@
 
 .red-glow {
   box-shadow: 0 0 20px rgba(239,68,68,0.35), 0 0 60px rgba(239,68,68,0.1);
+}
+
+.sgi-gradient-text {
+  background: linear-gradient(92deg, #ffffff 0%, #fb7185 22%, #ef4444 50%, #f97316 78%, #ffffff 100%);
+  background-size: 180% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 7s linear infinite;
+  text-shadow: 0 0 40px rgba(239,68,68,0.18);
+}
+
+.hero-scanlines {
+  background:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08), transparent 35%);
+  background-size: 100% 7px, 100% 100%;
+  mix-blend-mode: screen;
+  opacity: 0.25;
+}
+
+.premium-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.55), transparent 24%),
+    radial-gradient(circle at top right, rgba(239,68,68,0.10), transparent 34%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.premium-card:hover::before {
+  opacity: 1;
+}
+
+main > section:not(#inicio) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+main > section:not(#inicio)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(239,68,68,0.055), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(59,130,246,0.045), transparent 26%),
+    linear-gradient(120deg, rgba(255,255,255,0.38), transparent 34%, rgba(255,255,255,0.18));
+}
+
+main > section:not(#inicio)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(rgba(17,24,39,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  opacity: 0.55;
+}
+
+main > section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .card-hover-glow {

@@ -2,6 +2,34 @@
 
 ## 2026-07-01
 
+### Rediseño visual global inspirado en Framer LanX
+
+Cambios:
+- Se tomo como referencia visual el preview publico de Framer LanX.
+- Se recreo el lenguaje visual en toda la landing SGI sin eliminar informacion existente.
+- Se agregaron fondos animados globales con glow, grid tecnico, textura de puntos y scanlines.
+- Se mejoro el hero con texto degradado animado, orbit ring y paneles flotantes tipo dashboard industrial.
+- Se agregaron microinteracciones y profundidad 3D a la franja de iconos rapidos.
+- Se actualizo el componente base `Card` para usar estilo premium glass, brillo sutil y hover mas elegante.
+- Se mejoro `SectionTitle` con escala tipografica mayor y subrayado degradado.
+- Se mantuvo el contexto industrial: mantenimiento, HVAC, obra civil, instalaciones, seguridad, moldeo y respuesta 24/7.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Build exitoso. Se conserva la advertencia conocida de `vendor-three` mayor a 500 KB, aislado en chunk separado.
+
+Pendientes nuevos:
+- Revisar visualmente toda la pagina en Android real y escritorio.
+- Ajustar intensidad de animaciones si SGI prefiere un look mas sobrio.
+
 ### Seccion premium de ventaja operativa inspirada en Framer
 
 Cambios:

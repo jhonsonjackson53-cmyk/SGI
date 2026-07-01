@@ -3,6 +3,7 @@
 ## Web
 
 - [ ] Revisar todo el sitio en Android real.
+- [ ] Revisar visualmente el rediseño global inspirado en Framer en desktop y Android.
 - [ ] Revisar en Android la nueva seccion de ventaja operativa y comparativa SGI.
 - [ ] Confirmar textos definitivos de servicios.
 - [ ] Confirmar telefono de WhatsApp.

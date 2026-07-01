@@ -80,17 +80,17 @@ const SectionTitle = ({ children, light = false, center = false }: {
   children: React.ReactNode; light?: boolean; center?: boolean;
 }) => (
   <motion.div
-    className={`mb-10 ${center ? "text-center" : ""}`}
+    className={`mb-10 ${center ? "text-center" : ""} relative`}
     initial={{ opacity: 0, y: 25 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.55 }}
   >
-    <h2 className={`text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 ${light ? "text-white" : "text-gray-900"}`}>
+    <h2 className={`text-3xl md:text-5xl font-black uppercase tracking-tight mb-3 leading-tight ${light ? "text-white" : "text-gray-950"}`}>
       {children}
     </h2>
     <motion.div
-      className={`h-1 w-14 bg-red-600 rounded-full ${center ? "mx-auto" : ""}`}
+      className={`h-1 w-16 rounded-full bg-gradient-to-r from-red-600 via-orange-400 to-red-600 shadow-lg shadow-red-500/20 ${center ? "mx-auto" : ""}`}
       initial={{ scaleX: 0, originX: 0 }}
       whileInView={{ scaleX: 1 }}
       viewport={{ once: true }}
@@ -103,7 +103,7 @@ const Card = ({ children, className = "", hover = true }: {
   children: React.ReactNode; className?: string; hover?: boolean;
 }) => (
   <motion.div
-    className={`bg-white border border-gray-200 rounded-2xl shadow-sm ${className}`}
+    className={`premium-card bg-white/90 backdrop-blur-sm border border-gray-200/80 rounded-2xl shadow-sm ${className}`}
     whileHover={hover ? { y: -4, boxShadow: "0 12px 32px rgba(0,0,0,0.1)" } : {}}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
@@ -359,17 +359,19 @@ function Home() {
 
       {/* ── HERO ── */}
       <main>
-      <section id="inicio" className="relative min-h-[100dvh] flex items-center">
+      <section id="inicio" className="relative min-h-[100dvh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gray-950 overflow-hidden">
           <React.Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.18),transparent_34%),radial-gradient(circle_at_70%_45%,rgba(148,163,184,0.12),transparent_30%),#111827]" aria-hidden="true" />}>
             <IndustrialPlantScene />
           </React.Suspense>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
-        <div className="absolute inset-0 bg-grid-pattern pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 bg-grid-pattern animate-grid-drift pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 hero-scanlines pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none animate-aurora" />
+        <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none animate-aurora-delay" />
+        <div className="absolute -top-24 left-1/2 h-72 w-72 rounded-full border border-white/10 animate-orbit-ring pointer-events-none" aria-hidden="true" />
         <div className="container relative mx-auto px-6 lg:px-12 z-10 pt-24">
           <FadeIn className="max-w-3xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-4 border border-red-400/40 bg-red-600/10 rounded-full text-red-300 font-bold tracking-widest text-xs mb-8 backdrop-blur-sm">
@@ -378,7 +380,7 @@ function Home() {
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white leading-[1.05] mb-5 uppercase">
               Soluciones <br />
-              <span className="text-red-500">Industriales</span><br />
+              <span className="sgi-gradient-text">Industriales</span><br />
               de Alto Nivel
             </h1>
             <p className="text-base md:text-xl text-gray-300 mb-8 max-w-xl font-light leading-relaxed">
@@ -414,6 +416,36 @@ function Home() {
             </FadeIn>
           </FadeIn>
         </div>
+        <div className="hidden xl:block absolute right-10 2xl:right-24 top-1/2 -translate-y-1/2 z-20 w-[360px] pointer-events-none">
+          <div className="relative min-h-[520px]">
+            <div className="absolute right-0 top-0 w-72 rounded-2xl border border-white/12 bg-white/[0.08] backdrop-blur-xl p-5 shadow-2xl shadow-black/30 animate-float-card">
+              <div className="flex items-center justify-between mb-4">
+                <div><p className="text-[10px] font-black uppercase tracking-[0.24em] text-gray-400">Centro de control</p><h3 className="text-white font-black uppercase text-lg mt-1">SGI Operaciones</h3></div>
+                <div className="h-11 w-11 rounded-2xl bg-red-500/15 border border-red-400/20 flex items-center justify-center text-red-300"><Factory className="w-6 h-6" /></div>
+              </div>
+              <div className="space-y-3">
+                {[{ label: "Mantenimiento", value: "Activo", color: "bg-emerald-400" }, { label: "HVAC", value: "Monitoreo", color: "bg-cyan-400" }, { label: "Obra civil", value: "Listo", color: "bg-amber-400" }].map((item) => (
+                  <div key={item.label} className="flex items-center justify-between rounded-xl bg-gray-950/50 border border-white/10 px-3 py-2">
+                    <span className="flex items-center gap-2 text-xs font-bold uppercase text-gray-300"><span className={`h-2 w-2 rounded-full ${item.color}`} />{item.label}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="absolute left-0 top-40 w-64 rounded-2xl border border-white/12 bg-gray-950/70 backdrop-blur-xl p-5 shadow-2xl shadow-red-950/20 animate-float-card-delay">
+              <div className="flex items-center gap-3 mb-4"><div className="h-12 w-12 rounded-2xl bg-blue-500/15 border border-blue-300/20 flex items-center justify-center text-blue-300"><Wrench className="w-6 h-6" /></div><div><p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-500">Respuesta</p><p className="text-3xl font-black text-white leading-none">&lt; 2h</p></div></div>
+              <div className="h-2 rounded-full bg-white/10 overflow-hidden"><div className="h-full w-10/12 rounded-full bg-gradient-to-r from-red-500 via-orange-400 to-emerald-400 animate-shimmer-bar" /></div>
+              <p className="mt-3 text-xs text-gray-400 leading-relaxed">Atencion tecnica para paros, fallas e instalaciones criticas.</p>
+            </div>
+            <div className="absolute right-8 bottom-0 w-72 rounded-2xl border border-white/12 bg-white/[0.07] backdrop-blur-xl p-5 shadow-2xl shadow-black/30 animate-float-card-slow">
+              <div className="grid grid-cols-3 gap-3">
+                {[{ icon: <Shield className="w-5 h-5" />, label: "NOM", tone: "text-emerald-300 bg-emerald-500/15" }, { icon: <Wind className="w-5 h-5" />, label: "HVAC", tone: "text-cyan-300 bg-cyan-500/15" }, { icon: <HardHat className="w-5 h-5" />, label: "Obra", tone: "text-amber-300 bg-amber-500/15" }].map((item) => (
+                  <div key={item.label} className="rounded-xl bg-gray-950/50 border border-white/10 p-3 text-center"><div className={`${item.tone} mx-auto mb-2 h-10 w-10 rounded-xl flex items-center justify-center`}>{item.icon}</div><span className="text-[10px] font-black uppercase tracking-widest text-gray-300">{item.label}</span></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Hero bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50 to-transparent" />
       </section>
@@ -423,13 +455,13 @@ function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {[
-              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-red-500", bg: "bg-red-50 group-hover:bg-red-100" },
-              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-gray-600",   bg: "bg-gray-50   group-hover:bg-gray-100"   },
-              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-red-500", bg: "bg-red-50  group-hover:bg-red-100"  },
-              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-gray-600",bg: "bg-gray-50 group-hover:bg-gray-100"},
+              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-red-500", bg: "from-red-50 to-orange-50", shadow: "shadow-red-500/15" },
+              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-blue-600", bg: "from-blue-50 to-cyan-50", shadow: "shadow-blue-500/15" },
+              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-amber-500", bg: "from-amber-50 to-yellow-50", shadow: "shadow-amber-500/15" },
+              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-emerald-600", bg: "from-emerald-50 to-teal-50", shadow: "shadow-emerald-500/15" },
             ].map((item, i) => (
-              <div key={i} className="bg-white flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 py-5 sm:py-6 px-3 sm:px-5 lg:px-8 group cursor-default min-w-0 text-center sm:text-left">
-                <div className={`${item.bg} p-3 rounded-xl transition-colors shrink-0`}>
+              <div key={i} className="bg-white flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 py-5 sm:py-6 px-3 sm:px-5 lg:px-8 group cursor-default min-w-0 text-center sm:text-left transition-all duration-300 hover:bg-gray-50">
+                <div className={`bg-gradient-to-br ${item.bg} p-3 rounded-2xl transition-all duration-300 shrink-0 shadow-lg ${item.shadow} group-hover:-translate-y-1 group-hover:rotate-3`}>
                   {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: `w-6 h-6 sm:w-7 sm:h-7 ${item.color}` })}
                 </div>
                 <span className="font-bold text-gray-800 uppercase text-[11px] sm:text-sm tracking-wide leading-tight max-w-full break-words">{item.name}</span>
