@@ -226,8 +226,19 @@
 }
 
 @layer base {
-  * {
+  *,
+  *::before,
+  *::after {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   body {
@@ -368,6 +379,34 @@
   background-size: 100% 7px, 100% 100%;
   mix-blend-mode: screen;
   opacity: 0.25;
+}
+
+.hero-copy,
+.hero-body-copy,
+.hero-actions {
+  max-width: calc(100vw - 3rem);
+}
+
+.hero-copy {
+  width: min(100%, 48rem);
+}
+
+.hero-body-copy {
+  width: min(100%, 36rem);
+}
+
+@media (min-width: 640px) {
+  .hero-copy {
+    max-width: 48rem;
+  }
+
+  .hero-body-copy {
+    max-width: 36rem;
+  }
+
+  .hero-actions {
+    max-width: 100%;
+  }
 }
 
 .premium-card {

@@ -375,7 +375,7 @@ function Home() {
 
       {/* ── HERO ── */}
       <main>
-      <section id="inicio" className="relative min-h-[100dvh] flex items-center overflow-hidden">
+      <section id="inicio" className="relative min-h-[100dvh] w-full max-w-full flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gray-950 overflow-hidden">
           <React.Suspense fallback={<div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.18),transparent_34%),radial-gradient(circle_at_70%_45%,rgba(148,163,184,0.12),transparent_30%),#111827]" aria-hidden="true" />}>
             <IndustrialPlantScene />
@@ -388,8 +388,8 @@ function Home() {
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none animate-aurora" />
         <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none animate-aurora-delay" />
         <div className="absolute -top-24 left-1/2 h-72 w-72 rounded-full border border-white/10 animate-orbit-ring pointer-events-none" aria-hidden="true" />
-        <div className="container relative mx-auto px-6 lg:px-12 z-10 pt-24">
-          <FadeIn className="max-w-3xl">
+        <div className="container relative mx-auto max-w-full px-6 lg:px-12 z-10 pt-24">
+          <FadeIn className="hero-copy max-w-3xl min-w-0">
             <span className="inline-flex items-center gap-2 py-1.5 px-4 border border-red-400/40 bg-red-600/10 rounded-full text-red-300 font-bold tracking-widest text-xs mb-8 backdrop-blur-sm">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
               NOGALES, SONORA · MÉXICO
@@ -399,10 +399,10 @@ function Home() {
               <span className="sgi-gradient-text">Industriales</span><br />
               de Alto Nivel
             </h1>
-            <p className="text-base md:text-xl text-gray-300 mb-8 max-w-xl font-light leading-relaxed">
+            <p className="hero-body-copy w-full text-base md:text-xl text-gray-300 mb-8 font-light leading-relaxed break-words">
               Mantenimiento especializado, moldeo por inyección, HVAC y obra civil para operaciones que no se detienen. Disponibles 24/7.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
+            <div className="hero-actions flex w-full flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
               <button
                 onClick={() => scrollTo("contacto")}
                 className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-red-600/30 w-full sm:w-auto"

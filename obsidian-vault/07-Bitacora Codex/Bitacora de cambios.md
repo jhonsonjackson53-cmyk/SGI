@@ -11,6 +11,7 @@ Cambios:
 - Se agrego bloque E-E-A-T `Nota del fundador` con espacio reservado para foto de Francisco y mensaje de compromiso industrial.
 - Se agregaron mini-dashboards visuales en las tarjetas de servicios con barras animadas y micro-graficas.
 - Se refactorizo la seccion de testimoniales de grid estatica a carrusel horizontal infinito con `framer-motion`.
+- Se corrigio overflow horizontal en el hero movil para evitar texto y botones cortados en pantallas estrechas.
 - No se agregaron precios SaaS ni integraciones de software ajenas al sector industrial.
 
 Archivos modificados:
@@ -25,6 +26,7 @@ Validacion:
 - `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
 - `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
 - Build exitoso. Se conserva la advertencia conocida de `vendor-three` mayor a 500 KB, ya aislado en chunk separado.
+- Capturas Chrome headless desktop y emulacion movil real usadas para validar el primer viewport; en movil se verifico `scrollWidth=390` sin overflow horizontal.
 
 Pendientes nuevos:
 - Agregar foto real de Francisco cuando este disponible.
