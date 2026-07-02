@@ -424,10 +424,61 @@
   white-space: nowrap;
 }
 
+.brand-marquee-section {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(255,255,255,0.05);
+}
+
+.brand-marquee-track {
+  display: flex;
+  width: max-content;
+  min-width: 200%;
+  gap: 1rem;
+  padding-inline: 1rem;
+}
+
+.brand-marquee-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 190px;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
+  box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+  color: rgba(255,255,255,0.86);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backdrop-filter: blur(14px);
+}
+
 .metric-card {
   background:
     linear-gradient(145deg, rgba(255,255,255,0.94), rgba(249,250,251,0.82)),
     radial-gradient(circle at 85% 10%, rgba(239,68,68,0.10), transparent 30%);
+}
+
+.founder-quote-card {
+  position: relative;
+}
+
+.founder-quote-card::before {
+  content: "“";
+  position: absolute;
+  top: -3.8rem;
+  right: 2rem;
+  font-size: 12rem;
+  line-height: 1;
+  font-weight: 900;
+  color: rgba(239,68,68,0.08);
+  pointer-events: none;
+}
+
+.service-mini-dashboard {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
 }
 
 .service-card {
@@ -482,6 +533,22 @@
   background:
     linear-gradient(145deg, rgba(255,255,255,0.96), rgba(249,250,251,0.84)),
     radial-gradient(circle at top right, rgba(239,68,68,0.10), transparent 34%);
+}
+
+.testimonial-carousel {
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.testimonial-track {
+  display: flex;
+  width: max-content;
+  gap: 1.25rem;
+  padding: 0.5rem 1rem 1.5rem;
+}
+
+.testimonial-slide {
+  width: min(420px, calc(100vw - 3rem));
+  flex: 0 0 auto;
 }
 
 .faq-card {

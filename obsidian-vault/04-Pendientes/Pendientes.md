@@ -3,6 +3,8 @@
 ## Web
 
 - [ ] Revisar todo el sitio en Android real.
+- [ ] Agregar foto real de Francisco en la nota del fundador.
+- [ ] Validar en Android el marquee de marcas y el carrusel infinito de testimoniales.
 - [ ] Revisar visualmente el rediseño global inspirado en Framer en desktop y Android.
 - [ ] Validar velocidad del marquee industrial y legibilidad de tarjetas premium en Android.
 - [ ] Revisar en Android la nueva seccion de ventaja operativa y comparativa SGI.

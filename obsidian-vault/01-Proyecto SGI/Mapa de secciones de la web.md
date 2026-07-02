@@ -5,10 +5,12 @@
 1. Inicio
    - Hero con animacion 3D industrial.
    - Botones de cotizacion y servicios.
+   - Marquee infinito de marcas y tecnologias atendidas.
    - Franja rapida de capacidades.
 
 2. Nosotros
    - Presentacion de SGI.
+   - Nota del fundador con espacio para foto de Francisco.
    - Mision y vision.
    - Estadisticas/capacidades.
 
@@ -19,6 +21,7 @@
    - Obra civil.
    - Scrubbers.
    - Instalaciones.
+   - Tarjetas con mini-dashboard visual: barras, micro-graficas y metricas operativas.
 
 4. Moldeo
    - Especialistas en moldeo por inyeccion.
@@ -48,14 +51,15 @@
    - Cumplimiento NOM.
    - Control de riesgos.
    - Calidad operativa.
+   - Comparativa SGI vs otros proveedores con checks y X.
 
 8. Proyectos
    - Proyectos destacados.
    - Galeria de trabajos.
+   - Testimoniales en carrusel infinito.
 
 9. Contacto
    - Formulario.
    - Datos de contacto.
    - Mapa.
    - Boton flotante de WhatsApp.
-

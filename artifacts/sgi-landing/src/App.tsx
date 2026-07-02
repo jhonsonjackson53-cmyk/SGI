@@ -278,10 +278,26 @@ function Home() {
     { icon: <Factory className="w-6 h-6" />, title: "Operacion continua", metric: "24/7", desc: "Soporte para mantenimiento, HVAC, obra civil, instalaciones y moldeo.", color: "text-red-400", bg: "bg-red-500/15", line: "from-red-500 to-red-400" },
   ];
   const comparisonRows = [
-    { area: "Diagnostico", sgi: "Causa raiz, evidencia y plan de accion", regular: "Revision general sin trazabilidad" },
-    { area: "Ejecucion", sgi: "Equipo tecnico, seguridad y control de avance", regular: "Trabajo reactivo sin metodologia clara" },
-    { area: "Alcance", sgi: "Mantenimiento, HVAC, obra civil, instalacion y suministros", regular: "Proveedor limitado a un solo servicio" },
-    { area: "Seguimiento", sgi: "Liberacion, recomendaciones y soporte post-servicio", regular: "Entrega sin continuidad tecnica" },
+    { area: "Respuesta", sgi: "Respuesta <2h para incidencias criticas", regular: "Respuesta en dias o sin ventana definida" },
+    { area: "Especializacion", sgi: "Tecnicos certificados ARBURG/RJG y experiencia en moldeo", regular: "Tecnicos genericos sin enfoque industrial especializado" },
+    { area: "Trazabilidad", sgi: "Reporte de servicio documentado y evidencia visual", regular: "Sin trazabilidad ni historial tecnico confiable" },
+    { area: "Cobertura", sgi: "Mantenimiento, HVAC, obra civil, instalacion y suministros", regular: "Proveedor limitado a un solo servicio" },
+    { area: "Seguimiento", sgi: "Liberacion tecnica, recomendaciones y soporte post-servicio", regular: "Entrega basica sin continuidad operativa" },
+  ];
+  const serviceMetrics = [
+    { label: "Respuesta promedio", value: "< 2h", width: "88%", trend: [36, 54, 48, 70, 86] },
+    { label: "Uptime atendido", value: "98%", width: "96%", trend: [50, 58, 66, 78, 90] },
+    { label: "Proyectos activos", value: "12+", width: "74%", trend: [32, 44, 52, 64, 72] },
+    { label: "Avance de obra", value: "92%", width: "92%", trend: [28, 40, 62, 76, 92] },
+    { label: "Control ambiental", value: "24/7", width: "84%", trend: [42, 48, 62, 70, 84] },
+    { label: "Instalaciones listas", value: "96%", width: "90%", trend: [35, 52, 68, 82, 90] },
+  ];
+  const testimonialItems = [
+    { text: "Excelente capacidad tecnica y rapida respuesta operativa. En menos de 2 horas tenian un tecnico en planta.", author: "Supervisor de Produccion", company: "Planta Maquiladora" },
+    { text: "Gran apoyo en mantenimiento especializado y mejora de procesos. Redujeron nuestro downtime en un 40%.", author: "Gerencia Industrial", company: "Empresa Automotriz" },
+    { text: "Profesionalismo, calidad y cumplimiento de objetivos. Los recomendamos ampliamente en el sector.", author: "Jefe de Planta", company: "Planta de Electronica" },
+    { text: "Documentaron el servicio, dejaron evidencia clara y dieron seguimiento hasta liberar el equipo.", author: "Coordinador de Mantenimiento", company: "Industria Plastica" },
+    { text: "Nos apoyaron con obra civil, instalacion y refacciones sin tener que coordinar varios proveedores.", author: "Gerencia de Operaciones", company: "Maquiladora Fronteriza" },
   ];
   const activeBrandItem = brandItems[activeBrand];
   const activeSectorItem = sectorItems[activeSector];
@@ -451,6 +467,29 @@ function Home() {
       </section>
 
       {/* ── QUICK ICONS STRIP ── */}
+      <section className="brand-marquee-section bg-gray-950 py-6 overflow-hidden border-y border-white/10">
+        <div className="container mx-auto px-6 lg:px-12 mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+          <span className="text-[11px] font-black uppercase tracking-[0.28em] text-red-300">Marcas y tecnologias que atendemos</span>
+          <span className="text-xs text-gray-400">Experiencia con equipos y componentes usados en planta industrial</span>
+        </div>
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-950 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-950 to-transparent z-10 pointer-events-none" />
+          <motion.div
+            className="brand-marquee-track"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          >
+            {[...brandItems, ...brandItems].map((brand, i) => (
+              <div key={`${brand.name}-${i}`} className="brand-marquee-card">
+                <img loading="lazy" decoding="async" src={asset(brand.image)} alt={brand.name} className="h-9 max-w-28 object-contain" />
+                <span>{brand.name}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       <section className="relative z-10 bg-white border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
@@ -531,6 +570,43 @@ function Home() {
       </section>
 
       {/* ── MISIÓN / VISIÓN ── */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <FadeIn>
+            <div className="founder-quote-card grid lg:grid-cols-[0.42fr_1fr] gap-8 items-center rounded-[2rem] border border-gray-200 bg-white/90 p-6 md:p-8 shadow-2xl shadow-gray-950/10 overflow-hidden">
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-[1.5rem] bg-gradient-to-br from-gray-950 via-gray-800 to-red-950 border border-white/10 shadow-xl overflow-hidden flex flex-col items-center justify-center text-center p-8">
+                  <div className="h-28 w-28 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white text-4xl font-black mb-5">
+                    FR
+                  </div>
+                  <p className="text-white font-black uppercase tracking-widest">Francisco</p>
+                  <p className="text-red-200 text-xs uppercase tracking-[0.24em] mt-2">Fundador SGI</p>
+                  <span className="mt-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Espacio para foto</span>
+                </div>
+              </div>
+              <div>
+                <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-red-600 mb-6">
+                  Nota del fundador
+                </span>
+                <blockquote className="text-2xl md:text-4xl font-black uppercase leading-tight text-gray-950">
+                  "En SGI no llegamos solo a reparar. Llegamos a entender la operacion, reducir riesgos y dejar evidencia clara de cada solucion industrial."
+                </blockquote>
+                <p className="mt-6 text-gray-600 text-lg leading-relaxed">
+                  Nuestro compromiso es trabajar con precision, seguridad y seguimiento tecnico para que cada planta pueda operar con confianza. La excelencia industrial se demuestra en campo, con respuesta, orden y resultados.
+                </p>
+                <div className="mt-7 grid sm:grid-cols-3 gap-3">
+                  {["Respuesta real", "Seguridad operativa", "Calidad documentada"].map((item) => (
+                    <div key={item} className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-xs font-black uppercase tracking-wide text-gray-800">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-2 gap-6">
@@ -642,6 +718,33 @@ function Home() {
                   </div>
                   <h3 className="text-lg font-black text-gray-900 uppercase mb-3">{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                  <div className="service-mini-dashboard mt-6 rounded-2xl border border-gray-200 bg-gray-50/80 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <span className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-500">{serviceMetrics[i].label}</span>
+                      <span className="text-sm font-black text-gray-950">{serviceMetrics[i].value}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-white border border-gray-200 overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full bg-gradient-to-r from-red-600 via-red-400 to-orange-400"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: serviceMetrics[i].width }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9, delay: 0.1 + i * 0.05 }}
+                      />
+                    </div>
+                    <div className="mt-4 flex items-end gap-1.5 h-12">
+                      {serviceMetrics[i].trend.map((height, index) => (
+                        <motion.span
+                          key={index}
+                          className="flex-1 rounded-t-lg bg-gradient-to-t from-gray-900 to-red-500"
+                          initial={{ height: 6, opacity: 0.45 }}
+                          whileInView={{ height, opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.55, delay: index * 0.06 }}
+                        />
+                      ))}
+                    </div>
+                  </div>
                   <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between">
                     <span className="text-[10px] font-black uppercase tracking-[0.24em] text-gray-400">Modulo {String(i + 1).padStart(2, "0")}</span>
                     <span className="h-9 w-9 rounded-full bg-gray-950 text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
@@ -714,27 +817,27 @@ function Home() {
           </div>
 
           <FadeIn delay={0.2}>
-            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden shadow-2xl shadow-black/20">
+            <div className="comparison-table mt-12 rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden shadow-2xl shadow-black/20">
               <div className="grid md:grid-cols-[1fr_1fr_1fr] bg-gray-900/80 border-b border-white/10">
                 <div className="p-5">
                   <span className="text-xs font-black uppercase tracking-widest text-gray-500">Comparativa</span>
-                  <h3 className="text-white font-black uppercase text-xl mt-1">SGI vs proveedor tradicional</h3>
+                  <h3 className="text-white font-black uppercase text-xl mt-1">Por que SGI destaca</h3>
                 </div>
-                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-gray-300">SGI</div>
-                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-gray-400">Proveedor comun</div>
+                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-emerald-300">SGI</div>
+                <div className="hidden md:flex items-center p-5 border-l border-white/10 text-sm font-black uppercase tracking-widest text-red-300">Otros proveedores</div>
               </div>
               {comparisonRows.map((row) => (
                 <div key={row.area} className="grid md:grid-cols-[1fr_1fr_1fr] border-b border-white/10 last:border-b-0">
                   <div className="p-5 bg-gray-950/30">
                     <span className="text-sm font-black uppercase text-white">{row.area}</span>
                   </div>
-                  <div className="p-5 border-white/10 md:border-l">
+                  <div className="p-5 border-white/10 md:border-l bg-emerald-500/5">
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                       <p className="text-sm text-gray-200 leading-relaxed">{row.sgi}</p>
                     </div>
                   </div>
-                  <div className="p-5 border-white/10 md:border-l">
+                  <div className="p-5 border-white/10 md:border-l bg-red-500/5">
                     <div className="flex items-start gap-3">
                       <X className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
                       <p className="text-sm text-gray-500 leading-relaxed">{row.regular}</p>
@@ -1198,37 +1301,39 @@ function Home() {
       </section>
 
       {/* ── TESTIMONIALES ── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-4">
             <SectionLabel>Lo que dicen nuestros clientes</SectionLabel>
           </div>
           <SectionTitle center>Opiniones de Clientes</SectionTitle>
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
-            {[
-              { text: "Excelente capacidad técnica y rápida respuesta operativa. En menos de 2 horas tenían un técnico en planta.", author: "Supervisor de Producción", company: "Planta Maquiladora" },
-              { text: "Gran apoyo en mantenimiento especializado y mejora de procesos. Redujeron nuestro downtime en un 40%.", author: "Gerencia Industrial", company: "Empresa Automotriz" },
-              { text: "Profesionalismo, calidad y cumplimiento de objetivos. Los recomendamos ampliamente en el sector.", author: "Jefe de Planta", company: "Planta de Electrónica" },
-            ].map((o, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <Card className="testimonial-card p-8 h-full">
-                  <div className="flex items-center justify-between gap-4 mb-5">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 to-gray-100 border border-gray-200 flex items-center justify-center text-gray-900 font-black">
-                      {o.author.split(" ").map((part) => part[0]).slice(0, 2).join("")}
-                    </div>
-                    <div className="flex gap-1">
+        </div>
+        <div className="testimonial-carousel relative mt-6">
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <motion.div
+            className="testimonial-track"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+          >
+            {[...testimonialItems, ...testimonialItems].map((o, i) => (
+              <Card key={`${o.author}-${i}`} className="testimonial-card testimonial-slide p-8 h-full" hover={false}>
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 to-gray-100 border border-gray-200 flex items-center justify-center text-gray-900 font-black">
+                    {o.author.split(" ").map((part) => part[0]).slice(0, 2).join("")}
+                  </div>
+                  <div className="flex gap-1">
                     {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-red-400 text-red-400" />)}
-                    </div>
                   </div>
-                  <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
-                  <div className="border-t border-gray-100 pt-4">
-                    <p className="font-bold text-gray-900 text-sm">{o.author}</p>
-                    <p className="text-red-600 text-xs font-semibold">{o.company}</p>
-                  </div>
-                </Card>
-              </FadeIn>
+                </div>
+                <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="font-bold text-gray-900 text-sm">{o.author}</p>
+                  <p className="text-red-600 text-xs font-semibold">{o.company}</p>
+                </div>
+              </Card>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

@@ -2,6 +2,34 @@
 
 ## 2026-07-01
 
+### Autoridad industrial, comparativa E-E-A-T y carruseles con Framer Motion
+
+Cambios:
+- Se agrego un marquee infinito de marcas justo debajo del hero con ENGEL, ARBURG, HUSKY, KEYENCE, EATON, 3M, HILTI, MAKITA, MILWAUKEE y BALLUFF.
+- Se reforzo la tabla comparativa `Por que SGI destaca` con columna verde para SGI y columna roja para otros proveedores.
+- Se actualizaron los puntos de comparativa: respuesta <2h, tecnicos certificados ARBURG/RJG, reporte documentado, cobertura integral y seguimiento post-servicio.
+- Se agrego bloque E-E-A-T `Nota del fundador` con espacio reservado para foto de Francisco y mensaje de compromiso industrial.
+- Se agregaron mini-dashboards visuales en las tarjetas de servicios con barras animadas y micro-graficas.
+- Se refactorizo la seccion de testimoniales de grid estatica a carrusel horizontal infinito con `framer-motion`.
+- No se agregaron precios SaaS ni integraciones de software ajenas al sector industrial.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/01-Proyecto SGI/Mapa de secciones de la web.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Build exitoso. Se conserva la advertencia conocida de `vendor-three` mayor a 500 KB, ya aislado en chunk separado.
+
+Pendientes nuevos:
+- Agregar foto real de Francisco cuando este disponible.
+- Revisar en Android que el marquee de marcas y testimoniales mantengan buena legibilidad.
+
 ### Segunda capa de rediseño Framer en toda la landing
 
 Cambios:
