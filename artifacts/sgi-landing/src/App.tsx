@@ -384,7 +384,7 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
         <div className="absolute inset-0 bg-grid-pattern animate-grid-drift pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-0 hero-scanlines pointer-events-none" aria-hidden="true" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-950 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-gray-950 to-transparent" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none animate-aurora" />
         <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none animate-aurora-delay" />
         <div className="absolute -top-24 left-1/2 h-72 w-72 rounded-full border border-white/10 animate-orbit-ring pointer-events-none" aria-hidden="true" />
@@ -463,70 +463,80 @@ function Home() {
           </div>
         </div>
         {/* Hero bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-950 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-950 to-transparent" />
       </section>
 
-      {/* ── QUICK ICONS STRIP ── */}
-      <section className="brand-marquee-section bg-gray-950 py-6 overflow-hidden border-y border-white/10">
-        <div className="container mx-auto px-6 lg:px-12 mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-          <span className="text-[11px] font-black uppercase tracking-[0.28em] text-red-300">Marcas y tecnologias que atendemos</span>
-          <span className="text-xs text-gray-400">Experiencia con equipos y componentes usados en planta industrial</span>
-        </div>
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-950 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-950 to-transparent z-10 pointer-events-none" />
-          <motion.div
-            className="brand-marquee-track"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-          >
-            {[...brandItems, ...brandItems].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="brand-marquee-card">
-                <img loading="lazy" decoding="async" src={asset(brand.image)} alt={brand.name} className="h-9 max-w-28 object-contain" />
-                <span>{brand.name}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="relative z-10 bg-white border-b border-gray-200 shadow-sm">
+      <section className="authority-deck-section overflow-hidden py-8 md:py-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
-            {[
-              { name: "Manufactura",   icon: <Factory className="w-7 h-7" />, color: "text-red-500", bg: "from-red-50 to-orange-50", shadow: "shadow-red-500/15" },
-              { name: "Mantenimiento", icon: <Wrench  className="w-7 h-7" />, color: "text-blue-600", bg: "from-blue-50 to-cyan-50", shadow: "shadow-blue-500/15" },
-              { name: "Instalaciones", icon: <Zap     className="w-7 h-7" />, color: "text-amber-500", bg: "from-amber-50 to-yellow-50", shadow: "shadow-amber-500/15" },
-              { name: "Seguridad",     icon: <Shield  className="w-7 h-7" />, color: "text-emerald-600", bg: "from-emerald-50 to-teal-50", shadow: "shadow-emerald-500/15" },
-            ].map((item, i) => (
-              <div key={i} className="bg-white flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 py-5 sm:py-6 px-3 sm:px-5 lg:px-8 group cursor-default min-w-0 text-center sm:text-left transition-all duration-300 hover:bg-gray-50">
-                <div className={`bg-gradient-to-br ${item.bg} p-3 rounded-2xl transition-all duration-300 shrink-0 shadow-lg ${item.shadow} group-hover:-translate-y-1 group-hover:rotate-3`}>
-                  {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: `w-6 h-6 sm:w-7 sm:h-7 ${item.color}` })}
-                </div>
-                <span className="font-bold text-gray-800 uppercase text-[11px] sm:text-sm tracking-wide leading-tight max-w-full break-words">{item.name}</span>
+          <div className="authority-deck">
+            <div className="authority-deck-header">
+              <div>
+                <span className="authority-kicker">Autoridad operativa</span>
+                <h2>Tecnologia, planta y respuesta critica</h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <p>Marcas, servicios y capacidades clave en un solo frente para mantener la operacion industrial activa.</p>
+            </div>
 
-      <section className="industrial-marquee-section bg-gray-950 py-5 overflow-hidden">
-        <div className="industrial-marquee">
-          {[...Array(2)].flatMap(() => [
-            "Mantenimiento 24/7",
-            "HVAC industrial",
-            "Obra civil",
-            "Moldeo por inyeccion",
-            "Instalaciones",
-            "Seguridad NOM",
-            "Suministros",
-            "Respuesta critica",
-          ]).map((item, i) => (
-            <span key={`${item}-${i}`} className="industrial-marquee-item">
-              <span className="h-2 w-2 rounded-full bg-red-500 shadow-lg shadow-red-500/40" />
-              {item}
-            </span>
-          ))}
+            <div className="authority-brand-window">
+              <div className="authority-brand-fade-left" />
+              <div className="authority-brand-fade-right" />
+              <motion.div
+                className="brand-marquee-track authority-brand-track"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
+              >
+                {[...brandItems, ...brandItems].map((brand, i) => (
+                  <div key={`${brand.name}-${i}`} className="brand-marquee-card authority-brand-card">
+                    <img loading="lazy" decoding="async" src={asset(brand.image)} alt={brand.name} className="h-8 max-w-28 object-contain" />
+                    <span>{brand.name}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            <div className="authority-capability-grid">
+              {[
+                { name: "Manufactura", icon: <Factory />, tone: "red", desc: "Produccion y moldeo" },
+                { name: "Mantenimiento", icon: <Wrench />, tone: "blue", desc: "Soporte tecnico 24/7" },
+                { name: "Instalaciones", icon: <Zap />, tone: "amber", desc: "Campo, obra y montaje" },
+                { name: "Seguridad", icon: <Shield />, tone: "emerald", desc: "NOM y control operativo" },
+              ].map((item) => (
+                <div key={item.name} className={`authority-capability-card authority-capability-${item.tone}`}>
+                  <div className="authority-capability-icon">
+                    {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: "h-6 w-6" })}
+                  </div>
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>{item.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="authority-service-strip">
+              <motion.div
+                className="authority-service-track"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+              >
+                {[...Array(2)].flatMap(() => [
+                  "Mantenimiento 24/7",
+                  "HVAC industrial",
+                  "Obra civil",
+                  "Moldeo por inyeccion",
+                  "Instalaciones",
+                  "Seguridad NOM",
+                  "Suministros",
+                  "Respuesta critica",
+                ]).map((item, i) => (
+                  <span key={`${item}-${i}`} className="authority-service-pill">
+                    <span />
+                    {item}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 

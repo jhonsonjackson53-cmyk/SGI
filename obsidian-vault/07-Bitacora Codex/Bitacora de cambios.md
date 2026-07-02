@@ -2,6 +2,33 @@
 
 ## 2026-07-02
 
+### Correccion del bloque post-hero y panel de autoridad
+
+Cambios:
+- Se reemplazaron tres franjas separadas debajo del hero por un solo panel operativo compacto.
+- Se integraron en el mismo bloque el marquee de marcas, las capacidades principales y los servicios industriales.
+- Se redujo el fade inferior del hero para evitar una zona vacia demasiado pesada antes del contenido.
+- Se mejoro la jerarquia visual con borde superior tecnico, fondo blueprint, tarjetas glass y colores funcionales por capacidad.
+- Se mantuvo intacta la informacion de negocio: marcas, manufactura, mantenimiento, instalaciones, seguridad y servicios clave.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Servidor local temporal en `http://127.0.0.1:5173/SGI/` usado para revision visual.
+- Capturas locales revisadas en desktop y movil para el nuevo panel de autoridad.
+- En emulacion desktop se verifico `scrollWidth=1600`, sin overflow horizontal.
+- En emulacion movil se verifico `scrollWidth=390`, sin overflow horizontal.
+
+Pendientes nuevos:
+- Revisar en Android real el nuevo panel de autoridad post-hero y ajustar tamano/velocidad si el cliente lo prefiere mas sobrio.
+
 ### Sistema visual oscuro tipo control operativo en toda la landing
 
 Cambios:

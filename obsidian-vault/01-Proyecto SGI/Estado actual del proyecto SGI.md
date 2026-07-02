@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se corrigio el bloque post-hero que se veia pesado: ahora marcas, capacidades y servicios aparecen en un solo panel operativo compacto, sin franjas sueltas ni overflow horizontal.
 - Se extendio a toda la landing el estilo oscuro tipo control operativo: fondos blueprint, gradientes rojo/gris, tarjetas glass, paneles tecnicos y formularios oscuros.
 - Se acorto la meta description principal y se optimizaron las imagenes de ingenieria/suministros a WebP, reduciendo ese bloque de ~3.34 MB a ~152 KB cargados.
 - Se agregaron piezas de autoridad industrial: marquee de marcas debajo del hero, tabla comparativa SGI vs otros proveedores, nota del fundador, mini-dashboards en servicios y testimoniales en carrusel infinito con framer-motion.
@@ -47,6 +48,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Proximos focos sugeridos
 
+- Revisar en Android real el panel de autoridad post-hero y ajustar tamano, velocidad de carruseles o espaciados si hace falta.
 - Revisar en Android real el nuevo dark system global y ajustar contraste/intensidad si hace falta.
 - Agregar foto real de Francisco en la nota del fundador.
 - Validar en Android los carruseles de marcas y testimoniales.
