@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se acorto la meta description principal y se optimizaron las imagenes de ingenieria/suministros a WebP, reduciendo ese bloque de ~3.34 MB a ~152 KB cargados.
 - Se agregaron piezas de autoridad industrial: marquee de marcas debajo del hero, tabla comparativa SGI vs otros proveedores, nota del fundador, mini-dashboards en servicios y testimoniales en carrusel infinito con framer-motion.
 - Se corrigio proteccion contra overflow horizontal en el hero movil para evitar texto o botones cortados.
 - Se agrego una segunda capa de rediseño Framer: marquee industrial, tarjetas de servicios premium, proyectos con etiqueta `Caso SGI`, testimonios/FAQ/galeria con mayor profundidad visual.
@@ -50,8 +51,10 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 - Validar velocidad del marquee y legibilidad de tarjetas en Android.
 - Revisar visualmente toda la landing despues del rediseño global en desktop y Android.
 - Revisar en Android real la nueva seccion de ventaja operativa.
-- Convertir y comprimir imagenes grandes a WebP/AVIF.
+- Comprimir assets restantes si se detectan pesos altos, especialmente logo final y futuras imagenes de proyectos.
 - Validar Lighthouse/PageSpeed despues del deploy.
+- Enviar sitemap a Google Search Console.
+- Reemplazar testimoniales genericos por testimonios reales confirmados.
 - Definir textos finales de cada servicio.
 - Revisar todo el sitio en movil.
 - Conectar dominio propio si SGI lo tiene.

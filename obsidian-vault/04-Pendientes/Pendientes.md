@@ -12,8 +12,12 @@
 - [ ] Confirmar telefono de WhatsApp.
 - [ ] Confirmar correo de contacto.
 - [ ] Revisar que todas las imagenes carguen en GitHub Pages.
-- [ ] Convertir/comprimir imagenes grandes a WebP/AVIF para mejorar velocidad.
+- [x] Convertir/comprimir imagenes de ingenieria/suministros a WebP para mejorar velocidad. (Aplicado el 2026-07-01; ~3.34 MB PNG a ~152 KB WebP.)
+- [ ] Revisar y comprimir assets restantes si se detectan pesos altos.
 - [ ] Validar Lighthouse/PageSpeed despues del deploy de optimizacion tecnica.
+- [ ] Enviar `sitemap.xml` a Google Search Console.
+- [ ] Agregar `favicon.ico` de respaldo cuando se defina paquete final de iconos.
+- [ ] Reemplazar testimoniales genericos por testimonios reales confirmados.
 - [x] Revisar SEO basico: titulo, descripcion y previews sociales. (Alineado a GitHub Pages el 2026-07-01; falta validar preview externo despues del deploy.)
 - [x] Validar canonical, Open Graph y JSON-LD en la URL publica despues del deploy. (HTTP 200 verificado el 2026-07-01.)
 - [x] Separar Three.js del bundle inicial y agregar sitemap/reduced motion. (Aplicado el 2026-07-01.)
@@ -34,4 +38,4 @@
 
 ## Siguiente bloque recomendado
 
-Prioridad: optimizacion visual y rendimiento pre-cliente. Convertir/comprimir imagenes grandes a WebP/AVIF, validar en Android real y correr Lighthouse/PageSpeed sobre GitHub Pages; despues confirmar con SGI telefono, correo, direccion, permisos de logos y textos definitivos.
+Prioridad: validacion pre-cliente. Revisar en Android real, correr Lighthouse/PageSpeed sobre GitHub Pages, enviar sitemap a Google Search Console y confirmar con SGI telefono, correo, direccion, permisos de logos, foto de Francisco y testimoniales reales.

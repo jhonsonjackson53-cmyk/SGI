@@ -36,7 +36,8 @@
 | 2026-06-30 | `public/clientes-sectores/*.png` | Clientes y sectores | En uso | Iconografia/imagenes por sector incorporadas en PR #1. |
 | 2026-06-30 | `public/marcas-tecnologias/*.png` | Marcas y tecnologias | En uso | Confirmar permisos de uso de logos de terceros. |
 | 2026-06-30 | `public/proveedores-socios/*.png` | Proveedores y socios | En uso | Confirmar permisos de uso de logos de terceros. |
-| 2026-06-30 | `public/ingenieria-suministros/*.png` | Ingenieria y suministros | En uso | Imagenes de soporte para cards interactivas. |
+| 2026-06-30 | `public/ingenieria-suministros/*.png` | Ingenieria y suministros | Reemplazado | Sustituidas por WebP optimizado el 2026-07-01. |
+| 2026-07-01 | `public/ingenieria-suministros/*.webp` | Ingenieria y suministros | En uso | 7 imagenes convertidas desde PNG; peso total aproximado ~152 KB. |
 | 2026-06-30 | `public/logo-sgi.png` | Branding | En uso | Pendiente definir logo final de alta resolucion. |
 
 ## Assets clave del handoff 2026-07-01

@@ -2,6 +2,39 @@
 
 ## 2026-07-01
 
+### Optimizacion SEO y WebP desde recomendaciones SGI
+
+Cambios:
+- Se reviso `C:/Users/EG/Downloads/SGI-recomendaciones.md`.
+- Se acorto la meta description principal de 208 caracteres a 116 caracteres.
+- Se convirtieron 7 imagenes de `public/ingenieria-suministros/` de PNG a WebP.
+- Se actualizaron las rutas del sitio para cargar WebP en las tarjetas de ingenieria y suministros.
+- Se retiraron los PNG reemplazados del directorio publico para reducir el peso del deploy.
+
+Archivos modificados:
+- `artifacts/sgi-landing/index.html`
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/public/ingenieria-suministros/*.webp`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/06-Assets e Imagenes/Assets pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+- `obsidian-vault/21-Estrategia/Recomendaciones SEO y rendimiento SGI.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Peso original PNG ingenieria/suministros: ~3.34 MB.
+- Peso nuevo WebP ingenieria/suministros: ~152 KB.
+- La meta description nueva tiene 116 caracteres.
+- El build final contiene WebP en `dist/public/ingenieria-suministros/` y ya no contiene los PNG reemplazados.
+
+Pendientes nuevos:
+- Ejecutar Lighthouse/PageSpeed despues del deploy.
+- Agregar `favicon.ico` de respaldo si se instala una herramienta de conversion ICO o se define paquete de iconos final.
+- Enviar sitemap a Google Search Console.
+- Sustituir testimoniales genericos por testimonios reales cuando SGI confirme nombres/empresas.
+
 ### Autoridad industrial, comparativa E-E-A-T y carruseles con Framer Motion
 
 Cambios:
