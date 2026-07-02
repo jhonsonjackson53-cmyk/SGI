@@ -2,6 +2,31 @@
 
 ## 2026-07-02
 
+### Fondo global continuo sin divisiones por seccion
+
+Cambios:
+- Se elimino el efecto de fondos separados por seccion que generaba cortes horizontales visibles.
+- Se movio el fondo blueprint/gradiente al contenedor `main` para que toda la pagina comparta un solo estilo visual continuo.
+- Se dejaron las secciones posteriores al hero transparentes, sin fondos alternados ni bordes superiores/inferiores duros.
+- Se conservaron los paneles, tarjetas, imagenes, carruseles y contenido existentes sobre el nuevo fondo unificado.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Capturas locales revisadas en desktop para transiciones de moldeo/marcas, testimoniales/FAQ y CTA/contacto.
+- Se verifico que las secciones usan fondo transparente y que `main` contiene el fondo global.
+- En emulacion desktop se verifico `scrollWidth=1600`, sin overflow horizontal.
+- En emulacion movil se verifico `scrollWidth=390`, sin overflow horizontal.
+
+Pendientes nuevos:
+- Revisar en Android real si el fondo continuo mantiene buena lectura en toda la pagina.
+
 ### Correccion del bloque post-hero y panel de autoridad
 
 Cambios:

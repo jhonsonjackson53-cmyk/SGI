@@ -3,6 +3,7 @@
 ## Web
 
 - [ ] Revisar todo el sitio en Android real.
+- [ ] Revisar en Android real que el fondo continuo no muestre cortes visuales.
 - [ ] Revisar en Android real el nuevo panel de autoridad post-hero.
 - [ ] Revisar en Android real el dark system global tipo control operativo.
 - [ ] Agregar foto real de Francisco en la nota del fundador.
@@ -40,4 +41,4 @@
 
 ## Siguiente bloque recomendado
 
-Prioridad: validacion pre-cliente. Revisar en Android real el panel de autoridad post-hero y el dark system global, correr Lighthouse/PageSpeed sobre GitHub Pages, enviar sitemap a Google Search Console y confirmar con SGI telefono, correo, direccion, permisos de logos, foto de Francisco y testimoniales reales.
+Prioridad: validacion pre-cliente. Revisar en Android real el fondo continuo, el panel de autoridad post-hero y el dark system global; despues correr Lighthouse/PageSpeed sobre GitHub Pages, enviar sitemap a Google Search Console y confirmar con SGI telefono, correo, direccion, permisos de logos, foto de Francisco y testimoniales reales.
