@@ -629,6 +629,189 @@ main > section > .container {
   z-index: 1;
 }
 
+.sgi-dark-system {
+  background:
+    radial-gradient(circle at 8% 5%, rgba(239,68,68,0.24), transparent 30rem),
+    radial-gradient(circle at 90% 8%, rgba(148,163,184,0.18), transparent 28rem),
+    linear-gradient(135deg, #0b101a 0%, #111827 45%, #1f2937 100%);
+  color: #f8fafc;
+}
+
+.sgi-dark-system nav {
+  background: rgba(11, 16, 26, 0.82) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24) !important;
+  backdrop-filter: blur(18px);
+}
+
+.sgi-dark-system nav button:not(.bg-red-600),
+.sgi-dark-system nav [class*="text-gray-"] {
+  color: #f8fafc !important;
+}
+
+.sgi-dark-system #mobile-menu {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(239,68,68,0.20), transparent 18rem),
+    linear-gradient(145deg, rgba(15,23,42,0.98), rgba(17,24,39,0.98)) !important;
+  border: 1px solid rgba(148,163,184,0.16);
+}
+
+.sgi-dark-system #mobile-menu button:not(.bg-red-600) {
+  color: #f8fafc !important;
+  border-color: rgba(148,163,184,0.18) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio):not(.brand-marquee-section):not(.industrial-marquee-section) {
+  background:
+    radial-gradient(circle at 0% 15%, rgba(239,68,68,0.20), transparent 28rem),
+    radial-gradient(circle at 100% 0%, rgba(148,163,184,0.16), transparent 26rem),
+    linear-gradient(118deg, #31242b 0%, #111827 42%, #1f2937 100%) !important;
+  border-top: 1px solid rgba(148,163,184,0.14);
+  color: #f8fafc;
+}
+
+.sgi-dark-system main > section:not(#inicio):not(.brand-marquee-section):not(.industrial-marquee-section):nth-of-type(even) {
+  background:
+    radial-gradient(circle at 100% 16%, rgba(239,68,68,0.17), transparent 28rem),
+    radial-gradient(circle at 10% 0%, rgba(148,163,184,0.16), transparent 24rem),
+    linear-gradient(122deg, #111827 0%, #1a2030 54%, #2b2027 100%) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio)::before {
+  background:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 32%) !important;
+  background-size: 28px 28px, 28px 28px, 100% 100% !important;
+  opacity: 0.38;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+
+.sgi-dark-system main > section:not(#inicio)::after {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.06) 45%, transparent 72%) !important;
+  background-size: 22px 22px, 100% 100%;
+  opacity: 0.28;
+}
+
+.sgi-dark-system main > section:not(#inicio) h1,
+.sgi-dark-system main > section:not(#inicio) h2,
+.sgi-dark-system main > section:not(#inicio) h3,
+.sgi-dark-system main > section:not(#inicio) h4,
+.sgi-dark-system main > section:not(#inicio) h5,
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-900"],
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-800"] {
+  color: #f8fafc !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-700"],
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-600"],
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-500"],
+.sgi-dark-system main > section:not(#inicio) [class*="text-gray-400"] {
+  color: #aab4c5 !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .premium-card,
+.sgi-dark-system main > section:not(#inicio) .founder-quote-card,
+.sgi-dark-system main > section:not(#inicio) .faq-card,
+.sgi-dark-system main > section:not(#inicio) .testimonial-card,
+.sgi-dark-system main > section:not(#inicio) [class*="bg-white"],
+.sgi-dark-system main > section:not(#inicio) [class*="bg-gray-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="bg-gray-100"] {
+  background:
+    linear-gradient(145deg, rgba(31,41,55,0.86), rgba(17,24,39,0.74)),
+    radial-gradient(circle at 95% 0%, rgba(255,255,255,0.08), transparent 36%) !important;
+  border-color: rgba(148,163,184,0.20) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 22px 52px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .premium-card,
+.sgi-dark-system main > section:not(#inicio) .testimonial-card,
+.sgi-dark-system main > section:not(#inicio) .faq-card {
+  border-radius: 1rem;
+  border-top-color: rgba(239,68,68,0.72) !important;
+  box-shadow:
+    0 22px 52px rgba(0,0,0,0.28),
+    inset 0 3px 0 rgba(239,68,68,0.58),
+    inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .premium-card::before {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.10), transparent 26%),
+    radial-gradient(circle at top right, rgba(239,68,68,0.12), transparent 30%) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="bg-red-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="from-red-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="to-orange-50"] {
+  background: linear-gradient(145deg, rgba(239,68,68,0.18), rgba(127,29,29,0.10)) !important;
+  border-color: rgba(239,68,68,0.26) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="from-blue-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="to-cyan-50"] {
+  background: linear-gradient(145deg, rgba(59,130,246,0.16), rgba(8,47,73,0.10)) !important;
+  border-color: rgba(96,165,250,0.22) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="from-amber-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="to-yellow-50"] {
+  background: linear-gradient(145deg, rgba(245,158,11,0.16), rgba(120,53,15,0.10)) !important;
+  border-color: rgba(251,191,36,0.22) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="from-emerald-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="to-teal-50"] {
+  background: linear-gradient(145deg, rgba(16,185,129,0.16), rgba(6,78,59,0.10)) !important;
+  border-color: rgba(52,211,153,0.22) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="border-gray"],
+.sgi-dark-system main > section:not(#inicio) [class*="border-red-100"],
+.sgi-dark-system main > section:not(#inicio) [class*="border-red-200"],
+.sgi-dark-system main > section:not(#inicio) [class*="border-red-300"] {
+  border-color: rgba(148,163,184,0.20) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) [class*="ring-red-50"],
+.sgi-dark-system main > section:not(#inicio) [class*="ring-white"] {
+  --tw-ring-color: rgba(239,68,68,0.20) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) input,
+.sgi-dark-system main > section:not(#inicio) textarea,
+.sgi-dark-system main > section:not(#inicio) button[role="combobox"] {
+  background: rgba(15,23,42,0.86) !important;
+  border-color: rgba(148,163,184,0.24) !important;
+  color: #f8fafc !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) input::placeholder,
+.sgi-dark-system main > section:not(#inicio) textarea::placeholder {
+  color: #738095 !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .service-mini-dashboard {
+  background: rgba(15,23,42,0.74) !important;
+  border-color: rgba(148,163,184,0.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .testimonial-carousel > div:first-child {
+  background: linear-gradient(to right, #111827, transparent) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) .testimonial-carousel > div:nth-child(2) {
+  background: linear-gradient(to left, #111827, transparent) !important;
+}
+
+.sgi-dark-system main > section:not(#inicio) iframe {
+  filter: saturate(0.75) contrast(1.08) brightness(0.82) !important;
+}
+
 .card-hover-glow {
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

@@ -307,7 +307,7 @@ function Home() {
   const activeSupplyItem = supplyItems[activeSupply];
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans overflow-x-hidden selection:bg-red-100">
+    <div className="sgi-dark-system min-h-screen bg-gray-950 text-white font-sans overflow-x-hidden selection:bg-red-500/30">
 
       {/* ── NAVBAR ── */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -384,7 +384,7 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/96 via-gray-950/74 to-gray-950/50" />
         <div className="absolute inset-0 bg-grid-pattern animate-grid-drift pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-0 hero-scanlines pointer-events-none" aria-hidden="true" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-950 to-transparent" />
         <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none animate-aurora" />
         <div className="absolute bottom-1/4 left-1/5 w-64 h-64 bg-gray-500/10 rounded-full blur-3xl pointer-events-none animate-aurora-delay" />
         <div className="absolute -top-24 left-1/2 h-72 w-72 rounded-full border border-white/10 animate-orbit-ring pointer-events-none" aria-hidden="true" />
@@ -463,7 +463,7 @@ function Home() {
           </div>
         </div>
         {/* Hero bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-950 to-transparent" />
       </section>
 
       {/* ── QUICK ICONS STRIP ── */}

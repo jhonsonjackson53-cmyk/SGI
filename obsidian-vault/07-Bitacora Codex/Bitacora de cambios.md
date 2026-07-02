@@ -1,5 +1,33 @@
 # Bitacora de cambios
 
+## 2026-07-02
+
+### Sistema visual oscuro tipo control operativo en toda la landing
+
+Cambios:
+- Se aplico una clase global `sgi-dark-system` para extender el estilo de la seccion `Ventaja operativa` a toda la pagina.
+- Se convirtieron secciones claras a fondos oscuros con gradientes rojo/gris, blueprint grid, textura tecnica y paneles glass.
+- Se ajustaron tarjetas, metricas, tabs, FAQ, testimoniales, contacto, mapa, inputs y formularios al estilo de panel industrial.
+- Se actualizo la navegacion desktop/mobile al mismo lenguaje oscuro.
+- Se cambio el fade inferior del hero de claro a oscuro para evitar cortes visuales entre secciones.
+- Se mantuvo intacta la informacion de negocio y no se agregaron precios SaaS ni integraciones irrelevantes.
+
+Archivos modificados:
+- `artifacts/sgi-landing/src/App.tsx`
+- `artifacts/sgi-landing/src/index.css`
+- `obsidian-vault/01-Proyecto SGI/Estado actual del proyecto SGI.md`
+- `obsidian-vault/04-Pendientes/Pendientes.md`
+- `obsidian-vault/07-Bitacora Codex/Bitacora de cambios.md`
+
+Validacion:
+- `node ..\..\node_modules\typescript\bin\tsc -p tsconfig.json --noEmit` ejecutado correctamente.
+- `vite build --config vite.config.ts` ejecutado con `BASE_PATH=/SGI/` y `PORT=5173`.
+- Capturas locales revisadas en desktop y movil: hero, nosotros, servicios/ventaja operativa y contacto.
+- En emulacion movil se verifico `scrollWidth=390`, sin overflow horizontal.
+
+Pendientes nuevos:
+- Revisar el nuevo dark system en Android real y ajustar intensidad si el cliente lo prefiere mas sobrio.
+
 ## 2026-07-01
 
 ### Optimizacion SEO y WebP desde recomendaciones SGI

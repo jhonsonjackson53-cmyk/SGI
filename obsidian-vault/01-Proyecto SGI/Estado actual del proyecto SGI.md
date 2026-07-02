@@ -1,7 +1,7 @@
 # Estado actual del proyecto SGI
 
 Fecha de inicio de esta memoria: 2026-06-30
-Ultima actualizacion: 2026-07-01
+Ultima actualizacion: 2026-07-02
 
 ## Resumen
 
@@ -26,6 +26,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se extendio a toda la landing el estilo oscuro tipo control operativo: fondos blueprint, gradientes rojo/gris, tarjetas glass, paneles tecnicos y formularios oscuros.
 - Se acorto la meta description principal y se optimizaron las imagenes de ingenieria/suministros a WebP, reduciendo ese bloque de ~3.34 MB a ~152 KB cargados.
 - Se agregaron piezas de autoridad industrial: marquee de marcas debajo del hero, tabla comparativa SGI vs otros proveedores, nota del fundador, mini-dashboards en servicios y testimoniales en carrusel infinito con framer-motion.
 - Se corrigio proteccion contra overflow horizontal en el hero movil para evitar texto o botones cortados.
@@ -46,6 +47,7 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Proximos focos sugeridos
 
+- Revisar en Android real el nuevo dark system global y ajustar contraste/intensidad si hace falta.
 - Agregar foto real de Francisco en la nota del fundador.
 - Validar en Android los carruseles de marcas y testimoniales.
 - Validar velocidad del marquee y legibilidad de tarjetas en Android.
