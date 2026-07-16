@@ -1,7 +1,7 @@
 # Estado actual del proyecto SGI
 
 Fecha de inicio de esta memoria: 2026-06-30
-Ultima actualizacion: 2026-07-02
+Ultima actualizacion: 2026-07-15
 
 ## Resumen
 
@@ -26,6 +26,12 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 
 ## Ultimos arreglos importantes
 
+- Se integraron cinco fotografias reales de `S22` en proyectos, galeria y evidencia de trabajo en planta.
+- Se retiro el espacio temporal del fundador y se sustituyo por evidencia fotografica verificable.
+- Se eliminaron testimonios genericos no autorizados.
+- Se mejoraron navegacion semantica, accesibilidad del formulario y valores iniciales de estadisticas.
+- Se corrigio la ruta del activo de MAKITA.
+- Se regenero Graphify desde la landing reparada: 561 nodos, 801 relaciones y 95 comunidades.
 - Se unifico el fondo visual de toda la pagina: las secciones ya no pintan fondos alternados y ahora comparten un solo blueprint/gradiente continuo.
 - Se corrigio el bloque post-hero que se veia pesado: ahora marcas, capacidades y servicios aparecen en un solo panel operativo compacto, sin franjas sueltas ni overflow horizontal.
 - Se extendio a toda la landing el estilo oscuro tipo control operativo: fondos blueprint, gradientes rojo/gris, tarjetas glass, paneles tecnicos y formularios oscuros.
@@ -52,17 +58,16 @@ https://github.com/jhonsonjackson53-cmyk/SGI
 - Revisar en Android real que el fondo continuo conserve buena lectura y no se perciban cortes visuales al hacer scroll.
 - Revisar en Android real el panel de autoridad post-hero y ajustar tamano, velocidad de carruseles o espaciados si hace falta.
 - Revisar en Android real el nuevo dark system global y ajustar contraste/intensidad si hace falta.
-- Agregar foto real de Francisco en la nota del fundador.
-- Validar en Android los carruseles de marcas y testimoniales.
+- Agregar foto real de Francisco solamente si SGI decide recuperar una nota personal y autoriza la imagen.
+- Validar en Android el carrusel de marcas.
 - Validar velocidad del marquee y legibilidad de tarjetas en Android.
 - Revisar visualmente toda la landing despues del rediseño global en desktop y Android.
 - Revisar en Android real la nueva seccion de ventaja operativa.
 - Comprimir assets restantes si se detectan pesos altos, especialmente logo final y futuras imagenes de proyectos.
 - Validar Lighthouse/PageSpeed despues del deploy.
 - Enviar sitemap a Google Search Console.
-- Reemplazar testimoniales genericos por testimonios reales confirmados.
+- Agregar testimonios reales solamente cuando existan datos y autorizacion verificables.
 - Definir textos finales de cada servicio.
 - Revisar todo el sitio en movil.
 - Conectar dominio propio si SGI lo tiene.
 - Confirmar telefono, correo y WhatsApp definitivos.
-

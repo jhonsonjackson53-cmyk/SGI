@@ -3,13 +3,13 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Menu, X, ChevronUp, MapPin, Phone, Mail,
   Settings, Zap, Shield, Factory, CheckCircle2,
   Target, Lightbulb, Wrench, Thermometer, Hammer,
   HardHat, Wind, Power, PenTool, FileText, Beaker,
-  AlertTriangle, ArrowRight, Star, Navigation, Copy, Check
+  AlertTriangle, ArrowRight, Navigation, Copy, Check
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,22 +29,9 @@ const queryClient = new QueryClient();
 const IndustrialPlantScene = React.lazy(() => import("@/components/IndustrialPlantScene"));
 
 function useCounter(end: number, duration: number = 2000) {
-  const [count, setCount] = useState(0);
   const nodeRef = useRef(null);
-  const inView = useInView(nodeRef, { once: true, margin: "-50px" });
-  useEffect(() => {
-    if (inView) {
-      let startTime: number | null = null;
-      const step = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        setCount(Math.floor(progress * end));
-        if (progress < 1) window.requestAnimationFrame(step);
-      };
-      window.requestAnimationFrame(step);
-    }
-  }, [inView, end, duration]);
-  return { count, nodeRef };
+  void duration;
+  return { count: end, nodeRef };
 }
 
 const FadeIn = ({ children, delay = 0, className = "", direction = "up" }: {
@@ -231,7 +218,7 @@ function Home() {
     { name: "EATON", image: "/marcas-tecnologias/Eaton.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Componentes eléctricos y soluciones para operación segura en planta.", points: ["Eléctrico", "Protección", "Tableros"] },
     { name: "3M", image: "/marcas-tecnologias/3M.png", color: "text-red-600", bg: "bg-red-50", summary: "Consumibles y materiales técnicos para mantenimiento y seguridad.", points: ["Materiales", "EPP", "Consumibles"] },
     { name: "HILTI", image: "/marcas-tecnologias/Hilti.png", color: "text-red-600", bg: "bg-red-50", summary: "Herramientas y soluciones de fijación para obra civil e instalación.", points: ["Fijación", "Obra civil", "Herramientas"] },
-    { name: "MAKITA", image: "/marcas-tecnologias/Maquita.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Herramienta eléctrica para trabajos de instalación y mantenimiento.", points: ["Instalación", "Taller", "Campo"] },
+    { name: "MAKITA", image: "/marcas-tecnologias/Makita.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Herramienta eléctrica para trabajos de instalación y mantenimiento.", points: ["Instalación", "Taller", "Campo"] },
     { name: "MILWAUKEE", image: "/marcas-tecnologias/Milwaukee.png", color: "text-red-700", bg: "bg-red-50", summary: "Herramientas para trabajos exigentes en planta y servicio industrial.", points: ["Potencia", "Servicio", "Mantenimiento"] },
     { name: "BALLUFF", image: "/marcas-tecnologias/Balluff.png", color: "text-gray-700", bg: "bg-gray-50", summary: "Sensórica y automatización para monitoreo de equipos y procesos.", points: ["Automatización", "Sensores", "Control"] },
   ];
@@ -292,13 +279,6 @@ function Home() {
     { label: "Control ambiental", value: "24/7", width: "84%", trend: [42, 48, 62, 70, 84] },
     { label: "Instalaciones listas", value: "96%", width: "90%", trend: [35, 52, 68, 82, 90] },
   ];
-  const testimonialItems = [
-    { text: "Excelente capacidad tecnica y rapida respuesta operativa. En menos de 2 horas tenian un tecnico en planta.", author: "Supervisor de Produccion", company: "Planta Maquiladora" },
-    { text: "Gran apoyo en mantenimiento especializado y mejora de procesos. Redujeron nuestro downtime en un 40%.", author: "Gerencia Industrial", company: "Empresa Automotriz" },
-    { text: "Profesionalismo, calidad y cumplimiento de objetivos. Los recomendamos ampliamente en el sector.", author: "Jefe de Planta", company: "Planta de Electronica" },
-    { text: "Documentaron el servicio, dejaron evidencia clara y dieron seguimiento hasta liberar el equipo.", author: "Coordinador de Mantenimiento", company: "Industria Plastica" },
-    { text: "Nos apoyaron con obra civil, instalacion y refacciones sin tener que coordinar varios proveedores.", author: "Gerencia de Operaciones", company: "Maquiladora Fronteriza" },
-  ];
   const activeBrandItem = brandItems[activeBrand];
   const activeSectorItem = sectorItems[activeSector];
   const activeSupplierItem = supplierItems[activeSupplier];
@@ -316,22 +296,23 @@ function Home() {
           : "bg-transparent py-5"
       }`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <button onClick={() => scrollTo("inicio")} className="flex items-center" aria-label="Ir al inicio">
+          <a href="#inicio" onClick={(event) => { event.preventDefault(); scrollTo("inicio"); }} className="flex items-center" aria-label="Ir al inicio">
             <div className={`rounded-xl px-3 py-1.5 transition-colors ${isScrolled ? "bg-gray-100" : "bg-white/90"}`}>
               <img src={logoSrc} alt="SGI Logo" className="h-12 w-auto" decoding="async" />
             </div>
-          </button>
+          </a>
           <div className="hidden lg:flex gap-8 items-center text-sm font-semibold">
             {navLinks.map(item => (
-              <button
+              <a
                 key={item}
-                onClick={() => scrollTo(item.toLowerCase())}
+                href={`#${item.toLowerCase()}`}
+                onClick={(event) => { event.preventDefault(); scrollTo(item.toLowerCase()); }}
                 className={`transition-colors uppercase tracking-widest text-xs ${
                   isScrolled ? "text-gray-600 hover:text-red-600" : "text-white hover:text-red-300"
                 }`}
               >
                 {item}
-              </button>
+              </a>
             ))}
             <button
               onClick={() => scrollTo("contacto")}
@@ -356,13 +337,14 @@ function Home() {
       {mobileMenuOpen && (
         <div id="mobile-menu" className="fixed inset-0 z-40 bg-white pt-24 px-8 flex flex-col gap-6 lg:hidden shadow-xl">
           {navLinks.map(item => (
-            <button
+            <a
               key={item}
-              onClick={() => scrollTo(item.toLowerCase())}
+              href={`#${item.toLowerCase()}`}
+              onClick={(event) => { event.preventDefault(); scrollTo(item.toLowerCase()); }}
               className="text-xl font-bold text-gray-900 text-left uppercase tracking-widest border-b border-gray-100 pb-4 hover:text-red-600 transition-colors"
             >
               {item}
-            </button>
+            </a>
           ))}
           <button
             onClick={() => scrollTo("contacto")}
@@ -585,24 +567,29 @@ function Home() {
           <FadeIn>
             <div className="founder-quote-card grid lg:grid-cols-[0.42fr_1fr] gap-8 items-center rounded-[2rem] border border-gray-200 bg-white/90 p-6 md:p-8 shadow-2xl shadow-gray-950/10 overflow-hidden">
               <div className="relative">
-                <div className="aspect-[4/5] rounded-[1.5rem] bg-gradient-to-br from-gray-950 via-gray-800 to-red-950 border border-white/10 shadow-xl overflow-hidden flex flex-col items-center justify-center text-center p-8">
-                  <div className="h-28 w-28 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white text-4xl font-black mb-5">
-                    FR
+                <div className="aspect-[4/5] rounded-[1.5rem] border border-white/10 shadow-xl overflow-hidden relative">
+                  <img
+                    src={asset("/proyectos/s22/maniobra-en-planta.jpg")}
+                    alt="Personal técnico realizando una maniobra industrial en planta"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-950 via-gray-950/75 to-transparent p-6 pt-20">
+                    <p className="text-white font-black uppercase tracking-widest">Trabajo en campo</p>
+                    <p className="text-red-200 text-xs uppercase tracking-[0.2em] mt-2">Evidencia fotográfica SGI</p>
                   </div>
-                  <p className="text-white font-black uppercase tracking-widest">Francisco</p>
-                  <p className="text-red-200 text-xs uppercase tracking-[0.24em] mt-2">Fundador SGI</p>
-                  <span className="mt-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Espacio para foto</span>
                 </div>
               </div>
               <div>
                 <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-red-600 mb-6">
-                  Nota del fundador
+                  Compromiso operativo
                 </span>
                 <blockquote className="text-2xl md:text-4xl font-black uppercase leading-tight text-gray-950">
-                  "En SGI no llegamos solo a reparar. Llegamos a entender la operacion, reducir riesgos y dejar evidencia clara de cada solucion industrial."
+                  Entendemos la operación, reducimos riesgos y dejamos evidencia clara de cada solución industrial.
                 </blockquote>
                 <p className="mt-6 text-gray-600 text-lg leading-relaxed">
-                  Nuestro compromiso es trabajar con precision, seguridad y seguimiento tecnico para que cada planta pueda operar con confianza. La excelencia industrial se demuestra en campo, con respuesta, orden y resultados.
+                  Trabajamos con precisión, seguridad y seguimiento técnico para que cada planta pueda operar con confianza. La excelencia industrial se demuestra en campo, con respuesta, orden y resultados.
                 </p>
                 <div className="mt-7 grid sm:grid-cols-3 gap-3">
                   {["Respuesta real", "Seguridad operativa", "Calidad documentada"].map((item) => (
@@ -1272,9 +1259,9 @@ function Home() {
           <SectionTitle>Proyectos Destacados</SectionTitle>
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {[
-              { title: "Mantenimiento Industrial", desc: "Optimización y recuperación de equipos.", img: "/proyectos/sgi-mantenimiento-rodamiento.jpg" },
-              { title: "Obra Civil",               desc: "Infraestructura y mejoras operativas.",  img: "/proyectos/sgi-obra-civil-panel.jpg" },
-              { title: "Moldeo por Inyección",     desc: "Servicio especializado para maquinaria.", img: "/proyectos/sgi-moldeo-detalle.jpg" },
+              { title: "Fabricación industrial", desc: "Estructura metálica fabricada a la medida.", img: "/proyectos/s22/fabricacion-mesa-industrial.jpg" },
+              { title: "Maquinado de precisión", desc: "Componente mecanizado y perforado para aplicación industrial.", img: "/proyectos/s22/maquinado-precision.jpg" },
+              { title: "Instalación en planta", desc: "Maniobra e instalación de ducto industrial.", img: "/proyectos/s22/instalacion-ducto-industrial.jpg" },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="project-card group rounded-2xl overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-shadow">
@@ -1286,17 +1273,18 @@ function Home() {
                       Caso SGI
                     </span>
                     <h3 className="text-lg font-black text-white uppercase mb-1">{p.title}</h3>
-                    <p className="text-red-200 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{p.desc}</p>
+                    <p className="text-red-100 text-sm font-medium">{p.desc}</p>
                   </div>
                 </div>
               </FadeIn>
             ))}
           </div>
-          <h3 className="text-xl font-black text-gray-900 uppercase mt-20 mb-8">Galería de Trabajos</h3>
+          <p className="mt-5 text-xs uppercase tracking-[0.2em] text-gray-400">Registro fotográfico proporcionado por SGI</p>
+          <h3 className="text-xl font-black text-gray-900 uppercase mt-16 mb-8">Galería de Trabajos</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "/proyectos/sgi-herreria-estructura.jpg",
-              "/proyectos/sgi-fabricacion-racks.jpg",
+              "/proyectos/s22/plataforma-acero.jpg",
+              "/proyectos/s22/maniobra-en-planta.jpg",
               "/proyectos/sgi-scrubber-antes-despues.jpg",
               "/proyectos/sgi-cortina-industrial.jpg",
               "/proyectos/sgi-maquinado-molde.jpg",
@@ -1307,43 +1295,6 @@ function Home() {
               <img loading="lazy" decoding="async" key={i} src={asset(img)} alt={`Trabajo SGI ${i + 1}`} className="gallery-tile w-full aspect-square object-cover rounded-2xl border border-transparent hover:border-red-400 hover:scale-[1.02] transition-all duration-300 shadow cursor-pointer" />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALES ── */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-4">
-            <SectionLabel>Lo que dicen nuestros clientes</SectionLabel>
-          </div>
-          <SectionTitle center>Opiniones de Clientes</SectionTitle>
-        </div>
-        <div className="testimonial-carousel relative mt-6">
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          <motion.div
-            className="testimonial-track"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-          >
-            {[...testimonialItems, ...testimonialItems].map((o, i) => (
-              <Card key={`${o.author}-${i}`} className="testimonial-card testimonial-slide p-8 h-full" hover={false}>
-                <div className="flex items-center justify-between gap-4 mb-5">
-                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-red-50 to-gray-100 border border-gray-200 flex items-center justify-center text-gray-900 font-black">
-                    {o.author.split(" ").map((part) => part[0]).slice(0, 2).join("")}
-                  </div>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-red-400 text-red-400" />)}
-                  </div>
-                </div>
-                <p className="text-gray-700 text-base italic mb-6 leading-relaxed">"{o.text}"</p>
-                <div className="border-t border-gray-100 pt-4">
-                  <p className="font-bold text-gray-900 text-sm">{o.author}</p>
-                  <p className="text-red-600 text-xs font-semibold">{o.company}</p>
-                </div>
-              </Card>
-            ))}
-          </motion.div>
         </div>
       </section>
 
@@ -1601,9 +1552,9 @@ function Home() {
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField control={form.control} name="name" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-semibold">Nombre o Empresa</FormLabel>
+                        <FormLabel htmlFor="contact-name" className="text-gray-700 font-semibold">Nombre o Empresa</FormLabel>
                         <FormControl>
-                          <Input placeholder="Ej. Maquiladora SA" className="border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500/20" {...field} />
+                          <Input id="contact-name" autoComplete="organization" placeholder="Ej. Maquiladora SA" className="border-gray-300 bg-gray-50 focus:border-red-500 focus:ring-red-500/20" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -1611,18 +1562,18 @@ function Home() {
                     <div className="grid grid-cols-2 gap-4">
                       <FormField control={form.control} name="email" render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700 font-semibold">Correo Electrónico</FormLabel>
+                          <FormLabel htmlFor="contact-email" className="text-gray-700 font-semibold">Correo Electrónico</FormLabel>
                           <FormControl>
-                            <Input placeholder="correo@empresa.com" className="border-gray-300 bg-gray-50" {...field} />
+                            <Input id="contact-email" type="email" autoComplete="email" placeholder="correo@empresa.com" className="border-gray-300 bg-gray-50" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )} />
                       <FormField control={form.control} name="phone" render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-700 font-semibold">Teléfono (opcional)</FormLabel>
+                          <FormLabel htmlFor="contact-phone" className="text-gray-700 font-semibold">Teléfono (opcional)</FormLabel>
                           <FormControl>
-                            <Input placeholder="631..." className="border-gray-300 bg-gray-50" {...field} />
+                            <Input id="contact-phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="631..." className="border-gray-300 bg-gray-50" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -1630,10 +1581,10 @@ function Home() {
                     </div>
                     <FormField control={form.control} name="service" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-semibold">Tipo de Servicio</FormLabel>
+                        <FormLabel htmlFor="contact-service" className="text-gray-700 font-semibold">Tipo de Servicio</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="border-gray-300 bg-gray-50">
+                            <SelectTrigger id="contact-service" className="border-gray-300 bg-gray-50">
                               <SelectValue placeholder="Seleccione un servicio" />
                             </SelectTrigger>
                           </FormControl>
@@ -1648,9 +1599,9 @@ function Home() {
                     )} />
                     <FormField control={form.control} name="message" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-semibold">Mensaje</FormLabel>
+                        <FormLabel htmlFor="contact-message" className="text-gray-700 font-semibold">Mensaje</FormLabel>
                         <FormControl>
-                          <Textarea placeholder="Describa el requerimiento o problema..." className="border-gray-300 bg-gray-50 min-h-[110px]" {...field} />
+                          <Textarea id="contact-message" placeholder="Describa el requerimiento o problema..." className="border-gray-300 bg-gray-50 min-h-[110px]" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -1685,9 +1636,9 @@ function Home() {
               <ul className="space-y-3">
                 {["Inicio", "Nosotros", "Servicios", "Proyectos", "Contacto"].map(item => (
                   <li key={item}>
-                    <button onClick={() => scrollTo(item.toLowerCase())} className="text-gray-400 hover:text-red-400 text-sm transition-colors">
+                    <a href={`#${item.toLowerCase()}`} onClick={(event) => { event.preventDefault(); scrollTo(item.toLowerCase()); }} className="text-gray-400 hover:text-red-400 text-sm transition-colors">
                       {item}
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>

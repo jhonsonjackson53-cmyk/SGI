@@ -1,5 +1,29 @@
 # Bitacora de cambios
 
+## 2026-07-15
+
+### Reparacion de confianza, accesibilidad y evidencia visual
+
+Cambios:
+- Se integraron cinco fotografias reales recibidas en `C:\Users\EG\Documents\S22` para proyectos y evidencia de trabajo en planta.
+- Se reemplazo el espacio incompleto para la foto del fundador por una fotografia verificable de maniobra industrial.
+- Se eliminaron los testimonios genericos mientras no existan testimonios autorizados.
+- Se actualizaron los proyectos destacados con fabricacion industrial, maquinado de precision e instalacion en planta.
+- Se convirtio la navegacion principal y del pie a enlaces semanticos.
+- Se asociaron etiquetas, tipos y autocompletado a los campos del formulario.
+- Las estadisticas ahora muestran el valor real desde el primer render y no dependen de una animacion para evitar ceros falsos.
+- Se corrigio la ruta del activo de MAKITA.
+
+Validacion:
+- TypeScript sin errores.
+- Build de produccion completado con base `/SGI/`.
+- `git diff --check` sin errores de espacios.
+
+Pendientes:
+- Revisar visualmente el resultado publicado en Android real.
+- Confirmar permisos comerciales de logos de terceros y datos de contacto.
+- Incorporar testimonios solamente cuando SGI proporcione autorizacion y datos verificables.
+
 ## 2026-07-02
 
 ### Fondo global continuo sin divisiones por seccion
