@@ -39,6 +39,8 @@
 | 2026-06-30 | `public/ingenieria-suministros/*.png` | Ingenieria y suministros | Reemplazado | Sustituidas por WebP optimizado el 2026-07-01. |
 | 2026-07-01 | `public/ingenieria-suministros/*.webp` | Ingenieria y suministros | En uso | 7 imagenes convertidas desde PNG; peso total aproximado ~152 KB. |
 | 2026-06-30 | `public/logo-sgi.png` | Branding | En uso | Pendiente definir logo final de alta resolucion. |
+| 2026-07-15 | `public/proyectos/s22/*.jpg` | Proyectos, evidencia de campo | En uso | Cinco fotografias seleccionadas de `C:\Users\EG\Documents\S22`; se usan en proyectos, galeria y compromiso operativo. |
+| 2026-07-15 | `public/marcas-tecnologias/Makita.png` | Marcas y tecnologias | En uso | Copia con nombre corregido para evitar errores de ruta. |
 
 ## Assets clave del handoff 2026-07-01
 

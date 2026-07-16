@@ -6,8 +6,8 @@
 - [ ] Revisar en Android real que el fondo continuo no muestre cortes visuales.
 - [ ] Revisar en Android real el nuevo panel de autoridad post-hero.
 - [ ] Revisar en Android real el dark system global tipo control operativo.
-- [ ] Agregar foto real de Francisco en la nota del fundador.
-- [ ] Validar en Android el marquee de marcas y el carrusel infinito de testimoniales.
+- [x] Retirar el espacio temporal para la foto de Francisco hasta contar con una fotografia autorizada. (Sustituido por evidencia de trabajo en planta el 2026-07-15.)
+- [ ] Validar en Android el marquee de marcas.
 - [ ] Revisar visualmente el rediseño global inspirado en Framer en desktop y Android.
 - [ ] Validar velocidad del marquee industrial y legibilidad de tarjetas premium en Android.
 - [ ] Revisar en Android la nueva seccion de ventaja operativa y comparativa SGI.
@@ -20,7 +20,7 @@
 - [ ] Validar Lighthouse/PageSpeed despues del deploy de optimizacion tecnica.
 - [ ] Enviar `sitemap.xml` a Google Search Console.
 - [ ] Agregar `favicon.ico` de respaldo cuando se defina paquete final de iconos.
-- [ ] Reemplazar testimoniales genericos por testimonios reales confirmados.
+- [x] Retirar testimoniales genericos no verificables. (Aplicado el 2026-07-15; agregar testimonios reales solo cuando esten autorizados.)
 - [x] Revisar SEO basico: titulo, descripcion y previews sociales. (Alineado a GitHub Pages el 2026-07-01; falta validar preview externo despues del deploy.)
 - [x] Validar canonical, Open Graph y JSON-LD en la URL publica despues del deploy. (HTTP 200 verificado el 2026-07-01.)
 - [x] Separar Three.js del bundle inicial y agregar sitemap/reduced motion. (Aplicado el 2026-07-01.)
